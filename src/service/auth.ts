@@ -6,6 +6,7 @@ import { useEditAdminBaseInfoConfig } from "./use-optimistic-options";
 
 const localStorageKey = "__auth_provider_token__";
 const localStoragePermissionKey = "__auth_provider_permission__";
+const localStorageShopIdKey = "__auth_provider_shop_id__";
 
 export const getToken = () => window.localStorage.getItem(localStorageKey);
 export const removeToken = () =>
@@ -57,7 +58,7 @@ export const resetPassword = async ({
 
 export const useUserInfo = () => {
   const client = useHttp();
-  return useQuery<UserInfo>(["user_info"], () => client("auth/base_info"));
+  return useQuery<UserInfo>(["user_info"], () => client("user/me"));
 };
 
 export const useUpdateUserInfo = () => {

@@ -248,409 +248,45 @@ const MenuSider = ({
       icon: <DashboardOutlined />,
     },
     {
-      label: <Link to={"user_list"}>用户列表</Link>,
-      key: "user_list",
-      icon: <UserOutlined />,
-    },
-    {
       label: (
-        <Row between>
-          <span>乡村振兴</span>
-          {authInfoPendingCount +
-            enterpriseInfoPendingCount +
-            withdrawPendingCount >
-          0 ? (
-            <Badge>
-              {authInfoPendingCount +
-                enterpriseInfoPendingCount +
-                withdrawPendingCount}
-            </Badge>
-          ) : (
-            <></>
-          )}
-        </Row>
+        <Link to={"order/list"}>
+          <Row between>
+            <span>订单列表</span>
+            {shipOrderCount ? <Badge>{shipOrderCount}</Badge> : <></>}
+          </Row>
+        </Link>
       ),
-      key: "team",
-      icon: <SunOutlined />,
-      children: [
-        {
-          label: <Link to={"team/promoter_list"}>推荐官列表</Link>,
-          key: "team_promoter_list",
-          icon: <UserOutlined />,
-        },
-        {
-          label: (
-            <Link to={"team/auth_info_list"}>
-              <Row between>
-                <span>实名认证</span>
-                {authInfoPendingCount ? (
-                  <Badge>{authInfoPendingCount}</Badge>
-                ) : (
-                  <></>
-                )}
-              </Row>
-            </Link>
-          ),
-          key: "team_auth_info_list",
-          icon: <VerifiedOutlined />,
-        },
-        {
-          label: (
-            <Link to={"team/enterprise_info_list"}>
-              <Row between>
-                <span>企业认证</span>
-                {enterpriseInfoPendingCount ? (
-                  <Badge>{enterpriseInfoPendingCount}</Badge>
-                ) : (
-                  <></>
-                )}
-              </Row>
-            </Link>
-          ),
-          key: "team_enterprise_info_list",
-          icon: <VerifiedOutlined />,
-        },
-        {
-          label: (
-            <Link to={"team/withdraw_list"}>
-              <Row between>
-                <span>佣金提现</span>
-                {withdrawPendingCount ? (
-                  <Badge>{withdrawPendingCount}</Badge>
-                ) : (
-                  <></>
-                )}
-              </Row>
-            </Link>
-          ),
-          key: "team_withdraw_list",
-          icon: <PayCircleOutlined />,
-        },
-        {
-          label: <Link to={"team/livestock_list"}>认养专区</Link>,
-          key: "team_livestock_list",
-          icon: <ShoppingOutlined />,
-        },
-        {
-          label: <Link to={"team/gift_goods_list"}>礼包专区</Link>,
-          key: "team_gift_goods_list",
-          icon: <ShoppingOutlined />,
-        },
-      ],
-    },
-    {
-      label: "首页专区",
-      key: "home_zone",
-      icon: <AppstoreOutlined />,
-      children: [
-        // {
-        //   label: <Link to={"home_zone/grain_goods"}>乡镇百谷</Link>,
-        //   key: "home_zone_grain_goods",
-        //   icon: <ShoppingOutlined />,
-        // },
-        // {
-        //   label: <Link to={"home_zone/fresh_goods"}>乡集生鲜</Link>,
-        //   key: "home_zone_fresh_goods",
-        //   icon: <ShoppingOutlined />,
-        // },
-        // {
-        //   label: <Link to={"home_zone/snack_goods"}>乡村零嘴</Link>,
-        //   key: "home_zone_snack_goods",
-        //   icon: <ShoppingOutlined />,
-        // },
-        // {
-        //   label: <Link to={"home_zone/gift_goods"}>乡思礼伴</Link>,
-        //   key: "home_zone_gift_goods",
-        //   icon: <ShoppingOutlined />,
-        // },
-        // {
-        //   label: <Link to={"home_zone/integrity_goods"}>诚信臻品</Link>,
-        //   key: "home_zone_integrity_goods",
-        //   icon: <ShoppingOutlined />,
-        // },
-        {
-          label: "主题专区",
-          key: "home_zone_theme_zone",
-          icon: <FlagOutlined />,
-          children: [
-            {
-              label: <Link to={"home_zone/theme_zone/list"}>主题列表</Link>,
-              key: "home_zone_theme_zone_list",
-              icon: <TagOutlined />,
-            },
-            {
-              label: (
-                <Link to={"home_zone/theme_zone/goods_list"}>商品列表</Link>
-              ),
-              key: "home_zone_theme_zone_goods_list",
-              icon: <UnorderedListOutlined />,
-            },
-          ],
-        },
-        {
-          label: "商品活动",
-          key: "home_zone_activity",
-          icon: <FlagOutlined />,
-          children: [
-            {
-              label: <Link to={"home_zone/activity/tag_list"}>活动标签</Link>,
-              key: "home_zone_activity_tag_list",
-              icon: <TagOutlined />,
-            },
-            {
-              label: <Link to={"home_zone/activity/list"}>活动列表</Link>,
-              key: "home_zone_activity_list",
-              icon: <UnorderedListOutlined />,
-            },
-          ],
-        },
-        {
-          label: "诚信乡村",
-          key: "home_zone_rural",
-          icon: <CloudOutlined />,
-          children: [
-            {
-              label: <Link to={"home_zone/rural/region_list"}>地区列表</Link>,
-              key: "home_zone_rural_region_list",
-              icon: <EnvironmentOutlined />,
-            },
-            {
-              label: <Link to={"home_zone/rural/goods_list"}>商品列表</Link>,
-              key: "home_zone_rural_goods_list",
-              icon: <ShoppingOutlined />,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: "活动管理",
-      key: "activity",
-      icon: <GiftOutlined />,
-      children: [
-        {
-          label: <Link to={"activity/banner_list"}>头图列表</Link>,
-          key: "activity_banner_list",
-          icon: <PictureOutlined />,
-        },
-        {
-          label: <Link to={"activity/coupon_list"}>优惠券</Link>,
-          key: "activity_coupon_list",
-          icon: <CouponIcon />,
-        },
-        {
-          label: "年货节",
-          key: "activity_new_year",
-          icon: <FireOutlined />,
-          children: [
-            {
-              label: <Link to={"activity/new_year/goods_list"}>年货礼包</Link>,
-              key: "activity_new_year_goods_list",
-              icon: <ShoppingOutlined />,
-            },
-            {
-              label: (
-                <Link to={"activity/new_year/culture_goods_list"}>
-                  文创礼包
-                </Link>
-              ),
-              key: "activity_new_year_culture_goods_list",
-              icon: <ShoppingOutlined />,
-            },
-            {
-              label: <Link to={"activity/new_year/region_list"}>地区列表</Link>,
-              key: "activity_new_year_region_list",
-              icon: <EnvironmentOutlined />,
-            },
-            {
-              label: (
-                <Link to={"activity/new_year/local_goods_list"}>地方特产</Link>
-              ),
-              key: "activity_new_year_local_goods_list",
-              icon: <ShoppingOutlined />,
-            },
-          ],
-        },
-        {
-          label: "限时招募",
-          key: "activity_limited_time_recruit",
-          icon: <NotificationOutlined />,
-          children: [
-            {
-              label: (
-                <Link to={"activity/limited_time_recruit/category_list"}>
-                  商品分类
-                </Link>
-              ),
-              key: "activity_limited_time_recruit_category_list",
-              icon: <AppstoreOutlined />,
-            },
-            {
-              label: (
-                <Link to={"activity/limited_time_recruit/goods_list"}>
-                  商品列表
-                </Link>
-              ),
-              key: "activity_limited_time_recruit_goods_list",
-              icon: <ShoppingOutlined />,
-            },
-          ],
-        },
-      ],
-    },
-    {
-      label: "直播管理",
-      key: "live",
-      icon: <VideoCameraOutlined />,
-      children: [
-        {
-          label: <Link to={"live/user_list"}>直播用户</Link>,
-          key: "live_user_list",
-          icon: <UserOutlined />,
-        },
-        {
-          label: <Link to={"live/room_list"}>直播列表</Link>,
-          key: "live_room_list",
-          icon: <UnorderedListOutlined />,
-        },
-      ],
-    },
-    {
-      label: "商品管理",
-      key: "goods",
-      icon: <ShoppingOutlined />,
-      children: [
-        {
-          label: <Link to={"goods/merchant_list"}>商家列表</Link>,
-          key: "goods_merchant_list",
-          icon: <ShopOutlined />,
-        },
-        {
-          label: <Link to={"goods/freight_template_list"}>运费模板</Link>,
-          key: "goods_freight_template_list",
-          icon: <CarOutlined />,
-        },
-        {
-          label: <Link to={"goods/category_list"}>商品分类</Link>,
-          key: "goods_category_list",
-          icon: <AppstoreOutlined />,
-        },
-        {
-          label: <Link to={"goods/list"}>商品列表</Link>,
-          key: "goods_list",
-          icon: <UnorderedListOutlined />,
-        },
-      ],
-    },
-    {
-      label: (
-        <Row between>
-          <span>订单管理</span>
-          {shipOrderCount + waitingRefundCount > 0 ? (
-            <Badge>{shipOrderCount + waitingRefundCount}</Badge>
-          ) : (
-            <></>
-          )}
-        </Row>
-      ),
-      key: "order",
+      key: "order_list",
       icon: <SnippetsOutlined />,
-      children: [
-        {
-          label: <Link to={"order/express_list"}>快递列表</Link>,
-          key: "order_express_list",
-          icon: <TruckOutlined />,
-        },
-        {
-          label: (
-            <Link to={"order/list"}>
-              <Row between>
-                <span>订单列表</span>
-                {shipOrderCount ? <Badge>{shipOrderCount}</Badge> : <></>}
-              </Row>
-            </Link>
-          ),
-          key: "order_list",
-          icon: <UnorderedListOutlined />,
-        },
-        {
-          label: (
-            <Link to={"order/refund"}>
-              <Row between>
-                <span>售后处理</span>
-                {waitingRefundCount ? (
-                  <Badge>{waitingRefundCount}</Badge>
-                ) : (
-                  <></>
-                )}
-              </Row>
-            </Link>
-          ),
-          key: "order_refund",
-          icon: <TransactionOutlined />,
-        },
-      ],
     },
     {
-      label: "权限管理",
-      key: "auth",
-      icon: <LockOutlined />,
-      children: [
-        {
-          label: <Link to={"auth/role_list"}>岗位列表</Link>,
-          key: "auth_role_list",
-          icon: <MehOutlined />,
-        },
-        {
-          label: <Link to={"auth/admin_list"}>管理员列表</Link>,
-          key: "auth_admin_list",
-          icon: <TeamOutlined />,
-        },
-      ],
+      label: (
+        <Link to={"order/refund"}>
+          <Row between>
+            <span>售后处理</span>
+            {waitingRefundCount ? <Badge>{waitingRefundCount}</Badge> : <></>}
+          </Row>
+        </Link>
+      ),
+      key: "order_refund",
+      icon: <TransactionOutlined />,
     },
-  ]
-    .map((item) => {
-      if (permission.includes(item.key)) {
-        return item;
-      } else {
-        if (item.children) {
-          const children = item.children
-            .map((secondItem) => {
-              if (permission.includes(secondItem.key)) {
-                return secondItem;
-              } else {
-                if ((secondItem as any).children) {
-                  const _children = (secondItem as any).children.filter(
-                    (thirdItem: any) => permission.includes(thirdItem.key)
-                  );
-                  if (_children.length) {
-                    return {
-                      ...secondItem,
-                      children: _children,
-                    };
-                  } else {
-                    return null;
-                  }
-                } else {
-                  return null;
-                }
-              }
-            })
-            .filter((item) => !!item);
-          if (children.length) {
-            return {
-              ...item,
-              children,
-            };
-          } else {
-            return null;
-          }
-        } else {
-          return null;
-        }
-      }
-    })
-    .filter((item) => !!item);
+    {
+      label: <Link to={"goods/list"}>商品列表</Link>,
+      key: "goods_list",
+      icon: <ShoppingOutlined />,
+    },
+    {
+      label: <Link to={"goods/freight_template_list"}>运费模板</Link>,
+      key: "goods_freight_template_list",
+      icon: <TruckOutlined />,
+    },
+    {
+      label: <Link to={"auth/admin_list"}>人员管理</Link>,
+      key: "auth_admin_list",
+      icon: <TeamOutlined />,
+    },
+  ];
 
   return (
     <Layout.Sider
@@ -662,7 +298,7 @@ const MenuSider = ({
       <Link to={"/"}>
         <Logo collapsed={collapsed}>
           <LogoImg src={logo} />
-          <div>诚信星球管理后台</div>
+          <div>小鱼游商家后台</div>
         </Logo>
       </Link>
       <Menu

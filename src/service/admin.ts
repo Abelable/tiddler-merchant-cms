@@ -11,7 +11,10 @@ import type { Admin, AdminsResult, AdminsSearchParams } from "types/admin";
 export const useAdmins = (params: Partial<AdminsSearchParams>) => {
   const client = useHttp();
   return useQuery<AdminsResult>(["admins", params], () =>
-    client("list", { data: params, method: "POST" })
+    client("shop/manager/list", {
+      data: { ...params, shopId: 1 },
+      method: "POST",
+    })
   );
 };
 

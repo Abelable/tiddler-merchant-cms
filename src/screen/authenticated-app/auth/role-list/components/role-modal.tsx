@@ -228,7 +228,7 @@ const treeData: DataNode[] = [
         key: "auth_role_list",
       },
       {
-        title: "管理员列表",
+        title: "人员列表",
         key: "auth_admin_list",
       },
     ],

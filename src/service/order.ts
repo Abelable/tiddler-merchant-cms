@@ -8,6 +8,7 @@ import {
   useExportOrderConfig,
   useRefundOrderConfig,
 } from "./use-optimistic-options";
+
 import type {
   Delivery,
   OrderDetail,
@@ -15,12 +16,15 @@ import type {
   OrderListSearchParams,
 } from "types/order";
 import type { ShippingInfo } from "types/common";
-import { GoodsOption } from "types/goods";
+import type { GoodsOption } from "types/goods";
 
 export const useOrderList = (params: Partial<OrderListSearchParams>) => {
   const client = useHttp();
   return useQuery<OrderListResult>(["order_list", params], () =>
-    client("order/list", { data: params, method: "POST" })
+    client("shop/order/list", {
+      data: { ...params, shopId: 1 },
+      method: "POST",
+    })
   );
 };
 
@@ -28,7 +32,7 @@ export const useOrder = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<OrderDetail>>(
     ["order_detail", { id }],
-    () => client(`order/detail`, { data: { id } }),
+    () => client("shop/order/detail", { data: { id } }),
     {
       enabled: !!id,
     }
@@ -39,7 +43,7 @@ export const useCancelOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (ids: number[]) =>
-      client("order/cancel", {
+      client("shop/order/cancel", {
         data: { ids },
         method: "POST",
       }),
@@ -51,7 +55,7 @@ export const useRefundOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (ids: number[]) =>
-      client("order/refund", {
+      client("shop/order/refund", {
         data: { ids },
         method: "POST",
       }),
@@ -63,7 +67,7 @@ export const useShippingInfo = (id: number) => {
   const client = useHttp();
   return useQuery<ShippingInfo>(
     ["shipping_info", { id }],
-    () => client(`order/shipping_info`, { data: { id } }),
+    () => client("shop/order/shipping_info", { data: { id } }),
     {
       enabled: !!id,
     }
@@ -74,7 +78,7 @@ export const useConfirmOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (ids: number[]) =>
-      client("order/confirm", {
+      client("shop/order/confirm", {
         data: { ids },
         method: "POST",
       }),
@@ -86,7 +90,7 @@ export const useDeleteOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (ids: number[]) =>
-      client("order/delete", {
+      client("shop/order/delete", {
         data: { ids },
         method: "POST",
       }),
@@ -98,7 +102,7 @@ export const useExportOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (ids: number[]) =>
-      client("order/export", {
+      client("shop/order/export", {
         data: { ids },
         method: "POST",
         headers: {
@@ -108,7 +112,7 @@ export const useExportOrder = (queryKey: QueryKey) => {
     useExportOrderConfig(queryKey)
   );
   // return (ids: number[]) =>
-  //   client("order/export", {
+  //   client("shop/order/export", {
   //     data: { ids },
   //     method: "POST",
   //     headers: {
@@ -121,20 +125,22 @@ export const useOrderedUserOptions = () => {
   const client = useHttp();
   return useQuery<{ id: number; avatar: string; nickname: string }[]>(
     ["ordered_user_options"],
-    () => client("order/user_options")
+    () => client("shop/order/user_options")
   );
 };
 
 export const useOrderedGoodsOptions = () => {
   const client = useHttp();
   return useQuery<GoodsOption[]>(["ordered_goods_options"], () =>
-    client("order/goods_options")
+    client("shop/order/goods_options")
   );
 };
 
 export const useShipOrderCount = () => {
   const client = useHttp();
-  return useQuery(["ship_order_count"], () => client("order/ship_order_count"));
+  return useQuery(["ship_order_count"], () =>
+    client("shop/order/ship_order_count")
+  );
 };
 
 export const useModifyOrderAddressInfo = (queryKey: QueryKey) => {
@@ -146,7 +152,7 @@ export const useModifyOrderAddressInfo = (queryKey: QueryKey) => {
       mobile: string;
       address: string;
     }) =>
-      client("order/modify_address_info", {
+      client("shop/order/modify_address_info", {
         data,
         method: "POST",
       }),
@@ -158,7 +164,7 @@ export const useDeliveryOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (data: Delivery) =>
-      client("order/delivery", {
+      client("shop/order/delivery", {
         data,
         method: "POST",
       }),
@@ -170,7 +176,7 @@ export const useModifyDeliveryInfo = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (data: Partial<Delivery>) =>
-      client("order/modify_delivery_info", {
+      client("shop/order/modify_delivery_info", {
         data,
         method: "POST",
       }),

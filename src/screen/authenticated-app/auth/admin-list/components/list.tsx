@@ -40,7 +40,7 @@ export const List = ({
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>管理员列表</PageTitle>
+        <PageTitle>人员列表</PageTitle>
         <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
           新增
         </Button>

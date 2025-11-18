@@ -39,7 +39,7 @@ export const http = async (
     }
   }
   return window
-    .fetch(`${API_URL}/api/${VERSION}/admin/${endpoint}`, config)
+    .fetch(`${API_URL}/api/${VERSION}/${endpoint}`, config)
     .then(async (response) => {
       if (response.ok) {
         if (config.headers.responseType === "arraybuffer") {

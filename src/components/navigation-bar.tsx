@@ -54,7 +54,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/order/refund": "售后处理",
   "/auth": "权限管理",
   "/auth/role_list": "岗位列表",
-  "/auth/admin_list": "管理员列表",
+  "/auth/admin_list": "人员列表",
   "/user_center": "个人中心",
 };
 

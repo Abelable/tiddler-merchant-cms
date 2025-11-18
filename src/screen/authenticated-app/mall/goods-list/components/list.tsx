@@ -80,20 +80,20 @@ export const List = ({
             dataIndex: "name",
             width: "32rem",
           },
-          {
-            title: "分类",
-            dataIndex: "categoryIds",
-            render: (value) => (
-              <>
-                {value.map((id: string) => (
-                  <Tag key={id} color="orange">
-                    {categoryOptions.find((item) => item.id === +id)?.name}
-                  </Tag>
-                ))}
-              </>
-            ),
-            width: "18rem",
-          },
+          // {
+          //   title: "分类",
+          //   dataIndex: "categoryIds",
+          //   render: (value) => (
+          //     <>
+          //       {value.map((id: string) => (
+          //         <Tag key={id} color="orange">
+          //           {categoryOptions.find((item) => item.id === +id)?.name}
+          //         </Tag>
+          //       ))}
+          //     </>
+          //   ),
+          //   width: "18rem",
+          // },
           {
             title: "状态",
             dataIndex: "status",

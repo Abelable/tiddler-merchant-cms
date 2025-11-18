@@ -20,7 +20,11 @@ export const useFreightTemplateList = (
   const client = useHttp();
   return useQuery<FreightTemplateListResult>(
     ["freight_template_list", params],
-    () => client("freight_template/list", { data: params, method: "POST" })
+    () =>
+      client("shop/freight_template/list", {
+        data: { ...params, shopId: 1 },
+        method: "POST",
+      })
   );
 };
 
@@ -28,7 +32,7 @@ export const useFreightTemplate = (id: number) => {
   const client = useHttp();
   return useQuery<FreightTemplate>(
     ["freight_template", { id }],
-    () => client(`freight_template/detail`, { data: { id } }),
+    () => client("shop/freight_template/detail", { data: { id } }),
     {
       enabled: !!id,
     }
@@ -39,7 +43,7 @@ export const useAddFreightTemplate = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<FreightTemplate>) =>
-      client("freight_template/add", {
+      client("shop/freight_template/add", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -51,7 +55,7 @@ export const useEditFreightTemplate = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<FreightTemplate>) =>
-      client("freight_template/edit", {
+      client("shop/freight_template/edit", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -63,7 +67,7 @@ export const useDeleteFreightTemplate = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("freight_template/delete", {
+      client("shop/freight_template/delete", {
         data: { id },
         method: "POST",
       }),
@@ -74,6 +78,6 @@ export const useDeleteFreightTemplate = (queryKey: QueryKey) => {
 export const useFreightTemplateOptions = () => {
   const client = useHttp();
   return useQuery<FreightTemplateOption[]>(["freight_template_options"], () =>
-    client("freight_template/options")
+    client("shop/freight_template/options")
   );
 };

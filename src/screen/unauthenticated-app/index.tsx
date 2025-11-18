@@ -16,7 +16,7 @@ export const UnauthenticatedApp = () => {
     <Container>
       <Header>
         <Logo src={logo} alt="" />
-        <div>诚信星球管理后台</div>
+        <div>小鱼游商家后台</div>
       </Header>
       <Background />
       <ShadowCard>
@@ -56,9 +56,11 @@ const Header = styled.header`
   font-weight: 500;
 `;
 const Logo = styled.img`
-  width: 6rem;
-  height: 6rem;
+  margin-right: 1.2rem;
+  width: 5rem;
+  height: 5rem;
   border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
 `;
 
 const ShadowCard = styled(Card)`
@@ -69,6 +71,7 @@ const ShadowCard = styled(Card)`
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
   text-align: center;
+  border-radius: 2.4rem;
 `;
 
 const Title = styled.h2`

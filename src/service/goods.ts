@@ -18,7 +18,10 @@ import type {
 export const useGoodsList = (params: Partial<GoodsListSearchParams>) => {
   const client = useHttp();
   return useQuery<GoodsListResult>(["goods_list", params], () =>
-    client("goods/list", { data: params, method: "POST" })
+    client("shop/goods/list", {
+      data: { ...params, shopId: 1 },
+      method: "POST",
+    })
   );
 };
 
@@ -39,7 +42,7 @@ export const useUpGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("goods/up", {
+      client("shop/goods/up", {
         data: { id },
         method: "POST",
       }),
@@ -51,7 +54,7 @@ export const useDownGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("goods/down", {
+      client("shop/goods/down", {
         data: { id },
         method: "POST",
       }),
@@ -63,7 +66,7 @@ export const useAddGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<Goods>) =>
-      client("goods/add", {
+      client("shop/goods/add", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -75,7 +78,7 @@ export const useEditGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (params: Partial<Goods>) =>
-      client("goods/edit", {
+      client("shop/goods/edit", {
         data: cleanObject(params),
         method: "POST",
       }),
@@ -87,7 +90,7 @@ export const useEditSales = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     ({ id, sales }: { id: number; sales: number }) =>
-      client("goods/edit_sales", {
+      client("shop/goods/edit_sales", {
         data: { id, sales },
         method: "POST",
       }),
@@ -99,7 +102,7 @@ export const useDeleteGoods = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("goods/delete", {
+      client("shop/goods/delete", {
         data: { id },
         method: "POST",
       }),
@@ -110,6 +113,6 @@ export const useDeleteGoods = (queryKey: QueryKey) => {
 export const useGoodsOptions = () => {
   const client = useHttp();
   return useQuery<GoodsOption[]>(["goods_options"], () =>
-    client("goods/options")
+    client("shop/goods/options")
   );
 };
