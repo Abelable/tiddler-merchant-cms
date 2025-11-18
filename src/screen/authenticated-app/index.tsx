@@ -78,9 +78,9 @@ import { RuralGoodsList } from "./activity-management/rural/goods-list";
 import { LiveUserList } from "./live/user-list";
 import { LiveRoomList } from "./live/room-list";
 import { MerchantList } from "./mall/merchant-list";
-import { RefundAddressList } from "./mall/refund-address-list";
-import { PickupAddressList } from "./mall/pickup-address-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
+import { PickupAddressList } from "./pickup-address";
+import { RefundAddressList } from "./refund-address";
 import { CategoryList } from "./mall/category-list";
 import { GoodsList } from "./mall/goods-list";
 import { ExpressList } from "./order-management/express-list";
@@ -196,16 +196,16 @@ export const AuthenticatedApp = () => {
               <Route path="live/room_list" element={<LiveRoomList />} />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
-                path="goods/merchant_list/refund_address_list"
-                element={<RefundAddressList />}
+                path="goods/freight_template_list"
+                element={<FreightTemplateList />}
               />
               <Route
-                path="goods/merchant_list/pickup_address_list"
+                path="shopping/self_support/pickup_address_list"
                 element={<PickupAddressList />}
               />
               <Route
-                path="goods/freight_template_list"
-                element={<FreightTemplateList />}
+                path="shopping/self_support/refund_address_list"
+                element={<RefundAddressList />}
               />
               <Route path="goods/category_list" element={<CategoryList />} />
               <Route path="goods/list" element={<GoodsList />} />
@@ -280,6 +280,20 @@ const MenuSider = ({
       label: <Link to={"goods/freight_template_list"}>运费模板</Link>,
       key: "goods_freight_template_list",
       icon: <TruckOutlined />,
+    },
+    {
+      label: (
+        <Link to={"shopping/self_support/pickup_address_list"}>提货地址</Link>
+      ),
+      key: "shopping_self_support_pickup_address_list",
+      icon: <EnvironmentOutlined />,
+    },
+    {
+      label: (
+        <Link to={"shopping/self_support/refund_address_list"}>退货地址</Link>
+      ),
+      key: "shopping_self_support_refund_address_list",
+      icon: <EnvironmentOutlined />,
     },
     {
       label: <Link to={"auth/admin_list"}>人员管理</Link>,

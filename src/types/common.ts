@@ -33,6 +33,11 @@ export interface Option {
   tips?: string;
 }
 
+export interface DataOption {
+  id: number;
+  name: string;
+}
+
 export interface OperatorOption {
   id: number;
   name: string;
