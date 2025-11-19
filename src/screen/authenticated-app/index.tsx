@@ -17,36 +17,18 @@ import { Row } from "components/lib";
 
 import {
   DashboardOutlined,
-  LockOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  MehOutlined,
   UserOutlined,
   TeamOutlined,
-  AppstoreOutlined,
-  CarOutlined,
-  ShopOutlined,
   ShoppingOutlined,
-  UnorderedListOutlined,
-  GiftOutlined,
   SnippetsOutlined,
-  CloudOutlined,
-  PictureOutlined,
   EnvironmentOutlined,
-  FlagOutlined,
-  VerifiedOutlined,
   TransactionOutlined,
-  PayCircleOutlined,
-  FireOutlined,
-  NotificationOutlined,
-  TagOutlined,
   TruckOutlined,
-  SunOutlined,
   LogoutOutlined,
-  VideoCameraOutlined,
 } from "@ant-design/icons";
 import logo from "assets/images/logo.png";
-import { CouponIcon } from "assets/icon";
 
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
