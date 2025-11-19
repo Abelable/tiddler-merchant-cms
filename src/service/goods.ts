@@ -10,10 +10,18 @@ import {
 import { cleanObject } from "utils/index";
 import type {
   Goods,
+  GoodsCategoryOption,
   GoodsListResult,
   GoodsListSearchParams,
   GoodsOption,
 } from "types/goods";
+
+export const useGoodsCategoryOptions = () => {
+  const client = useHttp();
+  return useQuery<GoodsCategoryOption[]>(["category_options"], () =>
+    client("shop/goods/category_options", { data: { shopId: 1 } })
+  );
+};
 
 export const useGoodsList = (params: Partial<GoodsListSearchParams>) => {
   const client = useHttp();
@@ -29,7 +37,7 @@ export const useGoods = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<Goods>>(
     ["goods", { id }],
-    () => client(`goods/detail`, { data: { id } }),
+    () => client("shop/goods/detail", { data: { id, shopId: 1 } }),
     {
       enabled: !!id,
       cacheTime: 0,
@@ -86,12 +94,30 @@ export const useEditGoods = (queryKey: QueryKey) => {
   );
 };
 
-export const useEditSales = (queryKey: QueryKey) => {
+export const useEditStock = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    ({ id, sales }: { id: number; sales: number }) =>
-      client("shop/goods/edit_sales", {
-        data: { id, sales },
+    ({ id, stock }: { id: number; stock: number }) =>
+      client("shop/goods/edit_stock", {
+        data: { id, stock },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
+export const useEditCommission = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({
+      id,
+      salesCommissionRate,
+    }: {
+      id: number;
+      salesCommissionRate: number;
+    }) =>
+      client("shop/goods/edit_commission", {
+        data: { id, salesCommissionRate },
         method: "POST",
       }),
     useEditConfig(queryKey)

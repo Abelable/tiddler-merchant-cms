@@ -20,9 +20,8 @@ import { OssUpload } from "components/oss-upload";
 import { ErrorBox, ModalLoading } from "components/lib";
 import { SpecEditor } from "./spec-editor";
 
-import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
-import type { Sku, Spec } from "types/goods";
+import type { GoodsCategoryOption, Sku, Spec } from "types/goods";
 import type { PickupAddress } from "types/pickupAddress";
 import type { RefundAddress } from "types/refundAddress";
 
@@ -51,7 +50,7 @@ export const GoodsModal = ({
   refundAddressOptions,
   pickupAddressOptions,
 }: {
-  categoryOptions: CategoryOption[];
+  categoryOptions: GoodsCategoryOption[];
   freightTemplateOptions: OperatorOption[];
   refundAddressOptions: Partial<RefundAddress>[];
   pickupAddressOptions: Partial<PickupAddress>[];
@@ -76,10 +75,8 @@ export const GoodsModal = ({
       const {
         video,
         cover,
-        activityCover,
         imageList,
         detailImageList,
-        realImageList,
         defaultSpecImage,
         specList = [],
         skuList = [],
@@ -127,16 +124,12 @@ export const GoodsModal = ({
             ]
           : [],
         cover: [{ url: cover }],
-        activityCover: activityCover ? [{ url: activityCover }] : [],
         imageList: imageList?.length
           ? imageList?.map((item) => ({ url: item }))
           : imageList,
         detailImageList: detailImageList?.length
           ? detailImageList?.map((item) => ({ url: item }))
           : detailImageList,
-        realImageList: realImageList?.length
-          ? realImageList?.map((item) => ({ url: item }))
-          : realImageList,
         defaultSpecImage: [{ url: defaultSpecImage }],
         ...rest,
       });
@@ -195,8 +188,6 @@ export const GoodsModal = ({
         ...rest,
         video: video && video.length ? video[0].url : "",
         cover: cover[0].url,
-        activityCover:
-          activityCover && activityCover.length ? activityCover[0].url : "",
         imageList: imageList.map((item: { url: string }) => item.url),
         detailImageList: detailImageList.map(
           (item: { url: string }) => item.url
@@ -265,7 +256,7 @@ export const GoodsModal = ({
             基本信息
           </Divider>
           <Row gutter={16}>
-            <Col span={8}>
+            <Col span={12}>
               <Form.Item
                 name="cover"
                 label="商品封面"
@@ -276,18 +267,7 @@ export const GoodsModal = ({
                 <OssUpload maxCount={1} />
               </Form.Item>
             </Col>
-            <Col span={8}>
-              <Form.Item
-                name="activityCover"
-                label="活动封面"
-                tooltip="图片尺寸：355 * 194"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-              >
-                <OssUpload maxCount={1} />
-              </Form.Item>
-            </Col>
-            <Col span={8}>
+            <Col span={12}>
               <Form.Item
                 name="video"
                 label="商品视频"
@@ -357,38 +337,6 @@ export const GoodsModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="categoryIds"
-                label="商品分类"
-                rules={[{ required: true, message: "请选择商品分类" }]}
-              >
-                <Select mode="multiple" placeholder="请选择商品分类">
-                  {categoryOptions.map(({ id, name }) => (
-                    <Select.Option key={id} value={id}>
-                      {name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item
-                name="freightTemplateId"
-                label="运费模板"
-                rules={[{ required: true, message: "请选择运费模板" }]}
-              >
-                <Select placeholder="请选择运费模板">
-                  {freightTemplateOptions.map(({ id, name }) => (
-                    <Select.Option key={id} value={id}>
-                      {name}
-                    </Select.Option>
-                  ))}
-                </Select>
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
                 name="price"
                 label="起始价格"
                 rules={[{ required: true, message: "请填写起始价格" }]}
@@ -412,16 +360,71 @@ export const GoodsModal = ({
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="commissionRate" label="佣金比例">
+              <Form.Item
+                name="categoryId"
+                label="商品分类"
+                rules={[{ required: true, message: "请选择商品分类" }]}
+              >
+                <Select placeholder="请选择商品分类">
+                  {categoryOptions.map(({ id, name }) => (
+                    <Select.Option key={id} value={id}>
+                      {name}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                noStyle
+                shouldUpdate={(prevValues, currentValues) =>
+                  prevValues.categoryId !== currentValues.categoryId
+                }
+              >
+                {({ getFieldValue }) => {
+                  const categoryId = getFieldValue("categoryId");
+                  if (categoryId) {
+                    const { minSalesCommissionRate, maxSalesCommissionRate } =
+                      categoryOptions.find(
+                        (item) => item.id === getFieldValue("categoryId")
+                      ) || {};
+                    return (
+                      <Form.Item
+                        name="salesCommissionRate"
+                        label="销售佣金比例"
+                        tooltip={`佣金范围${minSalesCommissionRate}%~${maxSalesCommissionRate}%`}
+                        rules={[
+                          { required: true, message: "请填写销售佣金比例" },
+                        ]}
+                      >
+                        <InputNumber
+                          min={minSalesCommissionRate}
+                          max={maxSalesCommissionRate}
+                          style={{ width: "100%" }}
+                          placeholder="请填写销售佣金比例"
+                          suffix="%"
+                        />
+                      </Form.Item>
+                    );
+                  }
+                }}
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={16}>
+            {/* <Col span={12}>
+              <Form.Item name="salesCommissionRate" label="佣金比例" rules={[{ required: true, message: "请填写佣金比例" }]}>
                 <InputNumber
                   min={0}
                   max={100}
-                  formatter={(value) => `${value}%`}
+                  suffix="%"
                   style={{ width: "100%" }}
                   placeholder="请填写佣金比例"
                 />
               </Form.Item>
-            </Col>
+            </Col> */}
+
             <Col span={12}>
               <Form.Item name="numberLimit" label="限购数量">
                 <InputNumber
@@ -430,124 +433,124 @@ export const GoodsModal = ({
                 />
               </Form.Item>
             </Col>
+            <Col span={12}>
+              <Form.Item
+                name="deliveryMode"
+                label="配送方式"
+                rules={[{ required: true, message: "请选择配送方式" }]}
+              >
+                <Select placeholder="请选择配送方式">
+                  {deliveryMethodOptions.map((item) => (
+                    <Select.Option key={item.value} value={item.value}>
+                      {item.text}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
           </Row>
-          <Form.Item
-            noStyle
-            shouldUpdate={(prevValues, currentValues) =>
-              prevValues.merchantId !== currentValues.merchantId
-            }
-          >
-            {({ getFieldValue }) =>
-              getFieldValue("merchantId") ? (
-                <>
-                  <Row gutter={16}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="deliveryMethod"
-                        label="配送方式"
-                        rules={[{ required: true, message: "请选择配送方式" }]}
-                      >
-                        <Select placeholder="请选择配送方式">
-                          {deliveryMethodOptions.map((item) => (
-                            <Select.Option key={item.value} value={item.value}>
-                              {item.text}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </Col>
+          <Row gutter={16}>
+            <Form.Item
+              noStyle
+              shouldUpdate={(prevValues, currentValues) =>
+                prevValues.deliveryMode !== currentValues.deliveryMode
+              }
+            >
+              {({ getFieldValue }) =>
+                [1, 3].includes(getFieldValue("deliveryMode")) && (
+                  <Col span={12}>
                     <Form.Item
-                      noStyle
-                      shouldUpdate={(prevValues, currentValues) =>
-                        prevValues.deliveryMethod !==
-                        currentValues.deliveryMethod
-                      }
+                      name="freightTemplateId"
+                      label="运费模板"
+                      rules={[{ required: true, message: "请选择运费模板" }]}
                     >
-                      {({ getFieldValue }) =>
-                        [2, 3].includes(getFieldValue("deliveryMethod")) && (
-                          <Col span={12}>
-                            <Form.Item
-                              name="pickupAddressIds"
-                              label="提货地址"
-                              rules={[
-                                { required: true, message: "请选择提货地址" },
-                              ]}
-                            >
-                              <Select
-                                mode="multiple"
-                                placeholder="请选择提货地址"
-                              >
-                                {pickupAddressOptions.map((item) => (
-                                  <Select.Option key={item.id} value={item.id}>
-                                    {item.addressDetail}
-                                  </Select.Option>
-                                ))}
-                              </Select>
-                            </Form.Item>
-                          </Col>
-                        )
-                      }
+                      <Select placeholder="请选择运费模板">
+                        {freightTemplateOptions.map(({ id, name }) => (
+                          <Select.Option key={id} value={id}>
+                            {name}
+                          </Select.Option>
+                        ))}
+                      </Select>
                     </Form.Item>
-                  </Row>
-                  <Row gutter={16}>
-                    <Col span={12}>
-                      <Form.Item
-                        name="refundStatus"
-                        label="7天无理由退换货"
-                        rules={[
-                          {
-                            required: true,
-                            message: "请选择是否支持7天无理由",
-                          },
-                        ]}
-                      >
-                        <Select placeholder="请选择是否支持7天无理由">
-                          {refundStatusOptions.map((item) => (
-                            <Select.Option key={item.value} value={item.value}>
-                              {item.text}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </Col>
+                  </Col>
+                )
+              }
+            </Form.Item>
+            <Form.Item
+              noStyle
+              shouldUpdate={(prevValues, currentValues) =>
+                prevValues.deliveryMode !== currentValues.deliveryMode
+              }
+            >
+              {({ getFieldValue }) =>
+                [2, 3].includes(getFieldValue("deliveryMode")) && (
+                  <Col span={12}>
                     <Form.Item
-                      noStyle
-                      shouldUpdate={(prevValues, currentValues) =>
-                        prevValues.refundStatus !== currentValues.refundStatus
-                      }
+                      name="pickupAddressIds"
+                      label="提货地址"
+                      rules={[{ required: true, message: "请选择提货地址" }]}
                     >
-                      {({ getFieldValue }) =>
-                        getFieldValue("refundStatus") === 1 && (
-                          <Col span={12}>
-                            <Form.Item
-                              name="refundAddressIds"
-                              label="退货地址"
-                              rules={[
-                                { required: true, message: "请选择退货地址" },
-                              ]}
-                            >
-                              <Select
-                                mode="multiple"
-                                placeholder="请选择退货地址"
-                              >
-                                {refundAddressOptions.map((item) => (
-                                  <Select.Option key={item.id} value={item.id}>
-                                    {item.addressDetail}
-                                  </Select.Option>
-                                ))}
-                              </Select>
-                            </Form.Item>
-                          </Col>
-                        )
-                      }
+                      <Select mode="multiple" placeholder="请选择提货地址">
+                        {pickupAddressOptions.map((item) => (
+                          <Select.Option key={item.id} value={item.id}>
+                            {item.name}
+                          </Select.Option>
+                        ))}
+                      </Select>
                     </Form.Item>
-                  </Row>
-                </>
-              ) : (
-                <></>
-              )
-            }
-          </Form.Item>
+                  </Col>
+                )
+              }
+            </Form.Item>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="refundStatus"
+                label="7天无理由退换货"
+                rules={[
+                  {
+                    required: true,
+                    message: "请选择是否支持7天无理由",
+                  },
+                ]}
+              >
+                <Select placeholder="请选择是否支持7天无理由">
+                  {refundStatusOptions.map((item) => (
+                    <Select.Option key={item.value} value={item.value}>
+                      {item.text}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Form.Item
+              noStyle
+              shouldUpdate={(prevValues, currentValues) =>
+                prevValues.refundStatus !== currentValues.refundStatus
+              }
+            >
+              {({ getFieldValue }) =>
+                getFieldValue("refundStatus") === 1 && (
+                  <Col span={12}>
+                    <Form.Item
+                      name="refundAddressIds"
+                      label="退货地址"
+                      rules={[{ required: true, message: "请选择退货地址" }]}
+                    >
+                      <Select mode="multiple" placeholder="请选择退货地址">
+                        {refundAddressOptions.map((item) => (
+                          <Select.Option key={item.id} value={item.id}>
+                            {item.addressDetail}
+                          </Select.Option>
+                        ))}
+                      </Select>
+                    </Form.Item>
+                  </Col>
+                )
+              }
+            </Form.Item>
+          </Row>
 
           <Divider orientation="left" plain>
             商品规格

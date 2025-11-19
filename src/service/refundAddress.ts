@@ -79,6 +79,6 @@ export const useDeleteRefundAddress = (queryKey: QueryKey) => {
 export const useRefundAddressOptions = () => {
   const client = useHttp();
   return useQuery<DataOption[]>(["refund_address_options"], () =>
-    client("shop/refund_address/options")
+    client("shop/refund_address/options", { data: { shopId: 1 } })
   );
 };

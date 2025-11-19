@@ -160,14 +160,14 @@ export const List = ({
               <>
                 {value.map(
                   (
-                    { cover, name, skuName, price, number }: OrderGoods,
+                    { cover, name, selectedSkuName, price, number }: OrderGoods,
                     index: number
                   ) => (
                     <GoodsCard key={index}>
                       <img src={cover} alt="" />
                       <GoodsInfo>
                         <GoodsName>{name}</GoodsName>
-                        <GoodsSku>{skuName}</GoodsSku>
+                        <GoodsSku>{selectedSkuName}</GoodsSku>
                         <GoodsPriceWrap>
                           <div style={{ color: "#ff4d4f" }}>
                             <span style={{ fontSize: "6px" }}>¥</span>
@@ -185,7 +185,7 @@ export const List = ({
           },
           {
             title: "实付金额",
-            dataIndex: "refundAmount",
+            dataIndex: "paymentAmount",
             render: (value) => <>¥{value}</>,
             width: "12rem",
           },

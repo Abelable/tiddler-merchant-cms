@@ -10,6 +10,7 @@ import {
   Button,
   Tag,
   InputNumber,
+  Tooltip,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { PlusOutlined } from "@ant-design/icons";
@@ -18,7 +19,8 @@ import dayjs from "dayjs";
 import {
   useDeleteGoods,
   useDownGoods,
-  useEditSales,
+  useEditStock,
+  useEditCommission,
   useUpGoods,
 } from "service/goods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
@@ -47,7 +49,8 @@ export const List = ({
       limit: pagination.pageSize,
     });
 
-  const { mutate: editSales } = useEditSales(useGoodsListQueryKey());
+  const { mutate: editStock } = useEditStock(useGoodsListQueryKey());
+  const { mutate: editCommission } = useEditCommission(useGoodsListQueryKey());
 
   return (
     <Container>
@@ -69,6 +72,32 @@ export const List = ({
             fixed: "left",
           },
           {
+            title: "状态",
+            dataIndex: "status",
+            render: (value, goods) =>
+              value === 0 ? (
+                <span style={{ color: "#faad14" }}>待审核</span>
+              ) : value === 1 ? (
+                <span style={{ color: "#296BEF" }}>售卖中</span>
+              ) : value === 1 ? (
+                <Tooltip title={goods.failureReason}>
+                  <span style={{ color: "#f50", cursor: "pointer" }}>
+                    未过审
+                  </span>
+                </Tooltip>
+              ) : (
+                <span style={{ color: "#999" }}>已下架</span>
+              ),
+            filters: [
+              { text: "待审核", value: 0 },
+              { text: "售卖中", value: 1 },
+              { text: "未过审", value: 2 },
+              { text: "已下架", value: 3 },
+            ],
+            onFilter: (value, goods) => goods.status === value,
+            width: "12rem",
+          },
+          {
             title: "图片",
             dataIndex: "cover",
             render: (value) => <Image width={68} src={value} />,
@@ -79,60 +108,57 @@ export const List = ({
             dataIndex: "name",
             width: "32rem",
           },
-          // {
-          //   title: "分类",
-          //   dataIndex: "categoryIds",
-          //   render: (value) => (
-          //     <>
-          //       {value.map((id: string) => (
-          //         <Tag key={id} color="orange">
-          //           {categoryOptions.find((item) => item.id === +id)?.name}
-          //         </Tag>
-          //       ))}
-          //     </>
-          //   ),
-          //   width: "18rem",
-          // },
           {
-            title: "状态",
-            dataIndex: "status",
-            render: (value, goods) =>
-              value === 2 ? (
-                <span style={{ color: "#f50" }}>已下架</span>
-              ) : (
-                <span style={{ color: "#296BEF" }}>售卖中</span>
-              ),
-            filters: [
-              { text: "售卖中", value: 1 },
-              { text: "已下架", value: 2 },
-            ],
-            onFilter: (value, goods) => goods.status === value,
-            width: "8rem",
+            title: "分类",
+            dataIndex: "categoryId",
+            render: (value) => (
+              <Tag>
+                {categoryOptions.find((item) => item.id === value)?.name}
+              </Tag>
+            ),
+            width: "12rem",
           },
           {
             title: "价格",
             dataIndex: "price",
             render: (value) => <>{`¥${value}`}</>,
+            width: "12rem",
           },
           {
             title: "销量",
             dataIndex: "salesVolume",
             width: "12rem",
-            render: (value, goods) => (
-              <InputNumber
-                value={value}
-                onChange={(sales) => editSales({ id: goods.id, sales })}
-              />
-            ),
           },
           {
             title: "库存",
             dataIndex: "stock",
+            render: (value, goods) => (
+              <InputNumber
+                value={value}
+                onChange={(stock) => editStock({ id: goods.id, stock })}
+              />
+            ),
+            width: "12rem",
           },
           {
-            title: "佣金比例",
-            dataIndex: "commissionRate",
-            render: (value) => <>{`${value}%`}</>,
+            title: "销售佣金比例",
+            dataIndex: "salesCommissionRate",
+            render: (value, goods) => {
+              const { minSalesCommissionRate, maxSalesCommissionRate } =
+                categoryOptions.find((item) => item.id === goods.categoryId) ||
+                {};
+              return (
+                <InputNumber
+                  min={minSalesCommissionRate}
+                  max={maxSalesCommissionRate}
+                  value={value}
+                  onChange={(salesCommissionRate) =>
+                    editCommission({ id: goods.id, salesCommissionRate })
+                  }
+                  suffix="%"
+                />
+              );
+            },
             width: "12rem",
           },
           {

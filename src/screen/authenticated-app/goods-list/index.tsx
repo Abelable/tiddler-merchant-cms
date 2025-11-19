@@ -1,7 +1,5 @@
-import { useState } from "react";
 import styled from "@emotion/styled";
-import { useCategoryOptions } from "service/category";
-import { useGoodsList } from "service/goods";
+import { useGoodsCategoryOptions, useGoodsList } from "service/goods";
 import { useFreightTemplateOptions } from "service/freightTemplate";
 import { useRefundAddressOptions } from "service/refundAddress";
 import { usePickupAddressOptions } from "service/pickupAddress";
@@ -16,7 +14,7 @@ export const GoodsList = () => {
   const [params, setParams] = useGoodsListSearchParams();
   const { isLoading, error, data } = useGoodsList(params);
   const { data: categoryOptions = [], error: categoryOptionsError } =
-    useCategoryOptions();
+    useGoodsCategoryOptions();
 
   const {
     data: originalFreightTemplateOptions = [],
@@ -33,8 +31,10 @@ export const GoodsList = () => {
     usePickupAddressOptions();
 
   const statusOptions = [
-    { text: "售卖中", value: 1 },
-    { text: "已下架", value: 2 },
+    { text: "审核中", value: 0 },
+    { text: "出售中", value: 1 },
+    { text: "未过审", value: 2 },
+    { text: "已下架", value: 3 },
   ];
 
   return (

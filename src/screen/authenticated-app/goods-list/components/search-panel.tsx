@@ -4,9 +4,7 @@ import { Row } from "components/lib";
 import { Button, Input, Select } from "antd";
 
 import type { Option } from "types/common";
-import type { GoodsListSearchParams } from "types/goods";
-import type { GoodsCategoryOption } from "types/goodsCategory";
-
+import type { GoodsCategoryOption, GoodsListSearchParams } from "types/goods";
 export interface SearchPanelProps {
   categoryOptions: GoodsCategoryOption[];
   statusOptions: Option[];

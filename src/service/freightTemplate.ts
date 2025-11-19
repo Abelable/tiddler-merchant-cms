@@ -78,6 +78,6 @@ export const useDeleteFreightTemplate = (queryKey: QueryKey) => {
 export const useFreightTemplateOptions = () => {
   const client = useHttp();
   return useQuery<FreightTemplateOption[]>(["freight_template_options"], () =>
-    client("shop/freight_template/options")
+    client("shop/freight_template/options", { data: { shopId: 1 } })
   );
 };

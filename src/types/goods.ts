@@ -1,3 +1,11 @@
+export interface GoodsCategoryOption {
+  id: number;
+  shopCategoryId: number;
+  name: string;
+  minSalesCommissionRate: number;
+  maxSalesCommissionRate: number;
+}
+
 export interface GoodsListSearchParams {
   name: string;
   categoryId: number | undefined;
@@ -24,30 +32,23 @@ export interface Sku {
 
 export interface Goods {
   id: number;
-  merchantId: number;
-  categoryIds: number[];
   status: number;
-  name: string;
-  introduction: string;
-  video: string;
+  failureReason: string;
   cover: string;
-  activityCover: string;
+  video: string;
   imageList: string[];
-  realImageList: string[];
   detailImageList: string[];
   defaultSpecImage: string;
+  name: string;
+  categoryId: number;
   price: number;
   stock: number;
-  commissionRate: number;
-  deliveryMethod: number;
-  pickupAddressIds: number[];
-  refundStatus: number;
-  refundAddressIds: number[];
-  numberLimit: number;
+  salesCommissionRate: number;
+  refundSupport: number;
   specList: Spec[];
   skuList: Sku[];
+  score: number;
   salesVolume: number;
-  failureReason: string;
   createdAt: string;
   updatedAt: string;
 }
