@@ -54,11 +54,6 @@ export const SearchPanel = ({
     setTempParams({ ...tempParams, status });
   const clearStatus = () => setTempParams({ ...tempParams, status: undefined });
 
-  const setMerchant = (merchantId: number) =>
-    setTempParams({ ...tempParams, merchantId });
-  const clearMerchant = () =>
-    setTempParams({ ...tempParams, merchantId: undefined });
-
   const setUser = (userId: number) => setTempParams({ ...tempParams, userId });
   const clearUser = () => setTempParams({ ...tempParams, userId: undefined });
 
