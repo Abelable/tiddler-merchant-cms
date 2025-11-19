@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import dayjs from "dayjs";
 import { usePickupAddressListQueryKey, usePickupAddressModal } from "../util";
 import { useDeletePickupAddress } from "service/pickupAddress";
 
@@ -60,6 +61,32 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
           {
             title: "提货点地址详情",
             dataIndex: "addressDetail",
+          },
+          {
+            title: "创建时间",
+            render: (value, goods) => (
+              <span>
+                {goods.createdAt
+                  ? dayjs(goods.createdAt).format("YYYY-MM-DD HH:mm:ss")
+                  : "无"}
+              </span>
+            ),
+            width: "20rem",
+            sorter: (a, b) =>
+              dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+          },
+          {
+            title: "更新时间",
+            render: (value, goods) => (
+              <span>
+                {goods.updatedAt
+                  ? dayjs(goods.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+                  : "无"}
+              </span>
+            ),
+            width: "20rem",
+            sorter: (a, b) =>
+              dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
           },
           {
             title: "操作",

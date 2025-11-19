@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import dayjs from "dayjs";
 import { useRefundAddressListQueryKey, useRefundAddressModal } from "../util";
 import { useDeleteRefundAddress } from "service/refundAddress";
 
@@ -65,6 +66,33 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             title: "收件地址",
             dataIndex: "addressDetail",
           },
+          {
+            title: "创建时间",
+            render: (value, goods) => (
+              <span>
+                {goods.createdAt
+                  ? dayjs(goods.createdAt).format("YYYY-MM-DD HH:mm:ss")
+                  : "无"}
+              </span>
+            ),
+            width: "20rem",
+            sorter: (a, b) =>
+              dayjs(a.createdAt).valueOf() - dayjs(b.createdAt).valueOf(),
+          },
+          {
+            title: "更新时间",
+            render: (value, goods) => (
+              <span>
+                {goods.updatedAt
+                  ? dayjs(goods.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+                  : "无"}
+              </span>
+            ),
+            width: "20rem",
+            sorter: (a, b) =>
+              dayjs(a.updatedAt).valueOf() - dayjs(b.updatedAt).valueOf(),
+          },
+
           {
             title: "操作",
             render(value, role) {
