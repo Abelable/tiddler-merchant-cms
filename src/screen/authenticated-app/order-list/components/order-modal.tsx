@@ -149,7 +149,7 @@ export const OrderModal = ({
                   },
                   { title: "支付订单", description: payTime },
                   { title: "平台发货", description: shipTime },
-                  { title: "用户确认", description: confirmTime },
+                  { title: "用户已确认", description: confirmTime },
                   { title: "完成评价", description: "" },
                 ]
               : [

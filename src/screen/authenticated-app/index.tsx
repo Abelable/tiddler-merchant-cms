@@ -83,9 +83,8 @@ import { PickupAddressList } from "./pickup-address";
 import { RefundAddressList } from "./refund-address";
 import { CategoryList } from "./mall/category-list";
 import { GoodsList } from "./mall/goods-list";
-import { ExpressList } from "./order-management/express-list";
-import { OrderList } from "./order-management/order-list";
-import { RefundList } from "./order-management/refund-list";
+import { OrderList } from "./order-list";
+import { RefundList } from "./refund-list";
 import { RoleList } from "./auth/role-list";
 import { AdminList } from "./auth/admin-list";
 import { UserCenter } from "./user-center";
@@ -209,7 +208,6 @@ export const AuthenticatedApp = () => {
               />
               <Route path="goods/category_list" element={<CategoryList />} />
               <Route path="goods/list" element={<GoodsList />} />
-              <Route path="order/express_list" element={<ExpressList />} />
               <Route path="order/list" element={<OrderList />} />
               <Route path="order/refund" element={<RefundList />} />
               <Route path="auth/role_list" element={<RoleList />} />

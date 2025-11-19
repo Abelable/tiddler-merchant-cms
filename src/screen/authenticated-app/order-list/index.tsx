@@ -35,7 +35,7 @@ const statusOptions = [
   { text: "已退款", value: 203 },
   { text: "待收货", value: 301 },
   { text: "待使用", value: 302 },
-  { text: "用户确认", value: 401 },
+  { text: "用户已确认", value: 401 },
   { text: "系统确认", value: 402 },
   { text: "管理员确认", value: 403 },
   { text: "完成评价", value: 501 },
