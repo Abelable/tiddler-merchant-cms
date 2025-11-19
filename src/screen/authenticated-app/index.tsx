@@ -50,12 +50,6 @@ import { CouponIcon } from "assets/icon";
 
 import { Dashboard } from "./dashboard";
 import { UserList } from "./user-list";
-import { PromoterList } from "./team/promoter-list";
-import { AuthInfoList } from "./team/auth-info-list";
-import { EnterpriseInfoList } from "./team/enterprise-info-list";
-import { WithdrawList } from "./team/withdraw-list";
-import { LivestockList } from "./team/livestock-list";
-import { GiftGoodsList } from "./team/gift-goods-list";
 import { FreightTemplateList } from "./freight-template-list";
 import { PickupAddressList } from "./pickup-address";
 import { RefundAddressList } from "./refund-address";
@@ -89,15 +83,6 @@ export const AuthenticatedApp = () => {
             <Routes>
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="user_list" element={<UserList />} />
-              <Route path="team/promoter_list" element={<PromoterList />} />
-              <Route path="team/auth_info_list" element={<AuthInfoList />} />
-              <Route
-                path="team/enterprise_info_list"
-                element={<EnterpriseInfoList />}
-              />
-              <Route path="team/withdraw_list" element={<WithdrawList />} />
-              <Route path="team/livestock_list" element={<LivestockList />} />
-              <Route path="team/gift_goods_list" element={<GiftGoodsList />} />
               <Route
                 path="goods/freight_template_list"
                 element={<FreightTemplateList />}
