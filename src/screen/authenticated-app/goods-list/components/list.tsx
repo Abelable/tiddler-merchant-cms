@@ -33,7 +33,6 @@ interface ListProps extends TableProps<Goods>, SearchPanelProps {
 export const List = ({
   statusOptions,
   categoryOptions,
-  merchantOptions,
   error,
   params,
   setParams,
@@ -135,14 +134,6 @@ export const List = ({
             dataIndex: "commissionRate",
             render: (value) => <>{`${value}%`}</>,
             width: "12rem",
-          },
-          {
-            title: "商家",
-            dataIndex: "merchantId",
-            render: (value) => (
-              <>{merchantOptions.find((item) => item.id === value)?.name}</>
-            ),
-            width: "32rem",
           },
           {
             title: "创建时间",

@@ -23,7 +23,8 @@ import { SpecEditor } from "./spec-editor";
 import type { CategoryOption } from "types/category";
 import type { OperatorOption } from "types/common";
 import type { Sku, Spec } from "types/goods";
-import type { PickupAddress, RefundAddress } from "types/merchant";
+import type { PickupAddress } from "types/pickupAddress";
+import type { RefundAddress } from "types/refundAddress";
 
 interface TableSku extends Sku {
   [x: string]: string | number | object;
@@ -47,15 +48,11 @@ const normFile = (e: any) => {
 export const GoodsModal = ({
   categoryOptions,
   freightTemplateOptions,
-  merchantOptions,
-  setMerchantId,
   refundAddressOptions,
   pickupAddressOptions,
 }: {
   categoryOptions: CategoryOption[];
   freightTemplateOptions: OperatorOption[];
-  merchantOptions: OperatorOption[];
-  setMerchantId: (id: number) => void;
   refundAddressOptions: Partial<RefundAddress>[];
   pickupAddressOptions: Partial<PickupAddress>[];
 }) => {
@@ -88,8 +85,6 @@ export const GoodsModal = ({
         skuList = [],
         ...rest
       } = editingGoods;
-
-      setMerchantId(editingGoods.merchantId || 0);
 
       setTableSkuList(
         skuList.map(
@@ -146,7 +141,7 @@ export const GoodsModal = ({
         ...rest,
       });
     }
-  }, [editingGoods, form, setMerchantId]);
+  }, [editingGoods, form]);
 
   const submit = () => {
     form.validateFields().then(async () => {
@@ -433,32 +428,6 @@ export const GoodsModal = ({
                   style={{ width: "100%" }}
                   placeholder="请填写限购数量"
                 />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="merchantId"
-                label="商家"
-                rules={[{ required: true, message: "请选择商家" }]}
-              >
-                <Select
-                  placeholder="请选择商家"
-                  showSearch
-                  filterOption={(input, option) =>
-                    (option!.children as unknown as string)
-                      .toLowerCase()
-                      .includes(input.toLowerCase())
-                  }
-                  onChange={(val) => setMerchantId(val)}
-                >
-                  {merchantOptions.map(({ id, name }) => (
-                    <Select.Option key={id} value={id}>
-                      {name}
-                    </Select.Option>
-                  ))}
-                </Select>
               </Form.Item>
             </Col>
           </Row>

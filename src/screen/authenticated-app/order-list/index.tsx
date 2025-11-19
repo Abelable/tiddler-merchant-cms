@@ -21,7 +21,6 @@ import {
 import { toNumber } from "utils";
 import { useOrderListQueryKey, useOrderListSearchParams } from "./util";
 
-import { useMerchantOptions } from "service/merchant";
 import { useExpressOptions } from "service/express";
 
 const statusOptions = [
@@ -58,10 +57,6 @@ export const OrderList = () => {
   const { mutate: exportOrder } = useExportOrder(useOrderListQueryKey());
   const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
-
-  const { data: originalMerchantOptions = [], error: merchantOptionsError } =
-    useMerchantOptions();
-  const merchantOptions = [{ id: 0, name: "自营" }, ...originalMerchantOptions];
 
   const selectBatchOprationType = () => (type: number) => {
     setBatchOprationType(type);
@@ -113,7 +108,6 @@ export const OrderList = () => {
       <Main>
         <SearchPanel
           statusOptions={statusOptions}
-          merchantOptions={merchantOptions}
           userOptions={userOptions}
           goodsOptions={goodsOptions}
           params={params}
@@ -121,12 +115,11 @@ export const OrderList = () => {
         />
         <List
           statusOptions={statusOptions}
-          merchantOptions={merchantOptions}
           selectedRowKeys={selectedRowKeys}
           setSelectedRowKeys={setSelectedRowKeys}
           params={params}
           setParams={setParams}
-          error={error || merchantOptionsError}
+          error={error}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{
@@ -176,11 +169,7 @@ export const OrderList = () => {
           </Row>
         </Row>
       </Drawer>
-      <OrderModal
-        statusOptions={statusOptions}
-        merchantOptions={merchantOptions}
-        userOptions={userOptions}
-      />
+      <OrderModal statusOptions={statusOptions} userOptions={userOptions} />
       <DeliveryModal expressOptions={expressOptions} />
       <ShippingModal />
       <AddressModal />

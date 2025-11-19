@@ -3,11 +3,8 @@ import styled from "@emotion/styled";
 import { useCategoryOptions } from "service/category";
 import { useGoodsList } from "service/goods";
 import { useFreightTemplateOptions } from "service/freightTemplate";
-import {
-  useMerchantOptions,
-  usePickupAddressOptions,
-  useRefundAddressOptions,
-} from "service/merchant";
+import { useRefundAddressOptions } from "service/refundAddress";
+import { usePickupAddressOptions } from "service/pickupAddress";
 import { toNumber } from "utils";
 import { useGoodsListSearchParams } from "./util";
 
@@ -30,14 +27,10 @@ export const GoodsList = () => {
     ...originalFreightTemplateOptions,
   ];
 
-  const { data: originalMerchantOptions = [], error: merchantOptionsError } =
-    useMerchantOptions();
-  const merchantOptions = [{ id: 0, name: "自营" }, ...originalMerchantOptions];
-  const [merchantId, setMerchantId] = useState(0);
   const { data: refundAddressOptions = [], error: refundAddressOptionsError } =
-    useRefundAddressOptions(merchantId);
+    useRefundAddressOptions();
   const { data: pickupAddressOptions = [], error: pickupAddressOptionsError } =
-    usePickupAddressOptions(merchantId);
+    usePickupAddressOptions();
 
   const statusOptions = [
     { text: "售卖中", value: 1 },
@@ -49,14 +42,12 @@ export const GoodsList = () => {
       <Main>
         <SearchPanel
           categoryOptions={categoryOptions || []}
-          merchantOptions={merchantOptions}
           statusOptions={statusOptions}
           params={params}
           setParams={setParams}
         />
         <List
           categoryOptions={categoryOptions || []}
-          merchantOptions={merchantOptions}
           statusOptions={statusOptions}
           params={params}
           setParams={setParams}
@@ -64,7 +55,6 @@ export const GoodsList = () => {
             error ||
             categoryOptionsError ||
             freightTemplateOptionsError ||
-            merchantOptionsError ||
             refundAddressOptionsError ||
             pickupAddressOptionsError
           }
@@ -81,8 +71,6 @@ export const GoodsList = () => {
       <GoodsModal
         categoryOptions={categoryOptions}
         freightTemplateOptions={freightTemplateOptions}
-        merchantOptions={merchantOptions}
-        setMerchantId={setMerchantId}
         refundAddressOptions={refundAddressOptions}
         pickupAddressOptions={pickupAddressOptions}
       />

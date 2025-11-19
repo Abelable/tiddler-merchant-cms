@@ -23,7 +23,7 @@ import {
   useShippingModal,
 } from "../util";
 
-import type { OperatorOption, Option } from "types/common";
+import type { Option } from "types/common";
 import { PackageGoods } from "types/order";
 import styled from "@emotion/styled";
 
@@ -31,11 +31,9 @@ const { Step } = Steps;
 
 export const OrderModal = ({
   statusOptions,
-  merchantOptions,
   userOptions,
 }: {
   statusOptions: Option[];
-  merchantOptions: OperatorOption[];
   userOptions: { id: number; avatar: string; nickname: string }[];
 }) => {
   const { close, orderModalOpen, orderInfo, error, isLoading } =
@@ -337,13 +335,6 @@ export const OrderModal = ({
             <Descriptions size={"small"} layout="vertical" bordered>
               <Descriptions.Item label="订单编号">
                 {orderInfo?.orderSn}
-              </Descriptions.Item>
-              <Descriptions.Item label="商家">
-                {
-                  merchantOptions.find(
-                    (item) => item.id === orderInfo?.merchantId
-                  )?.name
-                }
               </Descriptions.Item>
               <Descriptions.Item label="下单用户">
                 <>

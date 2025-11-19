@@ -1,40 +1,53 @@
-import { Row } from "components/lib";
-import { Button, Select } from "antd";
-
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { Row } from "components/lib";
+import { Button, Input, Select } from "antd";
 
 import type { Option } from "types/common";
-import type { BannerListSearchParams } from "types/banner";
+import type { GoodsListSearchParams } from "types/goods";
+import type { GoodsCategoryOption } from "types/goodsCategory";
 
 export interface SearchPanelProps {
-  positionOptions: Option[];
-  sceneOptions: Option[];
-  params: Partial<BannerListSearchParams>;
-  setParams: (params: Partial<BannerListSearchParams>) => void;
+  categoryOptions: GoodsCategoryOption[];
+  statusOptions: Option[];
+  params: Partial<GoodsListSearchParams>;
+  setParams: (params: Partial<GoodsListSearchParams>) => void;
 }
 
-const defaultParmas: Partial<BannerListSearchParams> = {
-  position: undefined,
+const defaultParmas: Partial<GoodsListSearchParams> = {
+  name: "",
+  categoryId: undefined,
+  merchantId: undefined,
   status: undefined,
-  scene: undefined,
 };
 
 export const SearchPanel = ({
-  positionOptions,
-  sceneOptions,
+  categoryOptions,
+  statusOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 
-  const setPosition = (position: number) =>
-    setTempParams({ ...tempParams, position });
-  const clearPosition = () =>
-    setTempParams({ ...tempParams, position: undefined });
+  const setName = (evt: any) => {
+    if (!evt.target.value && evt.type !== "change") {
+      setTempParams({
+        ...tempParams,
+        name: "",
+      });
+      return;
+    }
 
-  const setScene = (scene: number) => setTempParams({ ...tempParams, scene });
-  const clearScene = () => setTempParams({ ...tempParams, scene: undefined });
+    setTempParams({
+      ...tempParams,
+      name: evt.target.value,
+    });
+  };
+
+  const setCategory = (categoryId: number) =>
+    setTempParams({ ...tempParams, categoryId });
+  const clearCategory = () =>
+    setTempParams({ ...tempParams, categoryId: undefined });
 
   const setStatus = (status: number) =>
     setTempParams({ ...tempParams, status });
@@ -48,53 +61,43 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>使用场景：</div>
+        <div>商品名称：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.name}
+          onChange={setName}
+          placeholder="请输入商品名称"
+          allowClear
+        />
+      </Item>
+      <Item>
+        <div>商品分类：</div>
         <Select
           style={{ width: "20rem" }}
-          value={tempParams.position}
-          placeholder="请选择使用场景"
+          value={tempParams.categoryId}
+          placeholder="请选择商品分类"
           allowClear
-          onSelect={setPosition}
-          onClear={clearPosition}
+          onSelect={setCategory}
+          onClear={clearCategory}
         >
-          {positionOptions?.map(({ text, value }) => (
-            <Select.Option key={value} value={value}>
-              {text}
+          {categoryOptions?.map(({ id, name }) => (
+            <Select.Option key={id} value={id}>
+              {name}
             </Select.Option>
           ))}
         </Select>
       </Item>
       <Item>
-        <div>活动跳转场景：</div>
-        <Select
-          style={{ width: "20rem" }}
-          value={tempParams.scene}
-          placeholder="请选择跳转场景"
-          allowClear
-          onSelect={setScene}
-          onClear={clearScene}
-        >
-          {sceneOptions?.map(({ text, value }) => (
-            <Select.Option key={value} value={value}>
-              {text}
-            </Select.Option>
-          ))}
-        </Select>
-      </Item>
-      <Item>
-        <div>活动状态：</div>
+        <div>商品状态：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.status}
-          placeholder="请选择活动状态"
+          placeholder="请选择商品状态"
           allowClear
           onSelect={setStatus}
           onClear={clearStatus}
         >
-          {[
-            { text: "进行中", value: 1 },
-            { text: "已结束", value: 2 },
-          ].map(({ text, value }) => (
+          {statusOptions?.map(({ text, value }) => (
             <Select.Option key={value} value={value}>
               {text}
             </Select.Option>

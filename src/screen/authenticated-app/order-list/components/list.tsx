@@ -48,7 +48,6 @@ interface ListProps
 
 export const List = ({
   statusOptions,
-  merchantOptions,
   selectedRowKeys,
   setSelectedRowKeys,
   error,

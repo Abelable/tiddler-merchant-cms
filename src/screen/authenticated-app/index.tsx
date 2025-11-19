@@ -56,31 +56,10 @@ import { EnterpriseInfoList } from "./team/enterprise-info-list";
 import { WithdrawList } from "./team/withdraw-list";
 import { LivestockList } from "./team/livestock-list";
 import { GiftGoodsList } from "./team/gift-goods-list";
-import { VillageGrainGoodsList } from "./home-zone/grain-goods";
-import { VillageFreshGoodsList } from "./home-zone/fresh-goods";
-import { VillageSnackGoodsList } from "./home-zone/snack-goods";
-import { VillageGiftGoodsList } from "./home-zone/gift-goods";
-import { IntegrityGoodsList } from "./home-zone/integrity-goods";
-import { ThemeZoneList } from "./home-zone/theme-zone";
-import { ThemeZoneGoodsList } from "./home-zone/theme-zone-goods";
-import { ActivityTagList } from "./home-zone/activity-tag-list";
-import { ActivityList } from "./home-zone/activity-list";
-import { CouponList } from "./activity-management/coupon-list";
-import { BannerList } from "./activity-management/banner-list";
-import { NewYearGoodsList } from "./activity-management/new-year/goods-list";
-import { NewYearCultureGoodsList } from "./activity-management/new-year/culture-goods-list";
-import { NewYearLocalRegionList } from "./activity-management/new-year/local-region-list";
-import { NewYearLocalGoodsList } from "./activity-management/new-year/local-goods-list";
-import { LimitedTimeRecruitCategoryList } from "./activity-management/limited-time-recruit/category-list";
-import { LimitedTimeRecruitGoodsList } from "./activity-management/limited-time-recruit/goods-list";
-import { RuralRegionList } from "./activity-management/rural/region-list";
-import { RuralGoodsList } from "./activity-management/rural/goods-list";
-import { MerchantList } from "./mall/merchant-list";
-import { FreightTemplateList } from "./mall/freight-template-list";
+import { FreightTemplateList } from "./freight-template-list";
 import { PickupAddressList } from "./pickup-address";
 import { RefundAddressList } from "./refund-address";
-import { CategoryList } from "./mall/category-list";
-import { GoodsList } from "./mall/goods-list";
+import { GoodsList } from "./goods-list";
 import { OrderList } from "./order-list";
 import { RefundList } from "./refund-list";
 import { RoleList } from "./auth/role-list";
@@ -120,77 +99,6 @@ export const AuthenticatedApp = () => {
               <Route path="team/livestock_list" element={<LivestockList />} />
               <Route path="team/gift_goods_list" element={<GiftGoodsList />} />
               <Route
-                path="home_zone/grain_goods"
-                element={<VillageGrainGoodsList />}
-              />
-              <Route
-                path="home_zone/fresh_goods"
-                element={<VillageFreshGoodsList />}
-              />
-              <Route
-                path="home_zone/snack_goods"
-                element={<VillageSnackGoodsList />}
-              />
-              <Route
-                path="home_zone/gift_goods"
-                element={<VillageGiftGoodsList />}
-              />
-              <Route
-                path="home_zone/rural/region_list"
-                element={<RuralRegionList />}
-              />
-              <Route
-                path="home_zone/rural/goods_list"
-                element={<RuralGoodsList />}
-              />
-              <Route
-                path="home_zone/integrity_goods"
-                element={<IntegrityGoodsList />}
-              />
-              <Route
-                path="home_zone/theme_zone/list"
-                element={<ThemeZoneList />}
-              />
-              <Route
-                path="home_zone/theme_zone/goods_list"
-                element={<ThemeZoneGoodsList />}
-              />
-              <Route
-                path="home_zone/activity/tag_list"
-                element={<ActivityTagList />}
-              />
-              <Route
-                path="home_zone/activity/list"
-                element={<ActivityList />}
-              />
-              <Route path="activity/banner_list" element={<BannerList />} />
-              <Route path="activity/coupon_list" element={<CouponList />} />
-              <Route
-                path="activity/new_year/goods_list"
-                element={<NewYearGoodsList />}
-              />
-              <Route
-                path="activity/new_year/culture_goods_list"
-                element={<NewYearCultureGoodsList />}
-              />
-              <Route
-                path="activity/new_year/region_list"
-                element={<NewYearLocalRegionList />}
-              />
-              <Route
-                path="activity/new_year/local_goods_list"
-                element={<NewYearLocalGoodsList />}
-              />
-              <Route
-                path="activity/limited_time_recruit/category_list"
-                element={<LimitedTimeRecruitCategoryList />}
-              />
-              <Route
-                path="activity/limited_time_recruit/goods_list"
-                element={<LimitedTimeRecruitGoodsList />}
-              />
-              <Route path="goods/merchant_list" element={<MerchantList />} />
-              <Route
                 path="goods/freight_template_list"
                 element={<FreightTemplateList />}
               />
@@ -202,7 +110,6 @@ export const AuthenticatedApp = () => {
                 path="shopping/self_support/refund_address_list"
                 element={<RefundAddressList />}
               />
-              <Route path="goods/category_list" element={<CategoryList />} />
               <Route path="goods/list" element={<GoodsList />} />
               <Route path="order/list" element={<OrderList />} />
               <Route path="order/refund" element={<RefundList />} />

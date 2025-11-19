@@ -5,12 +5,11 @@ import { UserOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import styled from "@emotion/styled";
 
-import type { OperatorOption, Option } from "types/common";
+import type { Option } from "types/common";
 import type { OrderListSearchParams } from "types/order";
 
 export interface SearchPanelProps {
   statusOptions: Option[];
-  merchantOptions: OperatorOption[];
   userOptions: { id: number; avatar: string; nickname: string }[];
   goodsOptions: { id: number; cover: string; name: string }[];
   params: Partial<OrderListSearchParams>;
@@ -29,7 +28,6 @@ const defaultParmas: Partial<OrderListSearchParams> = {
 
 export const SearchPanel = ({
   statusOptions,
-  merchantOptions,
   userOptions,
   goodsOptions,
   params,
@@ -153,29 +151,6 @@ export const SearchPanel = ({
             <Select.Option key={id} value={id}>
               <GoodsCover src={cover} />
               <span>{name}</span>
-            </Select.Option>
-          ))}
-        </Select>
-      </Item>
-      <Item>
-        <div>商家：</div>
-        <Select
-          style={{ width: "20rem" }}
-          value={tempParams.merchantId}
-          placeholder="请选择商家"
-          allowClear
-          onSelect={setMerchant}
-          onClear={clearMerchant}
-          showSearch
-          filterOption={(input, option) =>
-            (option!.children as unknown as string)
-              .toLowerCase()
-              .includes(input.toLowerCase())
-          }
-        >
-          {merchantOptions?.map(({ id, name }) => (
-            <Select.Option key={id} value={id}>
-              {name}
             </Select.Option>
           ))}
         </Select>
