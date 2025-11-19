@@ -31,15 +31,13 @@ import {
 import logo from "assets/images/logo.png";
 
 import { Dashboard } from "./dashboard";
-import { UserList } from "./user-list";
 import { FreightTemplateList } from "./freight-template-list";
 import { PickupAddressList } from "./pickup-address";
 import { RefundAddressList } from "./refund-address";
 import { GoodsList } from "./goods-list";
 import { OrderList } from "./order-list";
 import { RefundList } from "./refund-list";
-import { RoleList } from "./auth/role-list";
-import { AdminList } from "./auth/admin-list";
+import { AdminList } from "./admin-list";
 import { UserCenter } from "./user-center";
 
 import type { UserInfo } from "types/auth";
@@ -64,24 +62,22 @@ export const AuthenticatedApp = () => {
           <Content>
             <Routes>
               <Route path="dashboard" element={<Dashboard />} />
-              <Route path="user_list" element={<UserList />} />
+              <Route path="order_list" element={<OrderList />} />
+              <Route path="order_refund" element={<RefundList />} />
+              <Route path="goods_list" element={<GoodsList />} />
               <Route
-                path="goods/freight_template_list"
+                path="freight_template_list"
                 element={<FreightTemplateList />}
               />
               <Route
-                path="shopping/self_support/pickup_address_list"
+                path="pickup_address_list"
                 element={<PickupAddressList />}
               />
               <Route
-                path="shopping/self_support/refund_address_list"
+                path="refund_address_list"
                 element={<RefundAddressList />}
               />
-              <Route path="goods/list" element={<GoodsList />} />
-              <Route path="order/list" element={<OrderList />} />
-              <Route path="order/refund" element={<RefundList />} />
-              <Route path="auth/role_list" element={<RoleList />} />
-              <Route path="auth/admin_list" element={<AdminList />} />
+              <Route path="manager_list" element={<AdminList />} />
               <Route path="user_center" element={<UserCenter />} />
               <Route
                 path={"*"}
@@ -117,7 +113,7 @@ const MenuSider = ({
     },
     {
       label: (
-        <Link to={"order/list"}>
+        <Link to={"order_list"}>
           <Row between>
             <span>订单列表</span>
             {shipOrderCount ? <Badge>{shipOrderCount}</Badge> : <></>}
@@ -129,7 +125,7 @@ const MenuSider = ({
     },
     {
       label: (
-        <Link to={"order/refund"}>
+        <Link to={"order_refund"}>
           <Row between>
             <span>售后处理</span>
             {waitingRefundCount ? <Badge>{waitingRefundCount}</Badge> : <></>}
@@ -140,32 +136,28 @@ const MenuSider = ({
       icon: <TransactionOutlined />,
     },
     {
-      label: <Link to={"goods/list"}>商品列表</Link>,
+      label: <Link to={"goods_list"}>商品列表</Link>,
       key: "goods_list",
       icon: <ShoppingOutlined />,
     },
     {
-      label: <Link to={"goods/freight_template_list"}>运费模板</Link>,
-      key: "goods_freight_template_list",
+      label: <Link to={"freight_template_list"}>运费模板</Link>,
+      key: "freight_template_list",
       icon: <TruckOutlined />,
     },
     {
-      label: (
-        <Link to={"shopping/self_support/pickup_address_list"}>提货地址</Link>
-      ),
-      key: "shopping_self_support_pickup_address_list",
+      label: <Link to={"pickup_address_list"}>提货地址</Link>,
+      key: "pickup_address_list",
       icon: <EnvironmentOutlined />,
     },
     {
-      label: (
-        <Link to={"shopping/self_support/refund_address_list"}>退货地址</Link>
-      ),
-      key: "shopping_self_support_refund_address_list",
+      label: <Link to={"refund_address_list"}>退货地址</Link>,
+      key: "refund_address_list",
       icon: <EnvironmentOutlined />,
     },
     {
-      label: <Link to={"auth/admin_list"}>人员管理</Link>,
-      key: "auth_admin_list",
+      label: <Link to={"manager_list"}>人员管理</Link>,
+      key: "manager_list",
       icon: <TeamOutlined />,
     },
   ];

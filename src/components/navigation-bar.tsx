@@ -4,20 +4,13 @@ import { Link, useLocation } from "react-router-dom";
 
 const breadcrumbNameMap: { [key: string]: string } = {
   "/dashboard": "数据概况",
-  "/goods": "商品管理",
-  "/goods/merchant_list": "商家列表",
-  "/goods/merchant_list/refund_address_list": "退货地址",
-  "/goods/merchant_list/pickup_address_list": "提货地址",
-  "/goods/freight_template_list": "运费模板",
-  "/goods/category_list": "商品分类",
-  "/goods/list": "商品列表",
-  "/order": "订单管理",
-  "/order/express_list": "快递列表",
-  "/order/list": "订单列表",
-  "/order/refund": "售后处理",
-  "/auth": "权限管理",
-  "/auth/role_list": "岗位列表",
-  "/auth/admin_list": "人员列表",
+  "/order_list": "订单列表",
+  "/order_refund": "售后处理",
+  "/goods_list": "商品列表",
+  "/freight_template_list": "运费模板",
+  "/pickup_address_list": "提货地址",
+  "/refund_address_list": "退货地址",
+  "/manager_list": "人员列表",
   "/user_center": "个人中心",
 };
 
