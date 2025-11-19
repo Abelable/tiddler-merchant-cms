@@ -75,8 +75,6 @@ import { LimitedTimeRecruitCategoryList } from "./activity-management/limited-ti
 import { LimitedTimeRecruitGoodsList } from "./activity-management/limited-time-recruit/goods-list";
 import { RuralRegionList } from "./activity-management/rural/region-list";
 import { RuralGoodsList } from "./activity-management/rural/goods-list";
-import { LiveUserList } from "./live/user-list";
-import { LiveRoomList } from "./live/room-list";
 import { MerchantList } from "./mall/merchant-list";
 import { FreightTemplateList } from "./mall/freight-template-list";
 import { PickupAddressList } from "./pickup-address";
@@ -191,8 +189,6 @@ export const AuthenticatedApp = () => {
                 path="activity/limited_time_recruit/goods_list"
                 element={<LimitedTimeRecruitGoodsList />}
               />
-              <Route path="live/user_list" element={<LiveUserList />} />
-              <Route path="live/room_list" element={<LiveRoomList />} />
               <Route path="goods/merchant_list" element={<MerchantList />} />
               <Route
                 path="goods/freight_template_list"

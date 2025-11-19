@@ -191,14 +191,6 @@ export const List = ({
             width: "12rem",
           },
           {
-            title: "商家",
-            dataIndex: "merchantId",
-            render: (value) => (
-              <>{merchantOptions.find((item) => item.id === value)?.name}</>
-            ),
-            width: "32rem",
-          },
-          {
             title: "下单用户",
             dataIndex: "userInfo",
             render: (value) => (
