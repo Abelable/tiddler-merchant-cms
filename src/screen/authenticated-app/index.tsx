@@ -37,7 +37,7 @@ import { RefundAddressList } from "./refund-address";
 import { GoodsList } from "./goods-list";
 import { OrderList } from "./order-list";
 import { RefundList } from "./refund-list";
-import { AdminList } from "./admin-list";
+import { ManagerList } from "./manager-list";
 import { UserCenter } from "./user-center";
 
 import type { UserInfo } from "types/auth";
@@ -77,7 +77,7 @@ export const AuthenticatedApp = () => {
                 path="refund_address_list"
                 element={<RefundAddressList />}
               />
-              <Route path="manager_list" element={<AdminList />} />
+              <Route path="manager_list" element={<ManagerList />} />
               <Route path="user_center" element={<UserCenter />} />
               <Route
                 path={"*"}

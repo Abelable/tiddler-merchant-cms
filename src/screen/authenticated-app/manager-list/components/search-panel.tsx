@@ -1,4 +1,4 @@
-import type { AdminsSearchParams } from "types/admin";
+import type { ManagerListSearchParams } from "types/manager";
 import type { RoleOption } from "types/role";
 import { useState } from "react";
 import styled from "@emotion/styled";
@@ -7,13 +7,13 @@ import { Button, Input, Select } from "antd";
 
 export interface SearchPanelProps {
   roleOptions: RoleOption[];
-  params: Partial<AdminsSearchParams>;
-  setParams: (params: Partial<AdminsSearchParams>) => void;
+  params: Partial<ManagerListSearchParams>;
+  setParams: (params: Partial<ManagerListSearchParams>) => void;
 }
 
-const defaultParmas: Partial<AdminsSearchParams> = {
+const defaultParmas: Partial<ManagerListSearchParams> = {
   nickname: "",
-  account: "",
+  mobile: "",
   roleId: undefined,
 };
 
@@ -23,21 +23,6 @@ export const SearchPanel = ({
   setParams,
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
-
-  const setAccount = (evt: any) => {
-    if (!evt.target.value && evt.type !== "change") {
-      setTempParams({
-        ...tempParams,
-        account: "",
-      });
-      return;
-    }
-
-    setTempParams({
-      ...tempParams,
-      account: evt.target.value,
-    });
-  };
 
   const setNickname = (evt: any) => {
     if (!evt.target.value && evt.type !== "change") {
@@ -54,6 +39,21 @@ export const SearchPanel = ({
     });
   };
 
+  const setMobile = (evt: any) => {
+    if (!evt.target.value && evt.type !== "change") {
+      setTempParams({
+        ...tempParams,
+        mobile: "",
+      });
+      return;
+    }
+
+    setTempParams({
+      ...tempParams,
+      mobile: evt.target.value,
+    });
+  };
+
   const setRole = (roleId: number) => setTempParams({ ...tempParams, roleId });
   const clearRole = () => setTempParams({ ...tempParams, roleId: undefined });
 
@@ -65,31 +65,31 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>管理员账号：</div>
-        <Input
-          style={{ width: "20rem" }}
-          value={tempParams.account}
-          onChange={setAccount}
-          placeholder="请输入管理员账号"
-          allowClear
-        />
-      </Item>
-      <Item>
-        <div>管理员昵称：</div>
+        <div>昵称：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.nickname}
           onChange={setNickname}
-          placeholder="请输入管理员昵称"
+          placeholder="请输入昵称"
           allowClear
         />
       </Item>
       <Item>
-        <div>管理员岗位：</div>
+        <div>账号：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.mobile}
+          onChange={setMobile}
+          placeholder="请输入账号"
+          allowClear
+        />
+      </Item>
+      <Item>
+        <div>职位：</div>
         <Select
           style={{ width: "20rem" }}
           value={tempParams.roleId}
-          placeholder="请选择管理员岗位"
+          placeholder="请选择职位"
           allowClear
           onSelect={setRole}
           onClear={clearRole}

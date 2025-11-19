@@ -11,13 +11,13 @@ import {
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import dayjs from "dayjs";
-import { useDeleteAdmin } from "service/admin";
-import { Admin } from "types/admin";
-import { useAdminModal, useAdminsQueryKey } from "../util";
+import { useDeleteManager } from "service/manager";
+import type { Manager } from "types/manager";
+import { useManagerModal, useManagerListQueryKey } from "../util";
 import { PlusOutlined, UserOutlined } from "@ant-design/icons";
 import { SearchPanelProps } from "./search-panel";
 
-interface ListProps extends TableProps<Admin>, SearchPanelProps {
+interface ListProps extends TableProps<Manager>, SearchPanelProps {
   error: Error | unknown;
 }
 
@@ -28,7 +28,7 @@ export const List = ({
   setParams,
   ...restProps
 }: ListProps) => {
-  const { open } = useAdminModal();
+  const { open } = useManagerModal();
 
   const setPagination = (pagination: TablePaginationConfig) =>
     setParams({
@@ -54,10 +54,7 @@ export const List = ({
             dataIndex: "id",
             width: "8rem",
           },
-          {
-            title: "账号",
-            dataIndex: "account",
-          },
+
           {
             title: "头像",
             dataIndex: "avatar",
@@ -68,7 +65,11 @@ export const List = ({
             dataIndex: "nickname",
           },
           {
-            title: "岗位",
+            title: "手机号",
+            dataIndex: "mobile",
+          },
+          {
+            title: "职位",
             dataIndex: "roleId",
             render: (value) => (
               <>{roleOptions.find((item) => item.id === value)?.name}</>
@@ -76,10 +77,10 @@ export const List = ({
           },
           {
             title: "更新时间",
-            render: (value, admin) => (
+            render: (value, Manager) => (
               <span>
-                {admin.updatedAt
-                  ? dayjs(admin.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+                {Manager.updatedAt
+                  ? dayjs(Manager.updatedAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -89,10 +90,10 @@ export const List = ({
           },
           {
             title: "创建时间",
-            render: (value, admin) => (
+            render: (value, Manager) => (
               <span>
-                {admin.createdAt
-                  ? dayjs(admin.createdAt).format("YYYY-MM-DD HH:mm:ss")
+                {Manager.createdAt
+                  ? dayjs(Manager.createdAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -102,8 +103,8 @@ export const List = ({
           },
           {
             title: "操作",
-            render(value, admin) {
-              return <More id={admin.id} />;
+            render(value, Manager) {
+              return <More id={Manager.id} />;
             },
             width: "8rem",
           },
@@ -116,8 +117,8 @@ export const List = ({
 };
 
 const More = ({ id }: { id: number }) => {
-  const { startEdit } = useAdminModal();
-  const { mutate: deleteAdmin } = useDeleteAdmin(useAdminsQueryKey());
+  const { startEdit } = useManagerModal();
+  const { mutate: deleteManager } = useDeleteManager(useManagerListQueryKey());
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
@@ -125,7 +126,7 @@ const More = ({ id }: { id: number }) => {
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => deleteAdmin(id),
+      onOk: () => deleteManager(id),
     });
   };
 

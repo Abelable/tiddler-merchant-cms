@@ -1,12 +1,12 @@
-export interface AdminsSearchParams {
+export interface ManagerListSearchParams {
   nickname: string;
-  account: string;
+  mobile: string;
   roleId: number | undefined;
   page: number;
   limit: number;
 }
 
-export interface Admin {
+export interface Manager {
   id: number;
   avatar: string;
   nickname: string;
@@ -16,8 +16,8 @@ export interface Admin {
   updatedAt: string;
 }
 
-export interface AdminsResult {
-  list: Admin[];
+export interface ManagerListResult {
+  list: Manager[];
   page: string;
   limit: string;
   total: string;

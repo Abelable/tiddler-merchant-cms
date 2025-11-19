@@ -1,16 +1,21 @@
 import styled from "@emotion/styled";
-import { useAdmins } from "service/admin";
-import { useRoleOptions } from "service/role";
+import { useManagerList } from "service/manager";
 import { toNumber } from "utils";
-import { useAdminsSearchParams } from "./util";
-import { AdminModal } from "./components/admin-modal";
+import { useManagerListSearchParams } from "./util";
+import { ManagerModal } from "./components/manager-modal";
 import { List } from "./components/list";
 import { SearchPanel } from "./components/search-panel";
 
-export const AdminList = () => {
-  const [params, setParams] = useAdminsSearchParams();
-  const { isLoading, error, data } = useAdmins(params);
-  const { data: roleOptions, error: roleOptionsError } = useRoleOptions();
+const roleOptions = [
+  { id: 1, name: "超级管理员" },
+  { id: 2, name: "运营" },
+  { id: 3, name: "核销员" },
+  { id: 4, name: "客服" },
+];
+
+export const ManagerList = () => {
+  const [params, setParams] = useManagerListSearchParams();
+  const { isLoading, error, data } = useManagerList(params);
 
   return (
     <Container>
@@ -24,7 +29,7 @@ export const AdminList = () => {
           roleOptions={roleOptions || []}
           params={params}
           setParams={setParams}
-          error={error || roleOptionsError}
+          error={error}
           loading={isLoading}
           dataSource={data?.list}
           pagination={{
@@ -35,7 +40,7 @@ export const AdminList = () => {
           bordered
         />
       </Main>
-      <AdminModal roleOptions={roleOptions || []} />
+      <ManagerModal roleOptions={roleOptions || []} />
     </Container>
   );
 };

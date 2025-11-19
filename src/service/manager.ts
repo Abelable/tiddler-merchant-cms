@@ -6,11 +6,16 @@ import {
   useEditConfig,
 } from "./use-optimistic-options";
 import { cleanObject } from "utils/index";
-import type { Admin, AdminsResult, AdminsSearchParams } from "types/admin";
 
-export const useAdmins = (params: Partial<AdminsSearchParams>) => {
+import type {
+  Manager,
+  ManagerListResult,
+  ManagerListSearchParams,
+} from "types/manager";
+
+export const useManagerList = (params: Partial<ManagerListSearchParams>) => {
   const client = useHttp();
-  return useQuery<AdminsResult>(["admins", params], () =>
+  return useQuery<ManagerListResult>(["manager_list", params], () =>
     client("shop/manager/list", {
       data: { ...params, shopId: 1 },
       method: "POST",
@@ -18,10 +23,10 @@ export const useAdmins = (params: Partial<AdminsSearchParams>) => {
   );
 };
 
-export const useAdmin = (id: number) => {
+export const useManager = (id: number) => {
   const client = useHttp();
-  return useQuery<Partial<Admin>>(
-    ["admin", { id }],
+  return useQuery<Partial<Manager>>(
+    ["manager", { id }],
     () => client(`detail`, { data: { id } }),
     {
       enabled: !!id,
@@ -29,10 +34,10 @@ export const useAdmin = (id: number) => {
   );
 };
 
-export const useAddAdmin = (queryKey: QueryKey) => {
+export const useAddManager = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<Admin>) =>
+    (params: Partial<Manager>) =>
       client("add", {
         data: cleanObject(params),
         method: "POST",
@@ -41,10 +46,10 @@ export const useAddAdmin = (queryKey: QueryKey) => {
   );
 };
 
-export const useEditAdmin = (queryKey: QueryKey) => {
+export const useEditManager = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (params: Partial<Admin>) =>
+    (params: Partial<Manager>) =>
       client("edit", {
         data: cleanObject(params),
         method: "POST",
@@ -53,7 +58,7 @@ export const useEditAdmin = (queryKey: QueryKey) => {
   );
 };
 
-export const useDeleteAdmin = (queryKey: QueryKey) => {
+export const useDeleteManager = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>

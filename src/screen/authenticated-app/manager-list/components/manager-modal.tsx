@@ -1,9 +1,9 @@
 import { Button, Col, Drawer, Form, Input, Row, Select, Space } from "antd";
 import { useForm } from "antd/lib/form/Form";
 import { ErrorBox, ModalLoading } from "components/lib";
-import { useAddAdmin } from "service/admin";
-import { useAdminModal, useAdminsQueryKey } from "../util";
-import { useEditAdmin } from "service/admin";
+import { useAddManager } from "service/manager";
+import { useManagerModal, useManagerListQueryKey } from "../util";
+import { useEditManager } from "service/manager";
 import { useEffect } from "react";
 import { OssUpload } from "components/oss-upload";
 import type { RoleOption } from "types/role";
@@ -13,30 +13,39 @@ const normFile = (e: any) => {
   return e && e.fileList;
 };
 
-export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
+export const ManagerModal = ({
+  roleOptions,
+}: {
+  roleOptions: RoleOption[];
+}) => {
   const [form] = useForm();
-  const { adminModalOpen, editingAdminId, editingAdmin, isLoading, close } =
-    useAdminModal();
+  const {
+    managerModalOpen,
+    editingManagerId,
+    editingManager,
+    isLoading,
+    close,
+  } = useManagerModal();
 
-  const useMutateAdmin = editingAdminId ? useEditAdmin : useAddAdmin;
+  const useMutateManager = editingManagerId ? useEditManager : useAddManager;
   const {
     mutateAsync,
     isLoading: mutateLoading,
     error,
-  } = useMutateAdmin(useAdminsQueryKey());
+  } = useMutateManager(useManagerListQueryKey());
 
   useEffect(() => {
-    if (editingAdmin) {
-      const { avatar, ...rest } = editingAdmin;
+    if (editingManager) {
+      const { avatar, ...rest } = editingManager;
       form.setFieldsValue({ avatar: avatar ? [{ url: avatar }] : [], ...rest });
     }
-  }, [editingAdmin, form]);
+  }, [editingManager, form]);
 
   const submit = () => {
     form.validateFields().then(async () => {
       const { avatar, ...rest } = form.getFieldsValue();
       await mutateAsync({
-        ...editingAdmin,
+        ...editingManager,
         ...rest,
         avatar: avatar && avatar.length ? avatar[0].url : "",
       });
@@ -52,10 +61,10 @@ export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
   return (
     <Drawer
       forceRender={true}
-      title={editingAdminId ? "编辑管理员" : "新增管理员"}
+      title={editingManagerId ? "编辑人员" : "新增人员"}
       size={"large"}
       onClose={closeModal}
-      open={adminModalOpen}
+      open={managerModalOpen}
       styles={{
         body: { paddingBottom: 80 },
       }}
@@ -77,7 +86,7 @@ export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
             <Col span={12}>
               <Form.Item
                 name="avatar"
-                label="管理员头像"
+                label="人员头像"
                 tooltip="图片大小不能超过10MB"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}
@@ -88,17 +97,17 @@ export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item name="nickname" label="管理员昵称">
-                <Input placeholder="请输入管理员昵称" />
+              <Form.Item name="nickname" label="人员昵称">
+                <Input placeholder="请输入人员昵称" />
               </Form.Item>
             </Col>
             <Col span={12}>
               <Form.Item
                 name="roleId"
-                label="管理员岗位"
-                rules={[{ required: true, message: "请选择管理员岗位" }]}
+                label="人员岗位"
+                rules={[{ required: true, message: "请选择人员岗位" }]}
               >
-                <Select placeholder="请选择管理员岗位">
+                <Select placeholder="请选择人员岗位">
                   {roleOptions.map((item) => (
                     <Select.Option key={item.id} value={item.id}>
                       {item.name}
@@ -108,7 +117,7 @@ export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
               </Form.Item>
             </Col>
           </Row>
-          {editingAdminId ? (
+          {editingManagerId ? (
             <Row gutter={16}>
               <Col span={12}>
                 <Form.Item name="password" label="重置密码">
@@ -124,20 +133,20 @@ export const AdminModal = ({ roleOptions }: { roleOptions: RoleOption[] }) => {
               <Col span={12}>
                 <Form.Item
                   name="account"
-                  label="管理员账号"
-                  rules={[{ required: true, message: "请输入管理员账号" }]}
+                  label="人员账号"
+                  rules={[{ required: true, message: "请输入人员账号" }]}
                 >
-                  <Input placeholder="请输入管理员账号" />
+                  <Input placeholder="请输入人员账号" />
                 </Form.Item>
               </Col>
               <Col span={12}>
                 <Form.Item
                   name="password"
-                  label="管理员账号密码"
-                  rules={[{ required: true, message: "请输入管理员账号密码" }]}
+                  label="人员账号密码"
+                  rules={[{ required: true, message: "请输入人员账号密码" }]}
                 >
                   <Input.Password
-                    placeholder="请输入管理员账号密码"
+                    placeholder="请输入人员账号密码"
                     autoComplete="new-password"
                   />
                 </Form.Item>
