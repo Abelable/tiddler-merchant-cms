@@ -75,12 +75,12 @@ export const SearchPanel = ({
         />
       </Item>
       <Item>
-        <div>账号：</div>
+        <div>手机号：</div>
         <Input
           style={{ width: "20rem" }}
           value={tempParams.mobile}
           onChange={setMobile}
-          placeholder="请输入账号"
+          placeholder="请输入手机号"
           allowClear
         />
       </Item>
