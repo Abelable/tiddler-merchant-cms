@@ -487,10 +487,10 @@ export const GoodsModal = ({
                   <Col span={12}>
                     <Form.Item
                       name="pickupAddressIds"
-                      label="提货地址"
-                      rules={[{ required: true, message: "请选择提货地址" }]}
+                      label="提货地点"
+                      rules={[{ required: true, message: "请选择提货地点" }]}
                     >
-                      <Select mode="multiple" placeholder="请选择提货地址">
+                      <Select mode="multiple" placeholder="请选择提货地点">
                         {pickupAddressOptions.map((item) => (
                           <Select.Option key={item.id} value={item.id}>
                             {item.name}

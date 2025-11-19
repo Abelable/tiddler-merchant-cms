@@ -8,7 +8,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/order_refund": "售后处理",
   "/goods_list": "商品列表",
   "/freight_template_list": "运费模板",
-  "/pickup_address_list": "提货地址",
+  "/pickup_address_list": "提货地点",
   "/refund_address_list": "退货地址",
   "/manager_list": "人员列表",
   "/user_center": "个人中心",

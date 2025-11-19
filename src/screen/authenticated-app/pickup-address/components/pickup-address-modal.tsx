@@ -110,7 +110,7 @@ export const PickupAddressModal = () => {
   return (
     <Modal
       forceRender={true}
-      title={editingPickupAddressId ? "编辑提货地址" : "新增提货地址"}
+      title={editingPickupAddressId ? "编辑提货地点" : "新增提货地点"}
       open={pickupAddressModalOpen}
       confirmLoading={mutateLoading}
       onOk={confirm}

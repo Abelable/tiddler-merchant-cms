@@ -38,7 +38,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
   return (
     <Container>
       <Header between={true}>
-        <PageTitle>提货地址</PageTitle>
+        <PageTitle>提货地点</PageTitle>
         <Button onClick={() => open()} type={"primary"} icon={<PlusOutlined />}>
           新增
         </Button>
@@ -84,7 +84,7 @@ const More = ({ id }: { id: number }) => {
 
   const confirmDelete = (id: number) => {
     Modal.confirm({
-      title: "确定删除该提货地址吗？",
+      title: "确定删除该提货地点吗？",
       content: "点击确定删除",
       okText: "确定",
       cancelText: "取消",

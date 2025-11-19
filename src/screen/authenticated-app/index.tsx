@@ -70,12 +70,12 @@ export const AuthenticatedApp = () => {
                 element={<FreightTemplateList />}
               />
               <Route
-                path="pickup_address_list"
-                element={<PickupAddressList />}
-              />
-              <Route
                 path="refund_address_list"
                 element={<RefundAddressList />}
+              />
+              <Route
+                path="pickup_address_list"
+                element={<PickupAddressList />}
               />
               <Route path="manager_list" element={<ManagerList />} />
               <Route path="user_center" element={<UserCenter />} />
@@ -146,13 +146,13 @@ const MenuSider = ({
       icon: <TruckOutlined />,
     },
     {
-      label: <Link to={"pickup_address_list"}>提货地址</Link>,
-      key: "pickup_address_list",
+      label: <Link to={"refund_address_list"}>退货地址</Link>,
+      key: "refund_address_list",
       icon: <EnvironmentOutlined />,
     },
     {
-      label: <Link to={"refund_address_list"}>退货地址</Link>,
-      key: "refund_address_list",
+      label: <Link to={"pickup_address_list"}>提货地点</Link>,
+      key: "pickup_address_list",
       icon: <EnvironmentOutlined />,
     },
     {
