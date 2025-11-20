@@ -83,7 +83,7 @@ export const IntroduceRow = ({
     </StatisticCard>
     <StatisticCard loading={incomeLoading}>
       <Statistic
-        title="总收益"
+        title="累计收益"
         value={incomeData?.totalIncome}
         prefix="¥"
         valueStyle={{ fontSize: "3rem" }}
@@ -180,7 +180,7 @@ export const IntroduceRow = ({
     </StatisticCard>
     <StatisticCard loading={userCountLoading}>
       <Statistic
-        title="用户总数"
+        title="访客总数"
         value={userCountData?.totalCount}
         valueStyle={{ fontSize: "3rem" }}
       />
