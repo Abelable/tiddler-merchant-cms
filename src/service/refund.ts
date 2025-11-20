@@ -23,7 +23,7 @@ export const useRefund = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<RefundDetail>>(
     ["refund_detail", { id }],
-    () => client(`refund/detail`, { data: { id } }),
+    () => client("refund/detail", { data: { id } }),
     {
       enabled: !!id,
     }
@@ -46,7 +46,7 @@ export const useShippingInfo = (id: number) => {
   const client = useHttp();
   return useQuery<ShippingInfo>(
     ["shipping_info", { id }],
-    () => client(`refund/shipping_info`, { data: { id } }),
+    () => client("refund/shipping_info", { data: { id } }),
     {
       enabled: !!id,
     }

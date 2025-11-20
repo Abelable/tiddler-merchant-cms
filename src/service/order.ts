@@ -111,14 +111,6 @@ export const useExportOrder = (queryKey: QueryKey) => {
       }),
     useExportOrderConfig(queryKey)
   );
-  // return (ids: number[]) =>
-  //   client("shop/order/export", {
-  //     data: { ids },
-  //     method: "POST",
-  //     headers: {
-  //       responseType: "arraybuffer",
-  //     },
-  //   });
 };
 
 export const useOrderedUserOptions = () => {
@@ -139,7 +131,7 @@ export const useOrderedGoodsOptions = () => {
 export const useShipOrderCount = () => {
   const client = useHttp();
   return useQuery(["ship_order_count"], () =>
-    client("shop/order/ship_order_count")
+    client("shop/order/ship_order_count", { data: { shopId: 1 } })
   );
 };
 

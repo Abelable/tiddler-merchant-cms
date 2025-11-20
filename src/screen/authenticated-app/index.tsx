@@ -99,9 +99,6 @@ const MenuSider = ({
   collapsed: boolean;
 }) => {
   const { defaultOpenKey, selectedKey } = useRouteType();
-  const { data: authInfoPendingCount } = useAuthInfoPendingCount();
-  const { data: enterpriseInfoPendingCount } = useEnterpriseInfoPendingCount();
-  const { data: withdrawPendingCount } = useWithdrawPendingCount();
   const { data: shipOrderCount } = useShipOrderCount();
   const { data: waitingRefundCount } = useWaitingRefundCount();
 
