@@ -53,7 +53,7 @@ export const CommissionCard = ({
       loading={loading}
       title={
         <Row>
-          <PageTitle>佣金记录</PageTitle>
+          <PageTitle>销售记录</PageTitle>
         </Row>
       }
       style={{ flex: 2 }}

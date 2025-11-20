@@ -1,31 +1,11 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
-import { useCallback, useMemo } from "react";
+import { useCallback } from "react";
 import { useBanner } from "service/banner";
 import dayjs from "dayjs";
 
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
 
 type RangePickerValue = RangePickerProps<dayjs.Dayjs>["value"];
-
-export const useTopPromoterListSearchParams = () => {
-  const [params, setParams] = useUrlQueryParams(["page", "limit"]);
-  return [
-    useMemo(
-      () => ({
-        page: Number(params.page) || 1,
-        limit: Number(params.limit) || 8,
-        ...params,
-      }),
-      [params]
-    ),
-    setParams,
-  ] as const;
-};
-
-export const useBannerListQueryKey = () => {
-  const [params] = useTopPromoterListSearchParams();
-  return ["top_promoter_list", params];
-};
 
 export const useBannerModal = () => {
   const [{ bannerCreate }, setBannerModalOpen] = useUrlQueryParams([

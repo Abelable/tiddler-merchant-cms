@@ -4,7 +4,6 @@ import { useHttp } from "./http";
 import type {
   CommissionData,
   OrderCountData,
-  PromoterCountData,
   SalesData,
   Todo,
   TopGoodsList,
@@ -29,13 +28,6 @@ export const useUserCountData = () => {
   const client = useHttp();
   return useQuery<UserCountData>(["user_count_data"], () =>
     client("dashboard/user_count_data")
-  );
-};
-
-export const usePromoterCountData = () => {
-  const client = useHttp();
-  return useQuery<PromoterCountData>(["promoter_count_data"], () =>
-    client("dashboard/promoter_count_data")
   );
 };
 

@@ -4,23 +4,18 @@ import dayjs from "dayjs";
 import {
   useCommissionData,
   useOrderCountData,
-  usePromoterCountData,
   useSalesData,
   useTodoList,
   useTopGoodsList,
   useUserCountData,
 } from "service/dashboard";
-import { useTopPromoterList } from "service/promoter";
-import { toNumber } from "utils";
-import { getTimeDistance, useTopPromoterListSearchParams } from "./util";
+import { getTimeDistance } from "./util";
 import useStyles from "./style.style";
 
 import { IntroduceRow } from "./components/IntroduceRow";
 import { SalesCard } from "./components/SalesCard";
 import { CommissionCard } from "./components/CommissionCard";
 import { TodoListCard } from "./components/TodoListCard";
-import { TopPromoterCard } from "./components/TopPromoterCard";
-import { PromoterProportionCard } from "./components/PromoterProportionCard";
 
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
 
@@ -42,14 +37,9 @@ export const Dashboard = () => {
     useOrderCountData();
   const { data: userCountData, isLoading: userCountLoading } =
     useUserCountData();
-  const { data: promoterCountData, isLoading: promoterCountLoading } =
-    usePromoterCountData();
   const { data: commissionData, isLoading: commissionLoading } =
     useCommissionData();
   const { data: todoList, isLoading: todoLoading } = useTodoList();
-
-  const [params, setParams] = useTopPromoterListSearchParams();
-  const { data, isLoading: topPromoterLoading } = useTopPromoterList(params);
 
   const handleRangePickerChange = (value: RangePickerValue) => {
     setRangePickerValue(value);
@@ -84,11 +74,9 @@ export const Dashboard = () => {
           salesData={salesData}
           orderCountData={orderCountData}
           userCountData={userCountData}
-          promoterCountData={promoterCountData}
           salesLoading={salesLoading}
           orderCountLoading={orderCountLoading}
           userCountLoading={userCountLoading}
-          promoterCountLoading={promoterCountLoading}
         />
 
         <SalesCard
@@ -108,25 +96,6 @@ export const Dashboard = () => {
             loading={commissionLoading}
           />
           <TodoListCard todoList={todoList || []} loading={todoLoading} />
-        </CardList>
-
-        <CardList>
-          <PromoterProportionCard
-            levelsCountList={promoterCountData?.levelsCountList || []}
-            loading={promoterCountLoading}
-          />
-          <TopPromoterCard
-            params={params}
-            setParams={setParams}
-            loading={topPromoterLoading}
-            dataSource={data?.list}
-            pagination={{
-              style: { marginBottom: 0 },
-              current: toNumber(data?.page) || 1,
-              pageSize: toNumber(data?.limit),
-              total: toNumber(data?.total),
-            }}
-          />
         </CardList>
       </Main>
     </Container>
