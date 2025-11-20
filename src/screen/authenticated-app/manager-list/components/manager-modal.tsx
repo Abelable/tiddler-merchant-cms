@@ -1,11 +1,20 @@
 import { Button, Col, Drawer, Form, Input, Row, Select, Space } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+
 import { useForm } from "antd/lib/form/Form";
-import { ErrorBox, ModalLoading } from "components/lib";
-import { useAddManager } from "service/manager";
+
+import {
+  ErrorBox,
+  ModalLoading,
+  OptionAvatar,
+  OptionNickname,
+} from "components/lib";
+import { useAddManager, useUserOptions } from "service/manager";
 import { useManagerModal, useManagerListQueryKey } from "../util";
 import { useEditManager } from "service/manager";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { OssUpload } from "components/oss-upload";
+import { useDebounce } from "utils";
 import type { RoleOption } from "types/role";
 
 const normFile = (e: any) => {
@@ -26,6 +35,10 @@ export const ManagerModal = ({
     isLoading,
     close,
   } = useManagerModal();
+
+  const [keywords, setKeywords] = useState("");
+  const debouncedKeywords = useDebounce(keywords, 300);
+  const { data: userOptions = [] } = useUserOptions(debouncedKeywords);
 
   const useMutateManager = editingManagerId ? useEditManager : useAddManager;
   const {
@@ -105,12 +118,19 @@ export const ManagerModal = ({
               <Form.Item
                 name="roleId"
                 label="人员岗位"
-                rules={[{ required: true, message: "请选择人员岗位" }]}
+                rules={[{ required: true, message: "请选择人员" }]}
               >
-                <Select placeholder="请选择人员岗位">
-                  {roleOptions.map((item) => (
+                <Select
+                  onSearch={(value) => setKeywords(value)}
+                  onChange={() => setKeywords("")}
+                  filterOption={false}
+                  showSearch
+                  placeholder="请输入手机号或昵称进行搜索"
+                >
+                  {userOptions.map((item) => (
                     <Select.Option key={item.id} value={item.id}>
-                      {item.name}
+                      <OptionAvatar src={item.avatar} icon={<UserOutlined />} />
+                      <OptionNickname>{item.nickname}</OptionNickname>
                     </Select.Option>
                   ))}
                 </Select>

@@ -11,6 +11,7 @@ import type {
   Manager,
   ManagerListResult,
   ManagerListSearchParams,
+  UserOption,
 } from "types/manager";
 
 export const useManagerList = (params: Partial<ManagerListSearchParams>) => {
@@ -67,5 +68,12 @@ export const useDeleteManager = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useDeleteConfig(queryKey)
+  );
+};
+
+export const useUserOptions = (keywords: string) => {
+  const client = useHttp();
+  return useQuery<UserOption[]>(["user_options", keywords], () =>
+    client("user/options", { data: cleanObject({ keywords }) })
   );
 };
