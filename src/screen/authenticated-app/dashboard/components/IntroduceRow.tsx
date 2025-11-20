@@ -5,20 +5,29 @@ import { Area, Column } from "@ant-design/plots";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import { Card, Statistic } from "antd";
 
-import type { OrderCountData, SalesData, UserCountData } from "types/dashboard";
+import type {
+  IncomeData,
+  OrderCountData,
+  SalesData,
+  UserCountData,
+} from "types/dashboard";
 
 export const IntroduceRow = ({
   salesData,
+  incomeData,
   orderCountData,
   userCountData,
   salesLoading,
+  incomeLoading,
   orderCountLoading,
   userCountLoading,
 }: {
   salesData: SalesData | undefined;
+  incomeData: IncomeData | undefined;
   orderCountData: OrderCountData | undefined;
   userCountData: UserCountData | undefined;
   salesLoading: boolean;
+  incomeLoading: boolean;
   orderCountLoading: boolean;
   userCountLoading: boolean;
 }) => (
@@ -72,10 +81,10 @@ export const IntroduceRow = ({
         </Row>
       </CardBottom>
     </StatisticCard>
-    <StatisticCard loading={salesLoading}>
+    <StatisticCard loading={incomeLoading}>
       <Statistic
         title="总收益"
-        value={salesData?.totalSales}
+        value={incomeData?.totalIncome}
         prefix="¥"
         valueStyle={{ fontSize: "3rem" }}
       />
@@ -93,8 +102,8 @@ export const IntroduceRow = ({
             width: "100%",
           }}
           data={
-            salesData?.dailySalesList
-              ? salesData?.dailySalesList.map((item) => ({
+            incomeData?.dailyIncomeList
+              ? incomeData?.dailyIncomeList.map((item) => ({
                   x: dayjs(item.createdAt).format("YYYY-MM-DD"),
                   y: +item.sum.toFixed(2),
                 }))
@@ -104,16 +113,16 @@ export const IntroduceRow = ({
       </StatisticDetail>
       <CardBottom>
         <Row style={{ marginRight: "1.6rem" }}>
-          周同比 {Math.abs(salesData?.weeklyGrowthRate as number)}%{" "}
-          {(salesData?.weeklyGrowthRate as number) >= 0 ? (
+          周同比 {Math.abs(incomeData?.weeklyGrowthRate as number)}%{" "}
+          {(incomeData?.weeklyGrowthRate as number) >= 0 ? (
             <CaretUpOutlined style={{ color: "#f5222d" }} />
           ) : (
             <CaretDownOutlined style={{ color: "#52c41a" }} />
           )}
         </Row>
         <Row>
-          日同比 {Math.abs(salesData?.dailyGrowthRate as number)}%
-          {(salesData?.dailyGrowthRate as number) >= 0 ? (
+          日同比 {Math.abs(incomeData?.dailyGrowthRate as number)}%
+          {(incomeData?.dailyGrowthRate as number) >= 0 ? (
             <CaretUpOutlined style={{ color: "#f5222d" }} />
           ) : (
             <CaretDownOutlined style={{ color: "#52c41a" }} />
@@ -123,23 +132,7 @@ export const IntroduceRow = ({
     </StatisticCard>
     <StatisticCard loading={orderCountLoading}>
       <Statistic
-        title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div>订单总数</div>
-            <div>
-              复购率{" "}
-              <span style={{ color: "#1890ff" }}>
-                {userCountData?.repurchaseRate}%
-              </span>
-            </div>
-          </div>
-        }
+        title="订单总数"
         value={orderCountData?.totalCount}
         valueStyle={{ fontSize: "3rem" }}
       />
@@ -187,23 +180,7 @@ export const IntroduceRow = ({
     </StatisticCard>
     <StatisticCard loading={userCountLoading}>
       <Statistic
-        title={
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <div>用户总数</div>
-            <div>
-              下单率{" "}
-              <span style={{ color: "#1890ff" }}>
-                {userCountData?.orderRate}%
-              </span>
-            </div>
-          </div>
-        }
+        title="用户总数"
         value={userCountData?.totalCount}
         valueStyle={{ fontSize: "3rem" }}
       />

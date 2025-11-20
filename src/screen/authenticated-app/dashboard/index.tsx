@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import {
-  useCommissionData,
+  useIncomeData,
   useOrderCountData,
   useSalesData,
   useTodoList,
@@ -33,12 +33,11 @@ export const Dashboard = () => {
     endDate: dayjs(rangePickerValue?.[1]).valueOf() / 1000,
   });
   const { data: salesData, isLoading: salesLoading } = useSalesData();
+  const { data: incomeData, isLoading: incomeLoading } = useIncomeData();
   const { data: orderCountData, isLoading: orderCountLoading } =
     useOrderCountData();
   const { data: userCountData, isLoading: userCountLoading } =
     useUserCountData();
-  const { data: commissionData, isLoading: commissionLoading } =
-    useCommissionData();
   const { data: todoList, isLoading: todoLoading } = useTodoList();
 
   const handleRangePickerChange = (value: RangePickerValue) => {
@@ -72,9 +71,11 @@ export const Dashboard = () => {
       <Main>
         <IntroduceRow
           salesData={salesData}
+          incomeData={incomeData}
           orderCountData={orderCountData}
           userCountData={userCountData}
           salesLoading={salesLoading}
+          incomeLoading={incomeLoading}
           orderCountLoading={orderCountLoading}
           userCountLoading={userCountLoading}
         />
@@ -91,10 +92,10 @@ export const Dashboard = () => {
         />
 
         <CardList>
-          <CommissionCard
+          {/* <CommissionCard
             commissionData={commissionData}
             loading={commissionLoading}
-          />
+          /> */}
           <TodoListCard todoList={todoList || []} loading={todoLoading} />
         </CardList>
       </Main>

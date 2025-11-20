@@ -6,6 +6,14 @@ export interface SalesData {
   weeklyGrowthRate: number;
 }
 
+export interface IncomeData {
+  totalIncome: number;
+  dailyIncomeList: { createdAt: string; sum: number }[];
+  monthlyIncomeList: { month: string; sum: number }[];
+  dailyGrowthRate: number;
+  weeklyGrowthRate: number;
+}
+
 export interface OrderCountData {
   totalCount: number;
   dailyCountList: { createdAt: string; count: number }[];
@@ -14,10 +22,7 @@ export interface OrderCountData {
   weeklyGrowthRate: number;
 }
 
-export interface UserCountData extends Omit<OrderCountData, "repurchaseRate"> {
-  orderRate: number;
-  repurchaseRate: number;
-}
+export interface UserCountData extends OrderCountData {}
 
 export interface TopGoodsList {
   topSalesGoodsList: { id: number; cover: string; name: string; sum: number }[];
