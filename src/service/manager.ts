@@ -28,7 +28,7 @@ export const useManager = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<Manager>>(
     ["manager", { id }],
-    () => client(`detail`, { data: { id } }),
+    () => client(`detail`, { data: { id, shopId: 1 } }),
     {
       enabled: !!id,
     }
@@ -40,7 +40,7 @@ export const useAddManager = (queryKey: QueryKey) => {
   return useMutation(
     (params: Partial<Manager>) =>
       client("add", {
-        data: cleanObject(params),
+        data: cleanObject({ ...params, shopId: 1 }),
         method: "POST",
       }),
     useAddConfig(queryKey)
@@ -52,7 +52,7 @@ export const useEditManager = (queryKey: QueryKey) => {
   return useMutation(
     (params: Partial<Manager>) =>
       client("edit", {
-        data: cleanObject(params),
+        data: cleanObject({ ...params, shopId: 1 }),
         method: "POST",
       }),
     useEditConfig(queryKey)
