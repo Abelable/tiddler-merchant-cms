@@ -1,7 +1,12 @@
+export interface MonthData {
+  month: string;
+  sum: number;
+}
+
 export interface SalesData {
   totalSales: number;
   dailySalesList: { createdAt: string; sum: number }[];
-  monthlySalesList: { month: string; sum: number }[];
+  monthlySalesList: MonthData[];
   dailyGrowthRate: number;
   weeklyGrowthRate: number;
 }
@@ -9,7 +14,7 @@ export interface SalesData {
 export interface IncomeData {
   totalIncome: number;
   dailyIncomeList: { createdAt: string; sum: number }[];
-  monthlyIncomeList: { month: string; sum: number }[];
+  monthlyIncomeList: MonthData[];
   dailyGrowthRate: number;
   weeklyGrowthRate: number;
 }
@@ -32,18 +37,6 @@ export interface TopGoodsList {
     name: string;
     count: number;
   }[];
-}
-
-export interface CommissionData {
-  monthlyCommissionList: { month: string; sum: number }[];
-  monthlyGiftCommissionList: { month: string; sum: number }[];
-  monthlyTeamCommissionList: { month: string; sum: number }[];
-  pendingCommissionSum: number;
-  settledCommissionSum: number;
-  pendingGiftCommissionSum: number;
-  settledGiftCommissionSum: number;
-  pendingTeamCommissionSum: number;
-  settledTeamCommissionSum: number;
 }
 
 export interface Todo {

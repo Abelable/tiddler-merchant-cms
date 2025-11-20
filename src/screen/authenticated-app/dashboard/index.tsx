@@ -14,7 +14,7 @@ import useStyles from "./style.style";
 
 import { IntroduceRow } from "./components/IntroduceRow";
 import { SalesCard } from "./components/SalesCard";
-import { CommissionCard } from "./components/CommissionCard";
+import { SalesRecordCard } from "./components/SalesRecordCard";
 import { TodoListCard } from "./components/TodoListCard";
 
 import type { RangePickerProps } from "antd/es/date-picker/generatePicker/interface";
@@ -92,10 +92,11 @@ export const Dashboard = () => {
         />
 
         <CardList>
-          {/* <CommissionCard
-            commissionData={commissionData}
-            loading={commissionLoading}
-          /> */}
+          <SalesRecordCard
+            monthlySalesList={salesData?.monthlySalesList || []}
+            monthlyIncomeList={incomeData?.monthlyIncomeList || []}
+            loading={salesLoading && incomeLoading}
+          />
           <TodoListCard todoList={todoList || []} loading={todoLoading} />
         </CardList>
       </Main>
