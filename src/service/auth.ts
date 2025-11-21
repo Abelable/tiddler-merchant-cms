@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { AuthForm, UserInfo } from "types/auth";
+import { AuthForm, ShopInfo, UserInfo } from "types/auth";
 import { http, useHttp } from "./http";
 import { cleanObject } from "utils";
 import { useEditAdminBaseInfoConfig } from "./use-optimistic-options";
@@ -70,5 +70,24 @@ export const useUpdateUserInfo = () => {
         method: "POST",
       }),
     useEditAdminBaseInfoConfig(["user_info"])
+  );
+};
+
+export const useShopInfo = () => {
+  const client = useHttp();
+  return useQuery<ShopInfo>(["shop_info"], () =>
+    client("shop/info", { data: { id: 1 } })
+  );
+};
+
+export const useUpdateShopInfo = () => {
+  const client = useHttp();
+  return useMutation(
+    (params: Partial<ShopInfo>) =>
+      client("shop/update_info", {
+        data: cleanObject({ ...params, id: 1 }),
+        method: "POST",
+      }),
+    useEditAdminBaseInfoConfig(["shop_info"])
   );
 };

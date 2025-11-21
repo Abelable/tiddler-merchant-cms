@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { HashRouter as Router, Link } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
 import { useRouteType } from "utils/url";
-import { useUserInfo } from "service/auth";
+import { useShopInfo } from "service/auth";
 import { useShipOrderCount } from "service/order";
 import { useWaitingRefundCount } from "service/refund";
 
@@ -16,7 +16,7 @@ import {
   DashboardOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
+  ShopOutlined,
   TeamOutlined,
   ShoppingOutlined,
   SnippetsOutlined,
@@ -35,13 +35,13 @@ import { GoodsList } from "./goods-list";
 import { OrderList } from "./order-list";
 import { RefundList } from "./refund-list";
 import { ManagerList } from "./manager-list";
-import { UserCenter } from "./user-center";
+import { ShopCenter } from "./shop-center";
 
-import type { UserInfo } from "types/auth";
+import type { ShopInfo } from "types/auth";
 
 export const AuthenticatedApp = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const { data: userInfo } = useUserInfo();
+  const { data: shopInfo } = useShopInfo();
   const { permission, logout } = useAuth();
 
   return (
@@ -54,7 +54,7 @@ export const AuthenticatedApp = () => {
               <Trigger collapsed={collapsed} setCollapsed={setCollapsed} />
               <NavigationBar />
             </Row>
-            <User userInfo={userInfo} logout={logout} />
+            <User shopInfo={shopInfo} logout={logout} />
           </Header>
           <Content>
             <Routes>
@@ -75,7 +75,7 @@ export const AuthenticatedApp = () => {
                 element={<PickupAddressList />}
               />
               <Route path="manager_list" element={<ManagerList />} />
-              <Route path="user_center" element={<UserCenter />} />
+              <Route path="shop_center" element={<ShopCenter />} />
               <Route
                 path={"*"}
                 element={<Navigate to={"dashboard"} replace={true} />}
@@ -194,17 +194,17 @@ const Trigger = ({ collapsed, setCollapsed }: Collapsed) => {
 };
 
 const User = ({
-  userInfo,
+  shopInfo,
   logout,
 }: {
-  userInfo: UserInfo | undefined;
+  shopInfo: ShopInfo | undefined;
   logout: () => void;
 }) => {
   const items: MenuProps["items"] = [
     {
       key: "center",
-      icon: <UserOutlined />,
-      label: <Link to="user_center">个人中心</Link>,
+      icon: <ShopOutlined />,
+      label: <Link to="shop_center">店铺中心</Link>,
     },
     {
       key: "logout",
@@ -225,9 +225,9 @@ const User = ({
       <UserInfoWrap>
         <Avatar
           style={{ marginRight: "0.8rem", width: "3rem", height: "3rem" }}
-          src={userInfo?.avatar}
+          src={shopInfo?.logo}
         />
-        <div>{userInfo?.nickname}</div>
+        <div>{shopInfo?.name}</div>
       </UserInfoWrap>
     </Dropdown>
   );

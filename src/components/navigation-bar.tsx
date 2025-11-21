@@ -11,7 +11,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/pickup_address_list": "提货地点",
   "/refund_address_list": "退货地址",
   "/manager_list": "人员列表",
-  "/user_center": "个人中心",
+  "/shop_center": "店铺中心",
 };
 
 export const NavigationBar = () => {

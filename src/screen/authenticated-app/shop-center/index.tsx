@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { useUpdateUserInfo, useUserInfo } from "service/auth";
+import { useShopInfo, useUpdateShopInfo } from "service/auth";
 
-import { Button, Form, Input, Menu } from "antd";
+import { Button, Col, Form, Input, Menu, Row } from "antd";
 import { useForm } from "antd/es/form/Form";
 import { OssUpload } from "components/oss-upload";
 import { PwdModal } from "./components/pwd-modal";
@@ -24,30 +24,32 @@ const menuOptions = [
   },
 ];
 
-export const UserCenter = () => {
+export const ShopCenter = () => {
   const [form] = useForm();
   const [selectKey, setSelectKey] = useState("base");
 
-  const { data: userInfo } = useUserInfo();
-  const { mutateAsync, isLoading: mutateLoading } = useUpdateUserInfo();
+  const { data: shopInfo } = useShopInfo();
+  const { mutateAsync, isLoading: mutateLoading } = useUpdateShopInfo();
   const { open } = usePwdModal();
 
   useEffect(() => {
-    if (userInfo) {
-      const { avatar, nickname } = userInfo;
+    if (shopInfo) {
+      const { bg, logo, ...rest } = shopInfo;
       form.setFieldsValue({
-        avatar: avatar ? [{ url: avatar }] : [],
-        nickname,
+        bg: bg ? [{ url: bg }] : [],
+        logo: logo ? [{ url: logo }] : [],
+        ...rest,
       });
     }
-  }, [userInfo, form]);
+  }, [shopInfo, form]);
 
   const submit = () => {
     form.validateFields().then(async () => {
-      const { avatar, nickname } = form.getFieldsValue();
+      const { bg, logo, ...rest } = form.getFieldsValue();
       await mutateAsync({
-        avatar: avatar && avatar.length ? avatar[0].url : "",
-        nickname,
+        bg: bg && bg.length ? bg[0].url : "",
+        logo: logo && logo.length ? logo[0].url : "",
+        ...rest,
       });
     });
   };
@@ -68,21 +70,56 @@ export const UserCenter = () => {
           {selectKey === "base" ? (
             <div>
               <Form
-                style={{ marginTop: "3rem", width: "40rem" }}
+                style={{ marginTop: "3rem", width: "80rem" }}
                 form={form}
                 layout="vertical"
               >
-                <Form.Item
-                  name="avatar"
-                  label="头像"
-                  valuePropName="fileList"
-                  getValueFromEvent={normFile}
-                >
-                  <OssUpload maxCount={1} />
-                </Form.Item>
-                <Form.Item name="nickname" label="昵称">
-                  <Input placeholder="请输入昵称" />
-                </Form.Item>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item
+                      name="bg"
+                      label="店铺背景图"
+                      valuePropName="fileList"
+                      getValueFromEvent={normFile}
+                    >
+                      <OssUpload maxCount={1} />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item
+                      name="logo"
+                      label="店铺头像"
+                      valuePropName="fileList"
+                      getValueFromEvent={normFile}
+                    >
+                      <OssUpload maxCount={1} />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item name="name" label="店铺名称">
+                      <Input placeholder="请输入店铺名称" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item name="brief" label="店铺简介">
+                      <Input placeholder="请输入店铺简介" />
+                    </Form.Item>
+                  </Col>
+                </Row>
+                <Row gutter={16}>
+                  <Col span={12}>
+                    <Form.Item name="ownerName" label="店主姓名">
+                      <Input placeholder="请输入店主姓名" />
+                    </Form.Item>
+                  </Col>
+                  <Col span={12}>
+                    <Form.Item name="mobile" label="联系方式">
+                      <Input placeholder="请输入联系方式" />
+                    </Form.Item>
+                  </Col>
+                </Row>
               </Form>
               <Button
                 style={{ marginTop: "3rem" }}
