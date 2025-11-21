@@ -12,10 +12,7 @@ export const LoginScreen = ({
   const { run, isLoading } = useAsync(undefined, { throwOnError: true });
 
   // HTMLFormElement extends Element
-  const handleSubmit = async (values: {
-    account: string;
-    password: string;
-  }) => {
+  const handleSubmit = async (values: { mobile: string; password: string }) => {
     try {
       await run(login(values));
     } catch (e: any) {
@@ -26,10 +23,10 @@ export const LoginScreen = ({
   return (
     <Form onFinish={handleSubmit}>
       <Form.Item
-        name={"account"}
-        rules={[{ required: true, message: "请输入用户名" }]}
+        name={"mobile"}
+        rules={[{ required: true, message: "请输入手机号" }]}
       >
-        <Input placeholder={"用户名"} type="text" id={"account"} />
+        <Input placeholder={"请输入手机号"} id={"mobile"} />
       </Form.Item>
       <Form.Item
         name={"password"}

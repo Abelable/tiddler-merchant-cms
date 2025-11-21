@@ -42,12 +42,12 @@ import type { ShopInfo } from "types/auth";
 export const AuthenticatedApp = () => {
   const [collapsed, setCollapsed] = useState(false);
   const { data: shopInfo } = useShopInfo();
-  const { permission, logout } = useAuth();
+  const { logout } = useAuth();
 
   return (
     <Router>
       <Layout style={{ height: "100vh", overflow: "hidden" }}>
-        <MenuSider permission={permission} collapsed={collapsed} />
+        <MenuSider collapsed={collapsed} />
         <Layout>
           <Header>
             <Row>
@@ -88,13 +88,7 @@ export const AuthenticatedApp = () => {
   );
 };
 
-const MenuSider = ({
-  permission,
-  collapsed,
-}: {
-  permission: string[];
-  collapsed: boolean;
-}) => {
+const MenuSider = ({ collapsed }: { collapsed: boolean }) => {
   const { defaultOpenKey, selectedKey } = useRouteType();
   const { data: shipOrderCount } = useShipOrderCount();
   const { data: waitingRefundCount } = useWaitingRefundCount();

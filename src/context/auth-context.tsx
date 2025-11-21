@@ -6,7 +6,6 @@ import { AuthForm } from "types/auth";
 const AuthContext = createContext<
   | {
       token: string;
-      permission: string[];
       login: (form: AuthForm) => Promise<void>;
       logout: () => Promise<void>;
     }
@@ -15,13 +14,11 @@ const AuthContext = createContext<
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState(auth.getToken() || "");
-  const [permission, setPermission] = useState(auth.getPermission() || []);
   const queryClient = useQueryClient();
 
   const login = (form: AuthForm) =>
-    auth.login(form).then(({ token, permission }) => {
+    auth.login(form).then((token) => {
       setToken(token);
-      setPermission(permission);
     });
   const logout = () =>
     auth.logout().then(() => {
@@ -32,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthContext.Provider
       children={children}
-      value={{ token, permission, login, logout }}
+      value={{ token, login, logout }}
     />
   );
 };

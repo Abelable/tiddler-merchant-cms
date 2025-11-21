@@ -87,7 +87,7 @@ export const PwdModal = () => {
           ]}
         >
           <Input.Password
-            placeholder="请再次输入登录密码"
+            placeholder="请再次输入新密码"
             autoComplete="new-password"
           />
         </Form.Item>

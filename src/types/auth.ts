@@ -1,5 +1,5 @@
 export interface AuthForm {
-  account: string;
+  mobile: string;
   password: string;
 }
 
