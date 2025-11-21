@@ -7,6 +7,7 @@ import { useForm } from "antd/es/form/Form";
 import { OssUpload } from "components/oss-upload";
 import { PwdModal } from "./components/pwd-modal";
 import { usePwdModal } from "./util";
+import { useAuth } from "context/auth-context";
 
 const normFile = (e: any) => {
   if (Array.isArray(e)) return e;
@@ -25,10 +26,11 @@ const menuOptions = [
 ];
 
 export const ShopCenter = () => {
+  const { shopInfo: baseShopInfo } = useAuth();
   const [form] = useForm();
   const [selectKey, setSelectKey] = useState("base");
 
-  const { data: shopInfo } = useShopInfo();
+  const { data: shopInfo } = useShopInfo(baseShopInfo?.id || 0);
   const { mutateAsync, isLoading: mutateLoading } = useUpdateShopInfo();
   const { open } = usePwdModal();
 

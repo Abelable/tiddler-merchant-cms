@@ -3,11 +3,6 @@ export interface AuthForm {
   password: string;
 }
 
-export interface UserInfo {
-  nickname: string;
-  avatar: string | null;
-}
-
 export interface ShopInfo {
   id: number;
   bg: string;
@@ -16,4 +11,11 @@ export interface ShopInfo {
   brief: string;
   ownerName: string;
   mobile: string;
+}
+
+export interface ShopOption {
+  id: number;
+  logo: string;
+  name: string;
+  roleId: number;
 }

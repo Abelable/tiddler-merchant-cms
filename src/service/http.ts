@@ -99,11 +99,11 @@ export const http = async (
 };
 
 export const useHttp = () => {
-  const { token, shopId } = useAuth();
+  const { token, shopInfo } = useAuth();
   return useCallback(
     (...[endpoint, config]: Parameters<typeof http>) =>
-      http(endpoint, { ...config, token, shopId }),
-    [token, shopId]
+      http(endpoint, { ...config, token, shopId: shopInfo?.id }),
+    [token, shopInfo]
   );
 };
 

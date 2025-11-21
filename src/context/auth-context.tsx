@@ -1,12 +1,12 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { useQueryClient } from "react-query";
 import * as auth from "service/auth";
-import { AuthForm } from "types/auth";
+import { AuthForm, ShopOption } from "types/auth";
 
 const AuthContext = createContext<
   | {
       token: string;
-      shopId: number | undefined;
+      shopInfo: ShopOption | undefined;
       login: (form: AuthForm) => Promise<void>;
       logout: () => Promise<void>;
     }
@@ -17,12 +17,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient();
 
   const [token, setToken] = useState(auth.getToken() || "");
-  const [shopId, setShopId] = useState(undefined);
+  const [shopInfo, setShopInfo] = useState<ShopOption>();
 
   const login = (form: AuthForm) =>
-    auth.login(form).then(({ token, shopId }) => {
+    auth.login(form).then(({ token, shopInfo }) => {
       setToken(token);
-      setShopId(shopId);
+      setShopInfo(shopInfo);
     });
 
   const logout = () =>
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   return (
     <AuthContext.Provider
       children={children}
-      value={{ token, shopId, login, logout }}
+      value={{ token, shopInfo, login, logout }}
     />
   );
 };

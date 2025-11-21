@@ -40,9 +40,9 @@ import { ShopCenter } from "./shop-center";
 import type { ShopInfo } from "types/auth";
 
 export const AuthenticatedApp = () => {
+  const { logout, shopInfo: baseShopInfo } = useAuth();
   const [collapsed, setCollapsed] = useState(false);
-  const { data: shopInfo } = useShopInfo();
-  const { logout } = useAuth();
+  const { data: shopInfo } = useShopInfo(baseShopInfo?.id || 0);
 
   return (
     <Router>
