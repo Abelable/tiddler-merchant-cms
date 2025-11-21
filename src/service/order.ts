@@ -180,6 +180,6 @@ export const useModifyDeliveryInfo = (queryKey: QueryKey) => {
 export const useExpressOptions = () => {
   const client = useHttp();
   return useQuery<ExpressOption[]>(["express_options"], () =>
-    client("express/options")
+    client("shop/express_options")
   );
 };
