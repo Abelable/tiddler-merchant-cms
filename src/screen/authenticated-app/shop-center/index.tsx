@@ -26,11 +26,11 @@ const menuOptions = [
 ];
 
 export const ShopCenter = () => {
-  const { shopInfo: baseShopInfo } = useAuth();
+  const { shopId } = useAuth();
   const [form] = useForm();
   const [selectKey, setSelectKey] = useState("base");
 
-  const { data: shopInfo } = useShopInfo(baseShopInfo?.id || 0);
+  const { data: shopInfo } = useShopInfo(shopId);
   const { mutateAsync, isLoading: mutateLoading } = useUpdateShopInfo();
   const { open } = usePwdModal();
 

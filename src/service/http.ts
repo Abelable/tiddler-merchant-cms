@@ -69,6 +69,7 @@ export const http = async (
             else return Promise.reject({ message: result.message });
           } else if (response.status === 403 && auth.getToken()) {
             auth.removeToken();
+            auth.removeShopId();
             window.location.reload();
             return Promise.reject({ message: "请重新登录" });
           } else if (response.status === 401) {
@@ -83,6 +84,7 @@ export const http = async (
       } else {
         if (response.status === 403 && auth.getToken()) {
           auth.removeToken();
+          auth.removeShopId();
           window.location.reload();
           return Promise.reject({ message: "请重新登录" });
         } else if (response.status === 401) {
@@ -99,11 +101,11 @@ export const http = async (
 };
 
 export const useHttp = () => {
-  const { token, shopInfo } = useAuth();
+  const { token, shopId } = useAuth();
   return useCallback(
     (...[endpoint, config]: Parameters<typeof http>) =>
-      http(endpoint, { ...config, token, shopId: shopInfo?.id }),
-    [token, shopInfo]
+      http(endpoint, { ...config, token, shopId }),
+    [token, shopId]
   );
 };
 
