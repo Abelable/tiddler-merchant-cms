@@ -23,7 +23,7 @@ export const useOrderList = (params: Partial<OrderListSearchParams>) => {
   const client = useHttp();
   return useQuery<OrderListResult>(["order_list", params], () =>
     client("shop/order/list", {
-      data: { ...params, shopId: 1 },
+      data: params,
       method: "POST",
     })
   );
@@ -132,7 +132,7 @@ export const useOrderedGoodsOptions = () => {
 export const useShipOrderCount = () => {
   const client = useHttp();
   return useQuery(["ship_order_count"], () =>
-    client("shop/order/ship_order_count", { data: { shopId: 1 } })
+    client("shop/order/ship_order_count")
   );
 };
 

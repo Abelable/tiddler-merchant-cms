@@ -23,7 +23,7 @@ export const usePickupAddressList = (
     ["pickup_address_list", params],
     () =>
       client("shop/pickup_address/list", {
-        data: { ...params, shopId: 1 },
+        data: params,
         method: "POST",
       })
   );
@@ -79,6 +79,6 @@ export const useDeletePickupAddress = (queryKey: QueryKey) => {
 export const usePickupAddressOptions = () => {
   const client = useHttp();
   return useQuery<DataOption[]>(["pickup_address_options"], () =>
-    client("shop/pickup_address/options", { data: { shopId: 1 } })
+    client("shop/pickup_address/options")
   );
 };

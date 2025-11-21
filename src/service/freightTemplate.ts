@@ -22,7 +22,7 @@ export const useFreightTemplateList = (
     ["freight_template_list", params],
     () =>
       client("shop/freight_template/list", {
-        data: { ...params, shopId: 1 },
+        data: params,
         method: "POST",
       })
   );
@@ -78,6 +78,6 @@ export const useDeleteFreightTemplate = (queryKey: QueryKey) => {
 export const useFreightTemplateOptions = () => {
   const client = useHttp();
   return useQuery<FreightTemplateOption[]>(["freight_template_options"], () =>
-    client("shop/freight_template/options", { data: { shopId: 1 } })
+    client("shop/freight_template/options")
   );
 };

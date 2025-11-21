@@ -19,7 +19,7 @@ import type {
 export const useGoodsCategoryOptions = () => {
   const client = useHttp();
   return useQuery<GoodsCategoryOption[]>(["category_options"], () =>
-    client("shop/goods/category_options", { data: { shopId: 1 } })
+    client("shop/goods/category_options")
   );
 };
 
@@ -27,7 +27,7 @@ export const useGoodsList = (params: Partial<GoodsListSearchParams>) => {
   const client = useHttp();
   return useQuery<GoodsListResult>(["goods_list", params], () =>
     client("shop/goods/list", {
-      data: { ...params, shopId: 1 },
+      data: params,
       method: "POST",
     })
   );
@@ -37,7 +37,7 @@ export const useGoods = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<Goods>>(
     ["goods", { id }],
-    () => client("shop/goods/detail", { data: { id, shopId: 1 } }),
+    () => client("shop/goods/detail", { data: { id } }),
     {
       enabled: !!id,
       cacheTime: 0,

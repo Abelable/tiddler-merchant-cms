@@ -16,7 +16,7 @@ export const useRefundList = (params: Partial<RefundListSearchParams>) => {
   const client = useHttp();
   return useQuery<RefundListResult>(["refund_list", params], () =>
     client("shop/refund/list", {
-      data: { ...params, shopId: 1 },
+      data: params,
       method: "POST",
     })
   );
@@ -26,7 +26,7 @@ export const useRefund = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<RefundDetail>>(
     ["refund_detail", { id }],
-    () => client("shop/refund/detail", { data: { id, shopId: 1 } }),
+    () => client("shop/refund/detail", { data: { id } }),
     {
       enabled: !!id,
     }
@@ -38,7 +38,7 @@ export const useApprovedRefund = (queryKey: QueryKey) => {
   return useMutation(
     (id: number) =>
       client("shop/refund/approved", {
-        data: { id, shopId: 1 },
+        data: { id },
         method: "POST",
       }),
     useApprovedRefundConfig(queryKey)
@@ -48,7 +48,7 @@ export const useApprovedRefund = (queryKey: QueryKey) => {
 export const useShippingInfo = (id: number) => {
   const client = useHttp();
   return useQuery<ShippingInfo>(
-    ["shipping_info", { id, shopId: 1 }],
+    ["shipping_info", { id }],
     () => client("shop/refund/shipping_info", { data: { id } }),
     {
       enabled: !!id,
@@ -61,7 +61,7 @@ export const useRejectRefund = (queryKey: QueryKey) => {
   return useMutation(
     (data: { id: number; failureReason: string }) =>
       client("shop/refund/reject", {
-        data: { ...data, shopId: 1 },
+        data,
         method: "POST",
       }),
     useRejectRefundConfig(queryKey)
@@ -73,7 +73,7 @@ export const useDeleteRefund = (queryKey: QueryKey) => {
   return useMutation(
     (id: number) =>
       client("shop/refund/delete", {
-        data: { id, shopId: 1 },
+        data: { id },
         method: "POST",
       }),
     useDeleteConfig(queryKey)
@@ -83,6 +83,6 @@ export const useDeleteRefund = (queryKey: QueryKey) => {
 export const useWaitingRefundCount = () => {
   const client = useHttp();
   return useQuery(["waiting_refund_count"], () =>
-    client("shop/refund/waiting_count", { data: { shopId: 1 } })
+    client("shop/refund/waiting_count")
   );
 };

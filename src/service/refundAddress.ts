@@ -23,7 +23,7 @@ export const useRefundAddressList = (
     ["refund_address_list", params],
     () =>
       client("shop/refund_address/list", {
-        data: { ...params, shopId: 1 },
+        data: params,
         method: "POST",
       })
   );
@@ -79,6 +79,6 @@ export const useDeleteRefundAddress = (queryKey: QueryKey) => {
 export const useRefundAddressOptions = () => {
   const client = useHttp();
   return useQuery<DataOption[]>(["refund_address_options"], () =>
-    client("shop/refund_address/options", { data: { shopId: 1 } })
+    client("shop/refund_address/options")
   );
 };
