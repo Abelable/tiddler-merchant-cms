@@ -7,8 +7,7 @@ import styled from "@emotion/styled";
 import { useDeliveryOrder, useModifyDeliveryInfo } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
-import type { ExpressOption } from "types/express";
-import type { OrderGoods } from "types/order";
+import type { ExpressOption, OrderGoods } from "types/order";
 
 interface Package {
   shipCode: string;

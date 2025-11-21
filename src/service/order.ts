@@ -11,6 +11,7 @@ import {
 
 import type {
   Delivery,
+  ExpressOption,
   OrderDetail,
   OrderListResult,
   OrderListSearchParams,
@@ -173,5 +174,12 @@ export const useModifyDeliveryInfo = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useDeliveryOrderConfig(queryKey)
+  );
+};
+
+export const useExpressOptions = () => {
+  const client = useHttp();
+  return useQuery<ExpressOption[]>(["express_options"], () =>
+    client("express/options")
   );
 };

@@ -3,8 +3,8 @@ import { ErrorBox, ModalLoading } from "components/lib";
 import { useRefundModal, useShippingModal } from "../util";
 
 import type { Option } from "types/common";
-import type { ExpressOption } from "types/express";
 import type { Goods } from "types/refund";
+import type { ExpressOption } from "types/order";
 
 export const RefundModal = ({
   statusOptions,

@@ -96,3 +96,8 @@ export interface OrderDetail extends Omit<Order, "goodsList"> {
   confirmTime: string;
   finishTime: string;
 }
+
+export interface ExpressOption {
+  name: string;
+  code: string;
+}

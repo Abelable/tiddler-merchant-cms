@@ -6,7 +6,7 @@ import { ShippingModal } from "./components/shipping-modal";
 
 import styled from "@emotion/styled";
 import { useRefundList } from "service/refund";
-import { useExpressOptions } from "service/express";
+import { useExpressOptions } from "service/order";
 import { toNumber } from "utils";
 import { useRefundListSearchParams } from "./util";
 
