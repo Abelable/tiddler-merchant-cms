@@ -26,7 +26,7 @@ export const LoginScreen = ({
         name={"mobile"}
         rules={[{ required: true, message: "请输入手机号" }]}
       >
-        <Input placeholder={"请输入手机号"} id={"mobile"} />
+        <Input placeholder={"请输入手机号"} id={"account"} />
       </Form.Item>
       <Form.Item
         name={"password"}

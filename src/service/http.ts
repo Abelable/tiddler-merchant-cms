@@ -9,13 +9,14 @@ const VERSION = process.env.REACT_APP_VERSION;
 
 interface Config extends RequestInit {
   token?: string;
+  shopId?: number;
   data?: object;
   formData?: FormData;
 }
 
 export const http = async (
   endpoint: string,
-  { token, data, formData, headers, ...customConfig }: Config = {}
+  { token, shopId, data, formData, headers, ...customConfig }: Config = {}
 ) => {
   const config = {
     method: "GET",
@@ -29,13 +30,13 @@ export const http = async (
   };
 
   if (config.method.toUpperCase() === "GET") {
-    endpoint += `?${qs.stringify(data)}`;
+    endpoint += `?${qs.stringify({ ...data, shopId })}`;
   } else {
     if (formData) {
       config.body = formData;
     } else {
       config.headers["Content-Type"] = "application/json";
-      config.body = JSON.stringify(data || {});
+      config.body = JSON.stringify(data ? { ...data, shopId } : {});
     }
   }
   return window
@@ -98,11 +99,11 @@ export const http = async (
 };
 
 export const useHttp = () => {
-  const { token } = useAuth();
+  const { token, shopId } = useAuth();
   return useCallback(
     (...[endpoint, config]: Parameters<typeof http>) =>
-      http(endpoint, { ...config, token }),
-    [token]
+      http(endpoint, { ...config, token, shopId }),
+    [token, shopId]
   );
 };
 

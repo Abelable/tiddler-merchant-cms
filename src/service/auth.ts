@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { AuthForm, ShopInfo } from "types/auth";
+import { AuthForm, ShopInfo, UserInfo } from "types/auth";
 import { http, useHttp } from "./http";
 import { cleanObject } from "utils";
 import { useEditAdminBaseInfoConfig } from "./use-optimistic-options";
@@ -11,12 +11,12 @@ export const removeToken = () =>
   window.localStorage.removeItem(localStorageKey);
 
 export const login = async (form: AuthForm) => {
-  const token = await http("auth/login", {
+  const { token, shopOptions } = await http("auth/login", {
     method: "POST",
     data: form,
   });
   window.localStorage.setItem(localStorageKey, token);
-  return token;
+  return { token, shopId: shopOptions[0].id };
 };
 
 export const logout = async () => {
@@ -40,6 +40,11 @@ export const resetPassword = async ({
     data: { password, newPassword },
     method: "POST",
   });
+};
+
+export const useUserInfo = () => {
+  const client = useHttp();
+  return useQuery<UserInfo>(["user_info"], () => client("user/me"));
 };
 
 export const useShopInfo = () => {
