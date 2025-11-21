@@ -5,9 +5,6 @@ import { HashRouter as Router, Link } from "react-router-dom";
 import { Routes, Route, Navigate } from "react-router";
 import { useRouteType } from "utils/url";
 import { useUserInfo } from "service/auth";
-import { useAuthInfoPendingCount } from "service/authInfo";
-import { useEnterpriseInfoPendingCount } from "service/enterpriseInfo";
-import { useWithdrawPendingCount } from "service/withdraw";
 import { useShipOrderCount } from "service/order";
 import { useWaitingRefundCount } from "service/refund";
 

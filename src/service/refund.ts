@@ -15,7 +15,10 @@ import type { ShippingInfo } from "types/common";
 export const useRefundList = (params: Partial<RefundListSearchParams>) => {
   const client = useHttp();
   return useQuery<RefundListResult>(["refund_list", params], () =>
-    client("refund/list", { data: params, method: "POST" })
+    client("shop/refund/list", {
+      data: { ...params, shopId: 1 },
+      method: "POST",
+    })
   );
 };
 
@@ -23,7 +26,7 @@ export const useRefund = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<RefundDetail>>(
     ["refund_detail", { id }],
-    () => client("refund/detail", { data: { id } }),
+    () => client("shop/refund/detail", { data: { id, shopId: 1 } }),
     {
       enabled: !!id,
     }
@@ -34,8 +37,8 @@ export const useApprovedRefund = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("refund/approved", {
-        data: { id },
+      client("shop/refund/approved", {
+        data: { id, shopId: 1 },
         method: "POST",
       }),
     useApprovedRefundConfig(queryKey)
@@ -45,8 +48,8 @@ export const useApprovedRefund = (queryKey: QueryKey) => {
 export const useShippingInfo = (id: number) => {
   const client = useHttp();
   return useQuery<ShippingInfo>(
-    ["shipping_info", { id }],
-    () => client("refund/shipping_info", { data: { id } }),
+    ["shipping_info", { id, shopId: 1 }],
+    () => client("shop/refund/shipping_info", { data: { id } }),
     {
       enabled: !!id,
     }
@@ -57,8 +60,8 @@ export const useRejectRefund = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (data: { id: number; failureReason: string }) =>
-      client("refund/reject", {
-        data,
+      client("shop/refund/reject", {
+        data: { ...data, shopId: 1 },
         method: "POST",
       }),
     useRejectRefundConfig(queryKey)
@@ -69,8 +72,8 @@ export const useDeleteRefund = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
     (id: number) =>
-      client("refund/delete", {
-        data: { id },
+      client("shop/refund/delete", {
+        data: { id, shopId: 1 },
         method: "POST",
       }),
     useDeleteConfig(queryKey)
@@ -80,6 +83,6 @@ export const useDeleteRefund = (queryKey: QueryKey) => {
 export const useWaitingRefundCount = () => {
   const client = useHttp();
   return useQuery(["waiting_refund_count"], () =>
-    client("refund/waiting_count")
+    client("shop/refund/waiting_count", { data: { shopId: 1 } })
   );
 };
