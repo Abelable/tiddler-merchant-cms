@@ -1,9 +1,10 @@
-import type { ManagerListSearchParams } from "types/manager";
-import type { RoleOption } from "types/role";
 import { useState } from "react";
 import styled from "@emotion/styled";
+
 import { Row } from "components/lib";
 import { Button, Input, Select } from "antd";
+
+import type { ManagerListSearchParams, RoleOption } from "types/manager";
 
 export interface SearchPanelProps {
   roleOptions: RoleOption[];

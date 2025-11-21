@@ -29,3 +29,8 @@ export interface UserOption {
   nickname: string;
   mobile: string;
 }
+
+export interface RoleOption {
+  id: number;
+  name: string;
+}

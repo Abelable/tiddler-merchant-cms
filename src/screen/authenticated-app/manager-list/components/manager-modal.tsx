@@ -13,7 +13,7 @@ import { useDebounce } from "utils";
 import { useAddManager, useEditManager, useUserOptions } from "service/manager";
 import { useManagerModal, useManagerListQueryKey } from "../util";
 
-import type { RoleOption } from "types/role";
+import type { RoleOption } from "types/manager";
 
 export const ManagerModal = ({
   roleOptions,
