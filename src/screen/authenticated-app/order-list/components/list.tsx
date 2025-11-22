@@ -107,11 +107,6 @@ export const List = ({
             fixed: "left",
           },
           {
-            title: "订单编号",
-            dataIndex: "orderSn",
-            width: "21rem",
-          },
-          {
             title: "订单状态",
             dataIndex: "status",
             render: (value, order) => {
@@ -172,6 +167,11 @@ export const List = ({
             filters: statusDescOptions,
             onFilter: (value, order) => order.status === value,
             width: "18rem",
+          },
+          {
+            title: "订单编号",
+            dataIndex: "orderSn",
+            width: "21rem",
           },
           {
             title: "商品信息",

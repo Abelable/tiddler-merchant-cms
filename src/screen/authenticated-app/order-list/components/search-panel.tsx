@@ -37,6 +37,10 @@ export const SearchPanel = ({
 }: SearchPanelProps) => {
   const [tempParams, setTempParams] = useState(defaultParmas);
 
+  const setStatus = (status: number) =>
+    setTempParams({ ...tempParams, status });
+  const clearStatus = () => setTempParams({ ...tempParams, status: undefined });
+
   const setOrderSn = (evt: any) => {
     if (!evt.target.value && evt.type !== "change") {
       setTempParams({
@@ -51,10 +55,6 @@ export const SearchPanel = ({
       orderSn: evt.target.value,
     });
   };
-
-  const setStatus = (status: number) =>
-    setTempParams({ ...tempParams, status });
-  const clearStatus = () => setTempParams({ ...tempParams, status: undefined });
 
   const setUser = (userId: number) => setTempParams({ ...tempParams, userId });
   const clearUser = () => setTempParams({ ...tempParams, userId: undefined });
@@ -107,16 +107,6 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>订单编号：</div>
-        <Input
-          style={{ width: "20rem" }}
-          value={tempParams.orderSn}
-          onChange={setOrderSn}
-          placeholder="请输入订单编号"
-          allowClear
-        />
-      </Item>
-      <Item>
         <div>订单状态：</div>
         <Select
           style={{ width: "20rem" }}
@@ -132,6 +122,16 @@ export const SearchPanel = ({
             </Select.Option>
           ))}
         </Select>
+      </Item>
+      <Item>
+        <div>订单编号：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.orderSn}
+          onChange={setOrderSn}
+          placeholder="请输入订单编号"
+          allowClear
+        />
       </Item>
       <Item>
         <div>订单商品：</div>
