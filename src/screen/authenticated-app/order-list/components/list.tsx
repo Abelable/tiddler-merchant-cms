@@ -44,8 +44,8 @@ const statusDescOptions = [
   { text: "已确认（用户）", value: 401 },
   { text: "已确认（系统）", value: 402 },
   { text: "已确认（管理员）", value: 403 },
-  { text: "已完成（用户）", value: 501 },
-  { text: "已完成（系统）", value: 502 },
+  { text: "已评价（用户）", value: 501 },
+  { text: "已评价（系统）", value: 502 },
 ];
 
 interface ListProps
