@@ -22,6 +22,10 @@ import {
 import { toNumber } from "utils";
 import { useOrderListQueryKey, useOrderListSearchParams } from "./util";
 
+const deliveryModeOptions = [
+  { text: "物流配送", value: 1 },
+  { text: "到店自提", value: 2 },
+];
 const statusOptions = [
   { text: "待发货", value: 1 },
   { text: "待收货", value: 2 },
@@ -99,11 +103,11 @@ export const OrderList = () => {
           statusOptions={statusOptions}
           userOptions={userOptions}
           goodsOptions={goodsOptions}
+          deliveryModeOptions={deliveryModeOptions}
           params={params}
           setParams={setParams}
         />
         <List
-          statusOptions={statusOptions}
           selectedRowKeys={selectedRowKeys}
           setSelectedRowKeys={setSelectedRowKeys}
           params={params}

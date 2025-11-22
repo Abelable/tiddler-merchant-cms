@@ -12,16 +12,17 @@ export interface SearchPanelProps {
   statusOptions: Option[];
   userOptions: { id: number; avatar: string; nickname: string }[];
   goodsOptions: { id: number; cover: string; name: string }[];
+  deliveryModeOptions: Option[];
   params: Partial<OrderListSearchParams>;
   setParams: (params: Partial<OrderListSearchParams>) => void;
 }
 
 const defaultParmas: Partial<OrderListSearchParams> = {
-  orderSn: "",
   status: undefined,
+  orderSn: "",
   goodsId: undefined,
-  merchantId: undefined,
   userId: undefined,
+  deliveryMode: undefined,
   consignee: "",
   mobile: "",
 };
@@ -30,6 +31,7 @@ export const SearchPanel = ({
   statusOptions,
   userOptions,
   goodsOptions,
+  deliveryModeOptions,
   params,
   setParams,
 }: SearchPanelProps) => {
@@ -61,6 +63,11 @@ export const SearchPanel = ({
     setTempParams({ ...tempParams, goodsId });
   const clearGoodsId = () =>
     setTempParams({ ...tempParams, goodsId: undefined });
+
+  const setDeliveryMode = (deliveryMode: number) =>
+    setTempParams({ ...tempParams, deliveryMode });
+  const clearDeliveryMode = () =>
+    setTempParams({ ...tempParams, deliveryMode: undefined });
 
   const setConsignee = (evt: any) => {
     if (!evt.target.value && evt.type !== "change") {
@@ -170,6 +177,23 @@ export const SearchPanel = ({
             <Select.Option key={id} value={id}>
               <OptionAvatar src={avatar} icon={<UserOutlined />} />
               <span>{nickname}</span>
+            </Select.Option>
+          ))}
+        </Select>
+      </Item>
+      <Item>
+        <div>配送方式：</div>
+        <Select
+          style={{ width: "20rem" }}
+          value={tempParams.deliveryMode}
+          placeholder="请选择配送方式"
+          allowClear
+          onSelect={setDeliveryMode}
+          onClear={clearDeliveryMode}
+        >
+          {deliveryModeOptions?.map(({ text, value }) => (
+            <Select.Option key={value} value={value}>
+              {text}
             </Select.Option>
           ))}
         </Select>

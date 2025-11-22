@@ -55,7 +55,10 @@ const statusDescOptions = [
 
 interface ListProps
   extends TableProps<Order>,
-    Omit<SearchPanelProps, "userOptions" | "goodsOptions"> {
+    Omit<
+      SearchPanelProps,
+      "statusOptions" | "deliveryModeOptions" | "userOptions" | "goodsOptions"
+    > {
   error: Error | unknown;
   selectedRowKeys: React.Key[];
   setSelectedRowKeys: (selectedRowKeys: []) => void;
