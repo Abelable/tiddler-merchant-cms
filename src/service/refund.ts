@@ -45,7 +45,7 @@ export const useApprovedRefund = (queryKey: QueryKey) => {
   );
 };
 
-export const useShippingInfo = (id: number) => {
+export const useTrackingInfo = (id: number) => {
   const client = useHttp();
   return useQuery<ShippingInfo>(
     ["shipping_info", { id }],

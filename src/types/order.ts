@@ -65,7 +65,7 @@ export interface Package {
   goodsList: PackageGoods[];
 }
 
-export interface Delivery {
+export interface Shipment {
   id: number;
   isAllDelivered: number;
   packageList: {

@@ -2,17 +2,17 @@ import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
 import {
   useConfirmOrderConfig,
-  useDeliveryOrderConfig,
+  useShipOrderConfig,
   useExportOrderConfig,
   useRefundOrderConfig,
 } from "./use-optimistic-options";
 
 import type {
-  Delivery,
   ExpressOption,
   OrderDetail,
   OrderListResult,
   OrderListSearchParams,
+  Shipment,
 } from "types/order";
 import type { ShippingInfo } from "types/common";
 import type { GoodsOption } from "types/goods";
@@ -47,17 +47,6 @@ export const useRefundOrder = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useRefundOrderConfig(queryKey)
-  );
-};
-
-export const useShippingInfo = (id: number) => {
-  const client = useHttp();
-  return useQuery<ShippingInfo>(
-    ["shipping_info", { id }],
-    () => client("shop/order/shipping_info", { data: { id } }),
-    {
-      enabled: !!id,
-    }
   );
 };
 
@@ -123,31 +112,42 @@ export const useModifyOrderAddressInfo = (queryKey: QueryKey) => {
         data,
         method: "POST",
       }),
-    useDeliveryOrderConfig(queryKey)
+    useShipOrderConfig(queryKey)
   );
 };
 
-export const useDeliveryOrder = (queryKey: QueryKey) => {
+export const useShipOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (data: Delivery) =>
-      client("shop/order/delivery", {
+    (data: Shipment) =>
+      client("shop/order/ship", {
         data,
         method: "POST",
       }),
-    useDeliveryOrderConfig(queryKey)
+    useShipOrderConfig(queryKey)
   );
 };
 
-export const useModifyDeliveryInfo = (queryKey: QueryKey) => {
+export const useModifyShipment = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (data: Partial<Delivery>) =>
-      client("shop/order/modify_delivery_info", {
+    (data: Partial<Shipment>) =>
+      client("shop/order/modify_shipment", {
         data,
         method: "POST",
       }),
-    useDeliveryOrderConfig(queryKey)
+    useShipOrderConfig(queryKey)
+  );
+};
+
+export const useTrackingInfo = (id: number) => {
+  const client = useHttp();
+  return useQuery<ShippingInfo>(
+    ["tracking_info", { id }],
+    () => client("shop/order/tracking_info", { data: { id } }),
+    {
+      enabled: !!id,
+    }
   );
 };
 

@@ -124,7 +124,7 @@ export const useRefundOrderConfig = (queryKey: QueryKey) =>
       : null
   );
 
-export const useDeliveryOrderConfig = (queryKey: QueryKey) =>
+export const useShipOrderConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) =>
     old
       ? {

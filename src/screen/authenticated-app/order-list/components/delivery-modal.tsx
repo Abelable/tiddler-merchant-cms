@@ -4,7 +4,7 @@ import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import { useForm } from "antd/lib/form/Form";
 import styled from "@emotion/styled";
-import { useDeliveryOrder, useModifyDeliveryInfo } from "service/order";
+import { useShipOrder, useModifyShipment } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
 import type { ExpressOption, OrderGoods } from "types/order";
@@ -30,9 +30,9 @@ export const DeliveryModal = ({
   } = useDeliveryModal();
 
   const { mutateAsync: deliveryOrder, isLoading: deliveryLoading } =
-    useDeliveryOrder(useOrderListQueryKey());
+    useShipOrder(useOrderListQueryKey());
   const { mutateAsync: modifyDeliveryInfo, isLoading: modifyLoading } =
-    useModifyDeliveryInfo(useOrderListQueryKey());
+    useModifyShipment(useOrderListQueryKey());
 
   const [optionsGoodsList, setOptionsGoodsList] = useState<OrderGoods[]>([]);
 

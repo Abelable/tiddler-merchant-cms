@@ -1,6 +1,6 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useRefund, useShippingInfo } from "service/refund";
+import { useRefund, useTrackingInfo } from "service/refund";
 
 export const useRefundListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
@@ -90,7 +90,7 @@ export const useShippingModal = () => {
     data: shippingInfo,
     isLoading,
     error,
-  } = useShippingInfo(Number(shippingRefundId));
+  } = useTrackingInfo(Number(shippingRefundId));
 
   const open = useCallback(
     (id: number) => setShippingRefundId({ shippingRefundId: `${id}` }),

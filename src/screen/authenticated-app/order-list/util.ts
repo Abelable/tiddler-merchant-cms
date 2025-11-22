@@ -1,6 +1,6 @@
 import { useSetUrlSearchParams, useUrlQueryParams } from "utils/url";
 import { useCallback, useMemo } from "react";
-import { useOrder, useShippingInfo } from "service/order";
+import { useOrder, useTrackingInfo } from "service/order";
 
 export const useOrderListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
@@ -109,7 +109,7 @@ export const useShippingModal = () => {
     data: shippingInfo,
     isLoading,
     error,
-  } = useShippingInfo(Number(shippingPackageId));
+  } = useTrackingInfo(Number(shippingPackageId));
 
   const open = useCallback(
     (id: number) => setShippingPackageId({ shippingPackageId: `${id}` }),
