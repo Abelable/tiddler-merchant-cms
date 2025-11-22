@@ -23,21 +23,11 @@ import { toNumber } from "utils";
 import { useOrderListQueryKey, useOrderListSearchParams } from "./util";
 
 const statusOptions = [
-  { text: "待付款", value: 101 },
-  { text: "用户取消", value: 102 },
-  { text: "系统取消", value: 103 },
-  { text: "管理员取消", value: 104 },
-  { text: "待发货", value: 201 },
-  { text: "待发货（已导出）", value: 204 },
-  { text: "待退款", value: 202 },
-  { text: "已退款", value: 203 },
-  { text: "待收货", value: 301 },
-  { text: "待使用", value: 302 },
-  { text: "用户已确认", value: 401 },
-  { text: "系统确认", value: 402 },
-  { text: "管理员确认", value: 403 },
-  { text: "完成评价", value: 501 },
-  { text: "系统完成", value: 502 },
+  { text: "待发货", value: 1 },
+  { text: "待收货", value: 2 },
+  { text: "待使用", value: 3 },
+  { text: "已完成", value: 4 },
+  { text: "退款/售后", value: 5 },
 ];
 const batchOprationOptions = [
   { name: "取消订单", value: 1 },

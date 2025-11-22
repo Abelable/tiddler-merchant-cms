@@ -38,6 +38,20 @@ import type { Order, OrderGoods } from "types/order";
 
 const { Countdown } = Statistic;
 
+const statusDescOptions = [
+  { text: "待发货", value: 201 },
+  { text: "待发货（已导出）", value: 202 },
+  { text: "待退款", value: 203 },
+  { text: "已退款", value: 204 },
+  { text: "待收货", value: 301 },
+  { text: "待使用", value: 302 },
+  { text: "已确认（用户）", value: 401 },
+  { text: "已确认（系统）", value: 402 },
+  { text: "已确认（管理员）", value: 403 },
+  { text: "已完成（用户）", value: 501 },
+  { text: "已完成（系统）", value: 502 },
+];
+
 interface ListProps
   extends TableProps<Order>,
     Omit<SearchPanelProps, "userOptions" | "goodsOptions"> {
@@ -47,7 +61,6 @@ interface ListProps
 }
 
 export const List = ({
-  statusOptions,
   selectedRowKeys,
   setSelectedRowKeys,
   error,
@@ -102,7 +115,7 @@ export const List = ({
                 dayjs(order.createdAt).valueOf() + 1000 * 60 * 60 * 24 * 2;
               return (
                 <Row>
-                  {[201, 204].includes(value) ? (
+                  {[201, 202].includes(value) ? (
                     deadline <= Date.now() ? (
                       <Tooltip title="超时未发货" color="#ff4d4f">
                         <ExclamationCircleFilled
@@ -137,19 +150,22 @@ export const List = ({
                   )}
                   <span
                     style={{
-                      color: [201, 204].includes(value)
+                      color: [201, 202].includes(value)
                         ? deadline <= Date.now()
                           ? "#ff4d4f"
                           : "#faad14"
                         : "#333",
                     }}
                   >
-                    {statusOptions.find((item) => item.value === value)?.text}
+                    {
+                      statusDescOptions.find((item) => item.value === value)
+                        ?.text
+                    }
                   </span>
                 </Row>
               );
             },
-            filters: statusOptions,
+            filters: statusDescOptions,
             onFilter: (value, order) => order.status === value,
             width: "18rem",
           },
