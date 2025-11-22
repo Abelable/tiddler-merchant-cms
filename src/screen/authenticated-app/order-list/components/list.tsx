@@ -9,6 +9,7 @@ import {
   TableProps,
   Statistic,
   Tooltip,
+  Tag,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
 import { FileUpload } from "components/file-upload";
@@ -223,6 +224,24 @@ export const List = ({
               </>
             ),
             width: "20rem",
+          },
+          {
+            title: "配送方式",
+            dataIndex: "deliveryMode",
+            render: (value) => (
+              <Tag>{value === 1 ? "物流配送" : "到店自提"}</Tag>
+            ),
+            width: "12rem",
+          },
+          {
+            title: "收件人",
+            dataIndex: "consignee",
+            width: "12rem",
+          },
+          {
+            title: "收件人手机号",
+            dataIndex: "mobile",
+            width: "18rem",
           },
           {
             title: "提交时间",
