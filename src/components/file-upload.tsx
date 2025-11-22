@@ -24,7 +24,7 @@ export const FileUpload = ({
 
   return (
     <Upload
-      action={`${API_URL}/api/${VERSION}/admin/order/import`}
+      action={`${API_URL}/api/${VERSION}/shop/order/import`}
       headers={{
         Authorization: `Bearer ${token}`,
         timestamp: initTimestamp(),
