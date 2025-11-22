@@ -6,7 +6,6 @@ import {
   Steps,
   Card,
   Button,
-  Modal,
   Table,
   Avatar,
 } from "antd";
@@ -15,13 +14,7 @@ import { UserOutlined } from "@ant-design/icons";
 
 import { useEffect, useState } from "react";
 import dayjs from "dayjs";
-import { useCancelOrder, useDeleteOrder } from "service/order";
-import {
-  useDeliveryModal,
-  useOrderListQueryKey,
-  useOrderModal,
-  useShippingModal,
-} from "../util";
+import { useDeliveryModal, useOrderModal, useShippingModal } from "../util";
 
 import type { Option } from "types/common";
 import { PackageGoods } from "types/order";
@@ -559,45 +552,7 @@ export const OrderModal = ({
 
 const Extra = ({ id, status }: { id: number; status: number }) => {
   const { open: openDeliveryModal } = useDeliveryModal();
-  const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
-  const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
-
-  const confirmCancel = () => {
-    Modal.confirm({
-      title: "确定取消该订单吗？",
-      content: "点击确定取消",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => cancelOrder([id]),
-    });
-  };
-  const confirmDelete = () => {
-    Modal.confirm({
-      title: "确定删除该订单吗？",
-      content: "点击确定删除",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => deleteOrder([id]),
-    });
-  };
-
   switch (status) {
-    case 101:
-      return (
-        <Button onClick={() => confirmCancel()} type={"primary"} danger>
-          取消订单
-        </Button>
-      );
-
-    case 102:
-    case 103:
-    case 104:
-      return (
-        <Button onClick={() => confirmDelete()} type={"primary"} danger>
-          删除订单
-        </Button>
-      );
-
     case 201:
     case 204:
       return (

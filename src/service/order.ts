@@ -1,8 +1,6 @@
 import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
 import {
-  useDeleteConfig,
-  useCancelOrderConfig,
   useConfirmOrderConfig,
   useDeliveryOrderConfig,
   useExportOrderConfig,
@@ -40,18 +38,6 @@ export const useOrder = (id: number) => {
   );
 };
 
-export const useCancelOrder = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (ids: number[]) =>
-      client("shop/order/cancel", {
-        data: { ids },
-        method: "POST",
-      }),
-    useCancelOrderConfig(queryKey)
-  );
-};
-
 export const useRefundOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
@@ -84,18 +70,6 @@ export const useConfirmOrder = (queryKey: QueryKey) => {
         method: "POST",
       }),
     useConfirmOrderConfig(queryKey)
-  );
-};
-
-export const useDeleteOrder = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (ids: number[]) =>
-      client("shop/order/delete", {
-        data: { ids },
-        method: "POST",
-      }),
-    useDeleteConfig(queryKey)
   );
 };
 

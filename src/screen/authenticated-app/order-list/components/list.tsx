@@ -21,12 +21,7 @@ import {
 
 import dayjs from "dayjs";
 import { useQueryClient } from "react-query";
-import {
-  useCancelOrder,
-  useConfirmOrder,
-  useDeleteOrder,
-  useRefundOrder,
-} from "service/order";
+import { useConfirmOrder, useRefundOrder } from "service/order";
 import {
   useOrderModal,
   useOrderListQueryKey,
@@ -293,20 +288,8 @@ const More = ({ id, status }: { id: number; status: number }) => {
   const { open: openDeliveryModal, modify: modifyDelivery } =
     useDeliveryModal();
   const { open: openAddressModal } = useAddressModal();
-  const { mutate: cancelOrder } = useCancelOrder(useOrderListQueryKey());
   const { mutate: refundOrder } = useRefundOrder(useOrderListQueryKey());
   const { mutate: confirmOrder } = useConfirmOrder(useOrderListQueryKey());
-  const { mutate: deleteOrder } = useDeleteOrder(useOrderListQueryKey());
-
-  const confirmCancel = (id: number) => {
-    Modal.confirm({
-      title: "确定取消该订单吗？",
-      content: "点击确定取消",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => cancelOrder([id]),
-    });
-  };
 
   const confirmRefund = (id: number) => {
     Modal.confirm({
@@ -328,49 +311,10 @@ const More = ({ id, status }: { id: number; status: number }) => {
     });
   };
 
-  const confirmDelete = (id: number) => {
-    Modal.confirm({
-      title: "确定删除该订单吗？",
-      content: "点击确定删除",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => deleteOrder([id]),
-    });
-  };
-
   let items: MenuProps["items"];
   switch (status) {
-    case 101:
-      items = [
-        {
-          label: <div onClick={() => openOrderModal(id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => confirmCancel(id)}>取消</div>,
-          key: "cancel",
-        },
-      ];
-      break;
-
-    case 102:
-    case 103:
-    case 104:
-    case 203:
-      items = [
-        {
-          label: <div onClick={() => openOrderModal(id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => confirmDelete(id)}>删除</div>,
-          key: "delete",
-        },
-      ];
-      break;
-
     case 201:
-    case 204:
+    case 202:
       items = [
         {
           label: <div onClick={() => openOrderModal(id)}>详情</div>,
@@ -402,7 +346,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
           key: "modify_delivery",
         },
         {
-          label: <div onClick={() => confirmReceived(id)}>确认收货/使用</div>,
+          label: <div onClick={() => confirmReceived(id)}>确认收货</div>,
           key: "confirm",
         },
       ];
@@ -425,6 +369,8 @@ const More = ({ id, status }: { id: number; status: number }) => {
       ];
       break;
 
+    case 203:
+    case 204:
     case 401:
     case 402:
     case 403:
