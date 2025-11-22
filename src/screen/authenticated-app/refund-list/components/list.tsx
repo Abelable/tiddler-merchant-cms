@@ -127,8 +127,8 @@ const More = ({ refund }: { refund: Refund }) => {
 
   const confirmApproved = () => {
     Modal.confirm({
-      title: "请核实信息之后，再确定售后申请",
-      content: `点击确定${refund.refundType === 1 ? "同意退款" : "同意退货"}`,
+      title: "请核实信息之后，再同意售后申请",
+      content: `点击确定，${refund.refundType === 1 ? "同意退款" : "同意退货"}`,
       okText: "确定",
       cancelText: "取消",
       onOk: () => approvedRefund(refund.id),
@@ -138,7 +138,7 @@ const More = ({ refund }: { refund: Refund }) => {
   const confirmReceived = () => {
     Modal.confirm({
       title: "确认收货之前，请核实物流信息",
-      content: "点击确定确认收货并退款",
+      content: "点击确定，确认收货并退款",
       okText: "确定",
       cancelText: "取消",
       onOk: () => approvedRefund(refund.id),

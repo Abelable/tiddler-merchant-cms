@@ -144,7 +144,6 @@ export const GoodsModal = ({
         activityCover,
         imageList,
         detailImageList,
-        realImageList,
         defaultSpecImage,
         stock,
         ...rest
@@ -192,10 +191,6 @@ export const GoodsModal = ({
         detailImageList: detailImageList.map(
           (item: { url: string }) => item.url
         ),
-        realImageList:
-          realImageList && realImageList.length
-            ? realImageList.map((item: { url: string }) => item.url)
-            : [],
         defaultSpecImage: defaultSpecImage[0].url,
         stock,
         specList: specContentList,
@@ -307,18 +302,6 @@ export const GoodsModal = ({
             </Col>
           </Row>
           <Row gutter={16}>
-            <Col span={24}>
-              <Form.Item
-                name="realImageList"
-                label="实拍图片"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-              >
-                <OssUpload multiple />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
             <Col span={12}>
               <Form.Item
                 name="name"
@@ -413,18 +396,6 @@ export const GoodsModal = ({
           </Row>
 
           <Row gutter={16}>
-            {/* <Col span={12}>
-              <Form.Item name="salesCommissionRate" label="佣金比例" rules={[{ required: true, message: "请填写佣金比例" }]}>
-                <InputNumber
-                  min={0}
-                  max={100}
-                  suffix="%"
-                  style={{ width: "100%" }}
-                  placeholder="请填写佣金比例"
-                />
-              </Form.Item>
-            </Col> */}
-
             <Col span={12}>
               <Form.Item name="numberLimit" label="限购数量">
                 <InputNumber
@@ -534,11 +505,11 @@ export const GoodsModal = ({
                 getFieldValue("refundStatus") === 1 && (
                   <Col span={12}>
                     <Form.Item
-                      name="refundAddressIds"
+                      name="refundAddressId"
                       label="退货地址"
                       rules={[{ required: true, message: "请选择退货地址" }]}
                     >
-                      <Select mode="multiple" placeholder="请选择退货地址">
+                      <Select placeholder="请选择退货地址">
                         {refundAddressOptions.map((item) => (
                           <Select.Option key={item.id} value={item.id}>
                             {item.addressDetail}
