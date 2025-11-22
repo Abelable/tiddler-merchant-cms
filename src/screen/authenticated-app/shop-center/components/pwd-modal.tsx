@@ -40,16 +40,16 @@ export const PwdModal = () => {
       <Form form={form} layout="vertical">
         <Form.Item
           name="password"
-          label="原始密码"
+          label="原密码"
           rules={[
             {
               required: true,
-              message: "请输入原始密码",
+              message: "请输入原密码",
             },
           ]}
         >
           <Input.Password
-            placeholder="请输入原始密码"
+            placeholder="请输入原密码"
             autoComplete="current-password"
           />
         </Form.Item>
