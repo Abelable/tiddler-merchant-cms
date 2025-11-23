@@ -154,7 +154,7 @@ export const useExportOrderConfig = (queryKey: QueryKey) =>
       ? {
           ...old,
           list: old.list.map((item: any) =>
-            ids.includes(item.id) ? { ...item, status: 204 } : item
+            ids.includes(item.id) ? { ...item, status: 202 } : item
           ),
         }
       : null

@@ -410,24 +410,18 @@ export const OrderModal = ({
                 <>
                   <Avatar
                     size="small"
-                    src={
-                      userOptions.find((item) => item.id === orderInfo?.userId)
-                        ?.avatar
-                    }
+                    src={orderInfo?.userInfo?.avatar}
                     icon={<UserOutlined />}
                   />
                   <span style={{ marginLeft: "0.6rem" }}>
-                    {
-                      userOptions.find((item) => item.id === orderInfo?.userId)
-                        ?.nickname
-                    }
+                    {orderInfo?.userInfo?.nickname}
                   </span>
                 </>
               </Descriptions.Item>
             </Descriptions>
 
             {orderInfo?.deliveryMode === 1 &&
-            [204, 301, 401, 402, 403, 501, 502].includes(
+            [202, 301, 401, 402, 403, 501, 502].includes(
               orderInfo?.status as number
             ) ? (
               <>
@@ -631,7 +625,7 @@ const Extra = ({ id, status }: { id: number; status: number }) => {
   const { open: openDeliveryModal } = useDeliveryModal();
   switch (status) {
     case 201:
-    case 204:
+    case 202:
       return (
         <Button onClick={() => openDeliveryModal(id)} type={"primary"}>
           订单发货

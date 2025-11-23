@@ -76,6 +76,11 @@ export interface Shipment {
   }[];
 }
 
+interface UserInfo {
+  id: number;
+  avatar: string;
+  nickname: string;
+}
 export interface OrderDetail extends Omit<Order, "goodsList"> {
   goodsList: OrderGoods[];
   packageList: Package[];
@@ -84,7 +89,7 @@ export interface OrderDetail extends Omit<Order, "goodsList"> {
   couponDenomination: number;
   deductionBalance: number;
   freightPrice: number;
-  userId: number;
+  userInfo: UserInfo;
   merchantId: number;
   consignee: string;
   mobile: string;
