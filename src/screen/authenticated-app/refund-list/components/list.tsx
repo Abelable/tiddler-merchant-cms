@@ -18,15 +18,16 @@ import {
   GoodsPriceWrap,
   GoodsSku,
 } from "components/lib";
+import { SearchPanelProps } from "./search-panel";
+
 import dayjs from "dayjs";
-import { useApprovedRefund, useDeleteRefund } from "service/refund";
+import { useApprovedRefund } from "service/refund";
 import {
   useRefundModal,
   useRefundListQueryKey,
   useRejectModal,
   useShippingModal,
 } from "../util";
-import { SearchPanelProps } from "./search-panel";
 
 import type { Refund } from "types/refund";
 
@@ -154,7 +155,6 @@ const More = ({ refund }: { refund: Refund }) => {
   const { open: openRejectModal } = useRejectModal();
   const { open: openShippingModal } = useShippingModal();
   const { mutate: approvedRefund } = useApprovedRefund(useRefundListQueryKey());
-  const { mutate: deleteRefund } = useDeleteRefund(useRefundListQueryKey());
 
   const confirmApproved = () => {
     Modal.confirm({
@@ -173,16 +173,6 @@ const More = ({ refund }: { refund: Refund }) => {
       okText: "确定",
       cancelText: "取消",
       onOk: () => approvedRefund(refund.id),
-    });
-  };
-
-  const confirmDelete = () => {
-    Modal.confirm({
-      title: "确定删除该售后申请吗？",
-      content: "点击确定删除",
-      okText: "确定",
-      cancelText: "取消",
-      onOk: () => deleteRefund(refund.id),
     });
   };
 
@@ -213,15 +203,6 @@ const More = ({ refund }: { refund: Refund }) => {
       ];
       break;
 
-    case 1:
-      items = [
-        {
-          label: <div onClick={() => openRefundModal(refund.id)}>详情</div>,
-          key: "detail",
-        },
-      ];
-      break;
-
     case 2:
       items = [
         {
@@ -229,7 +210,9 @@ const More = ({ refund }: { refund: Refund }) => {
           key: "detail",
         },
         {
-          label: <div onClick={() => openShippingModal(refund.id)}>物流</div>,
+          label: (
+            <div onClick={() => openShippingModal(refund.id)}>查看物流</div>
+          ),
           key: "express",
         },
         {
@@ -239,18 +222,8 @@ const More = ({ refund }: { refund: Refund }) => {
       ];
       break;
 
+    case 1:
     case 3:
-      items = [
-        {
-          label: <div onClick={() => openRefundModal(refund.id)}>详情</div>,
-          key: "detail",
-        },
-        {
-          label: <div onClick={() => confirmDelete()}>删除</div>,
-          key: "delete",
-        },
-      ];
-      break;
     case 4:
       items = [
         {

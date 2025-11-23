@@ -36,6 +36,7 @@ export interface RefundDetail extends Refund {
   goodsInfo: Goods;
   refundReason: string;
   imageList: string[];
+  shipChannel: string;
   shipCode: string;
   shipSn: string;
 }

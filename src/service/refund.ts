@@ -68,18 +68,6 @@ export const useRejectRefund = (queryKey: QueryKey) => {
   );
 };
 
-export const useDeleteRefund = (queryKey: QueryKey) => {
-  const client = useHttp();
-  return useMutation(
-    (id: number) =>
-      client("shop/refund/delete", {
-        data: { id },
-        method: "POST",
-      }),
-    useDeleteConfig(queryKey)
-  );
-};
-
 export const useWaitingRefundCount = () => {
   const client = useHttp();
   return useQuery(["waiting_refund_count"], () =>

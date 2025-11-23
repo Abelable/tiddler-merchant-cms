@@ -93,11 +93,7 @@ export const RefundModal = ({
               ))}
             </Descriptions.Item>
             <Descriptions.Item label="物流公司">
-              {
-                expressOptions.find(
-                  (item) => item.code === refundInfo?.shipCode
-                )?.name
-              }
+              {refundInfo?.shipChannel}
             </Descriptions.Item>
             <Descriptions.Item label="快递单号">
               {refundInfo?.shipSn ? (
