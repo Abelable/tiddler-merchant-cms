@@ -50,32 +50,6 @@ export const OrderModal = ({
         createdAt = "",
       } = orderInfo;
       switch (status) {
-        case 101:
-          setCurrent(1);
-          setStepItems(
-            deliveryMode === 1
-              ? [
-                  {
-                    title: "提交订单",
-                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  { title: "支付订单", description: "" },
-                  { title: "平台发货", description: "" },
-                  { title: "确认收货", description: "" },
-                  { title: "完成评价", description: "" },
-                ]
-              : [
-                  {
-                    title: "提交订单",
-                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  { title: "支付订单", description: "" },
-                  { title: "核销使用", description: "" },
-                  { title: "完成评价", description: "" },
-                ]
-          );
-          break;
-
         case 201:
         case 202:
           setCurrent(2);
@@ -125,101 +99,13 @@ export const OrderModal = ({
               title: "支付订单",
               description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
             },
-            { title: "核销使用", description: "" },
+            { title: "自提核销", description: "" },
             { title: "完成评价", description: "" },
           ]);
           break;
 
         case 401:
-          setCurrent(deliveryMode === 1 ? 4 : 3);
-          setStepItems(
-            deliveryMode === 1
-              ? [
-                  {
-                    title: "提交订单",
-                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "支付订单",
-                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "平台发货",
-                    description: dayjs(shipTime).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "用户已确认",
-                    description: dayjs(confirmTime).format(
-                      "YYYY-MM-DD HH:mm:ss"
-                    ),
-                  },
-                  { title: "完成评价", description: "" },
-                ]
-              : [
-                  {
-                    title: "提交订单",
-                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "支付订单",
-                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "用户使用",
-                    description: dayjs(confirmTime).format(
-                      "YYYY-MM-DD HH:mm:ss"
-                    ),
-                  },
-                  { title: "完成评价", description: "" },
-                ]
-          );
-          break;
-
         case 402:
-          setCurrent(deliveryMode === 1 ? 4 : 3);
-          setStepItems(
-            deliveryMode === 1
-              ? [
-                  {
-                    title: "提交订单",
-                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "支付订单",
-                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "平台发货",
-                    description: dayjs(shipTime).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "系统确认",
-                    description: dayjs(confirmTime).format(
-                      "YYYY-MM-DD HH:mm:ss"
-                    ),
-                  },
-                  { title: "完成评价", description: "" },
-                ]
-              : [
-                  {
-                    title: "提交订单",
-                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "支付订单",
-                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
-                  },
-                  {
-                    title: "系统确认",
-                    description: dayjs(confirmTime).format(
-                      "YYYY-MM-DD HH:mm:ss"
-                    ),
-                  },
-                  { title: "完成评价", description: "" },
-                ]
-          );
-          break;
-
         case 403:
           setCurrent(deliveryMode === 1 ? 4 : 3);
           setStepItems(
@@ -238,7 +124,7 @@ export const OrderModal = ({
                     description: dayjs(shipTime).format("YYYY-MM-DD HH:mm:ss"),
                   },
                   {
-                    title: "管理员确认",
+                    title: "确认收货",
                     description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
@@ -255,7 +141,7 @@ export const OrderModal = ({
                     description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
                   },
                   {
-                    title: "管理员确认",
+                    title: "自提核销",
                     description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
@@ -306,7 +192,7 @@ export const OrderModal = ({
                     description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
                   },
                   {
-                    title: "用户使用",
+                    title: "自提核销",
                     description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
