@@ -29,7 +29,7 @@ const statusOptions = [
   { text: "待收货", value: 2 },
   { text: "待自提", value: 3 },
   { text: "已完成", value: 4 },
-  { text: "退款/售后", value: 5 },
+  { text: "售后", value: 5 },
 ];
 const statusDescOptions = [
   { text: "待发货", value: 201 },
