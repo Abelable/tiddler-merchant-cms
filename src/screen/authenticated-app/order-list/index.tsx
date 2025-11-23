@@ -31,6 +31,19 @@ const statusOptions = [
   { text: "已完成", value: 4 },
   { text: "退款/售后", value: 5 },
 ];
+const statusDescOptions = [
+  { text: "待发货", value: 201 },
+  { text: "待发货（已导出）", value: 202 },
+  { text: "待退款", value: 203 },
+  { text: "已退款", value: 204 },
+  { text: "待收货", value: 301 },
+  { text: "待使用", value: 302 },
+  { text: "已确认（用户）", value: 401 },
+  { text: "已确认（系统）", value: 402 },
+  { text: "已确认（管理员）", value: 403 },
+  { text: "已评价（用户）", value: 501 },
+  { text: "已评价（系统）", value: 502 },
+];
 
 export const OrderList = () => {
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
@@ -54,6 +67,7 @@ export const OrderList = () => {
           setParams={setParams}
         />
         <List
+          statusDescOptions={statusDescOptions}
           selectedRowKeys={selectedRowKeys}
           setSelectedRowKeys={setSelectedRowKeys}
           params={params}
@@ -90,7 +104,10 @@ export const OrderList = () => {
           </Button>
         </Row>
       </Drawer>
-      <OrderModal statusOptions={statusOptions} userOptions={userOptions} />
+      <OrderModal
+        statusDescOptions={statusDescOptions}
+        userOptions={userOptions}
+      />
       <DeliveryModal expressOptions={expressOptions} />
       <ShippingModal />
       <AddressModal />

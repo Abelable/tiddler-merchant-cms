@@ -23,10 +23,10 @@ import styled from "@emotion/styled";
 const { Step } = Steps;
 
 export const OrderModal = ({
-  statusOptions,
+  statusDescOptions,
   userOptions,
 }: {
-  statusOptions: Option[];
+  statusDescOptions: Option[];
   userOptions: { id: number; avatar: string; nickname: string }[];
 }) => {
   const { close, orderModalOpen, orderInfo, error, isLoading } =
@@ -47,6 +47,7 @@ export const OrderModal = ({
         shipTime = "",
         confirmTime = "",
         finishTime = "",
+        createdAt = "",
       } = orderInfo;
       switch (status) {
         case 101:
@@ -56,9 +57,7 @@ export const OrderModal = ({
               ? [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
-                      "YYYY-MM-DD HH:mm:ss"
-                    ),
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
                   },
                   { title: "支付订单", description: "" },
                   { title: "平台发货", description: "" },
@@ -68,9 +67,7 @@ export const OrderModal = ({
               : [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
-                      "YYYY-MM-DD HH:mm:ss"
-                    ),
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
                   },
                   { title: "支付订单", description: "" },
                   { title: "核销使用", description: "" },
@@ -80,16 +77,17 @@ export const OrderModal = ({
           break;
 
         case 201:
-        case 204:
+        case 202:
           setCurrent(2);
           setStepItems([
             {
               title: "提交订单",
-              description: dayjs(orderInfo?.createdAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              ),
+              description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
             },
-            { title: "支付订单", description: payTime },
+            {
+              title: "支付订单",
+              description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+            },
             { title: "平台发货", description: "" },
             { title: "确认收货", description: "" },
             { title: "完成评价", description: "" },
@@ -101,12 +99,16 @@ export const OrderModal = ({
           setStepItems([
             {
               title: "提交订单",
-              description: dayjs(orderInfo?.createdAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              ),
+              description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
             },
-            { title: "支付订单", description: payTime },
-            { title: "平台发货", description: shipTime },
+            {
+              title: "支付订单",
+              description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+            },
+            {
+              title: "平台发货",
+              description: dayjs(shipTime).format("YYYY-MM-DD HH:mm:ss"),
+            },
             { title: "确认收货", description: "" },
             { title: "完成评价", description: "" },
           ]);
@@ -117,11 +119,12 @@ export const OrderModal = ({
           setStepItems([
             {
               title: "提交订单",
-              description: dayjs(orderInfo?.createdAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              ),
+              description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
             },
-            { title: "支付订单", description: payTime },
+            {
+              title: "支付订单",
+              description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+            },
             { title: "核销使用", description: "" },
             { title: "完成评价", description: "" },
           ]);
@@ -134,24 +137,39 @@ export const OrderModal = ({
               ? [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "支付订单",
+                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "平台发货",
+                    description: dayjs(shipTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "用户已确认",
+                    description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                   },
-                  { title: "支付订单", description: payTime },
-                  { title: "平台发货", description: shipTime },
-                  { title: "用户已确认", description: confirmTime },
                   { title: "完成评价", description: "" },
                 ]
               : [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "支付订单",
+                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "用户使用",
+                    description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                   },
-                  { title: "支付订单", description: payTime },
-                  { title: "用户使用", description: confirmTime },
                   { title: "完成评价", description: "" },
                 ]
           );
@@ -164,24 +182,39 @@ export const OrderModal = ({
               ? [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "支付订单",
+                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "平台发货",
+                    description: dayjs(shipTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "系统确认",
+                    description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                   },
-                  { title: "支付订单", description: payTime },
-                  { title: "平台发货", description: shipTime },
-                  { title: "系统确认", description: confirmTime },
                   { title: "完成评价", description: "" },
                 ]
               : [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "支付订单",
+                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "系统确认",
+                    description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                   },
-                  { title: "支付订单", description: payTime },
-                  { title: "系统确认", description: confirmTime },
                   { title: "完成评价", description: "" },
                 ]
           );
@@ -194,24 +227,39 @@ export const OrderModal = ({
               ? [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "支付订单",
+                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "平台发货",
+                    description: dayjs(shipTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "管理员确认",
+                    description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                   },
-                  { title: "支付订单", description: payTime },
-                  { title: "平台发货", description: shipTime },
-                  { title: "管理员确认", description: confirmTime },
                   { title: "完成评价", description: "" },
                 ]
               : [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "支付订单",
+                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "管理员确认",
+                    description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                   },
-                  { title: "支付订单", description: payTime },
-                  { title: "管理员确认", description: confirmTime },
                   { title: "完成评价", description: "" },
                 ]
           );
@@ -225,25 +273,50 @@ export const OrderModal = ({
               ? [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "支付订单",
+                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "平台发货",
+                    description: dayjs(shipTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "确认收货",
+                    description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                   },
-                  { title: "支付订单", description: payTime },
-                  { title: "平台发货", description: shipTime },
-                  { title: "确认收货", description: confirmTime },
-                  { title: "完成评价", description: finishTime },
+                  {
+                    title: "完成评价",
+                    description: dayjs(finishTime).format(
+                      "YYYY-MM-DD HH:mm:ss"
+                    ),
+                  },
                 ]
               : [
                   {
                     title: "提交订单",
-                    description: dayjs(orderInfo?.createdAt).format(
+                    description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "支付订单",
+                    description: dayjs(payTime).format("YYYY-MM-DD HH:mm:ss"),
+                  },
+                  {
+                    title: "用户使用",
+                    description: dayjs(confirmTime).format(
                       "YYYY-MM-DD HH:mm:ss"
                     ),
                   },
-                  { title: "支付订单", description: payTime },
-                  { title: "用户使用", description: confirmTime },
-                  { title: "完成评价", description: finishTime },
+                  {
+                    title: "完成评价",
+                    description: dayjs(finishTime).format(
+                      "YYYY-MM-DD HH:mm:ss"
+                    ),
+                  },
                 ]
           );
           break;
@@ -253,11 +326,12 @@ export const OrderModal = ({
           setStepItems([
             {
               title: "提交订单",
-              description: dayjs(orderInfo?.createdAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              ),
+              description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
             },
-            { title: "用户取消", description: finishTime },
+            {
+              title: "用户取消",
+              description: dayjs(finishTime).format("YYYY-MM-DD HH:mm:ss"),
+            },
           ]);
           break;
 
@@ -266,11 +340,12 @@ export const OrderModal = ({
           setStepItems([
             {
               title: "提交订单",
-              description: dayjs(orderInfo?.createdAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              ),
+              description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
             },
-            { title: "系统取消", description: finishTime },
+            {
+              title: "系统取消",
+              description: dayjs(finishTime).format("YYYY-MM-DD HH:mm:ss"),
+            },
           ]);
           break;
 
@@ -279,11 +354,12 @@ export const OrderModal = ({
           setStepItems([
             {
               title: "提交订单",
-              description: dayjs(orderInfo?.createdAt).format(
-                "YYYY-MM-DD HH:mm:ss"
-              ),
+              description: dayjs(createdAt).format("YYYY-MM-DD HH:mm:ss"),
             },
-            { title: "管理员取消", description: finishTime },
+            {
+              title: "管理员取消",
+              description: dayjs(finishTime).format("YYYY-MM-DD HH:mm:ss"),
+            },
           ]);
           break;
       }
@@ -314,8 +390,9 @@ export const OrderModal = ({
               <>
                 <span>当前订单状态：</span>
                 <span style={{ color: "#1890ff" }}>{`${
-                  statusOptions.find((item) => item.value === orderInfo?.status)
-                    ?.text
+                  statusDescOptions.find(
+                    (item) => item.value === orderInfo?.status
+                  )?.text
                 }`}</span>
               </>
             }

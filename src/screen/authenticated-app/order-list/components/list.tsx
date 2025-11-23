@@ -30,23 +30,10 @@ import {
 } from "../util";
 import { SearchPanelProps } from "./search-panel";
 
+import type { Option } from "types/common";
 import type { Order, OrderGoods } from "types/order";
 
 const { Countdown } = Statistic;
-
-const statusDescOptions = [
-  { text: "待发货", value: 201 },
-  { text: "待发货（已导出）", value: 202 },
-  { text: "待退款", value: 203 },
-  { text: "已退款", value: 204 },
-  { text: "待收货", value: 301 },
-  { text: "待使用", value: 302 },
-  { text: "已确认（用户）", value: 401 },
-  { text: "已确认（系统）", value: 402 },
-  { text: "已确认（管理员）", value: 403 },
-  { text: "已评价（用户）", value: 501 },
-  { text: "已评价（系统）", value: 502 },
-];
 
 interface ListProps
   extends TableProps<Order>,
@@ -54,12 +41,14 @@ interface ListProps
       SearchPanelProps,
       "statusOptions" | "deliveryModeOptions" | "userOptions" | "goodsOptions"
     > {
+  statusDescOptions: Option[];
   error: Error | unknown;
   selectedRowKeys: React.Key[];
   setSelectedRowKeys: (selectedRowKeys: []) => void;
 }
 
 export const List = ({
+  statusDescOptions,
   selectedRowKeys,
   setSelectedRowKeys,
   error,

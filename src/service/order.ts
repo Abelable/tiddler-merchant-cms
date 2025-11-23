@@ -27,13 +27,13 @@ export const useOrderList = (params: Partial<OrderListSearchParams>) => {
   );
 };
 
-export const useOrder = (id: number) => {
+export const useOrder = (orderId: number) => {
   const client = useHttp();
   return useQuery<Partial<OrderDetail>>(
-    ["order_detail", { id }],
-    () => client("shop/order/detail", { data: { id } }),
+    ["order_detail", { orderId }],
+    () => client("shop/order/detail", { data: { orderId } }),
     {
-      enabled: !!id,
+      enabled: !!orderId,
     }
   );
 };
