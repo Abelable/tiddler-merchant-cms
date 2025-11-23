@@ -7,7 +7,17 @@ import {
   TablePaginationConfig,
   TableProps,
 } from "antd";
-import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
+import {
+  ButtonNoPadding,
+  ErrorBox,
+  Row,
+  PageTitle,
+  GoodsCard,
+  GoodsInfo,
+  GoodsName,
+  GoodsPriceWrap,
+  GoodsSku,
+} from "components/lib";
 import dayjs from "dayjs";
 import { useApprovedRefund, useDeleteRefund } from "service/refund";
 import {
@@ -53,10 +63,6 @@ export const List = ({
             width: "8rem",
           },
           {
-            title: "订单编号",
-            dataIndex: "orderSn",
-          },
-          {
             title: "状态",
             dataIndex: "status",
             render: (value) => (
@@ -68,6 +74,31 @@ export const List = ({
             ),
             filters: statusOptions,
             onFilter: (value, refund) => refund.status === value,
+          },
+          {
+            title: "订单编号",
+            dataIndex: "orderSn",
+          },
+          {
+            title: "商品信息",
+            dataIndex: "goodsInfo",
+            render: (value) => (
+              <GoodsCard>
+                <img src={value.cover} alt="" />
+                <GoodsInfo>
+                  <GoodsName>{value.name}</GoodsName>
+                  <GoodsSku>{value.selectedSkuName}</GoodsSku>
+                  <GoodsPriceWrap>
+                    <div style={{ color: "#ff4d4f" }}>
+                      <span style={{ fontSize: "6px" }}>¥</span>
+                      <span style={{ fontSize: "12px" }}>{value.price}</span>
+                    </div>
+                    <div style={{ fontSize: "10px" }}>x{value.number}</div>
+                  </GoodsPriceWrap>
+                </GoodsInfo>
+              </GoodsCard>
+            ),
+            width: "30rem",
           },
           {
             title: "退款方式",

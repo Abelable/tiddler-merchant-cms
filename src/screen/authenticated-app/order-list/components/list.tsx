@@ -11,7 +11,17 @@ import {
   Tooltip,
   Tag,
 } from "antd";
-import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
+import {
+  ButtonNoPadding,
+  ErrorBox,
+  Row,
+  PageTitle,
+  GoodsCard,
+  GoodsInfo,
+  GoodsName,
+  GoodsSku,
+  GoodsPriceWrap,
+} from "components/lib";
 import { FileUpload } from "components/file-upload";
 import {
   UserOutlined,
@@ -397,56 +407,4 @@ const CustomCountdown = styled(Countdown)`
     color: #fff;
     font-size: 14px;
   }
-`;
-
-const GoodsCard = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 12px;
-  padding: 6px;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 8px;
-  :last-child {
-    margin-bottom: 0;
-  }
-  > img {
-    margin-right: 0.6rem;
-    width: 5.8rem;
-    height: 5.8rem;
-    border-radius: 0.4rem;
-  }
-`;
-const GoodsInfo = styled.div`
-  flex: 1;
-`;
-const GoodsName = styled.div`
-  font-size: 10px;
-  line-height: 1.2;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-`;
-const GoodsSku = styled.div`
-  margin-top: 4px;
-  padding: 0 3px;
-  width: fit-content;
-  height: 12px;
-  color: #999;
-  font-size: 8px;
-  -webkit-line-clamp: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  background: #f1f1f1;
-  border-radius: 2px;
-`;
-const GoodsPriceWrap = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 6px;
-  line-height: 1;
 `;
