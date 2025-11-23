@@ -296,7 +296,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
       content: "点击确定退款",
       okText: "确定",
       cancelText: "取消",
-      onOk: () => refundOrder([id]),
+      onOk: () => refundOrder(id),
     });
   };
 
@@ -362,7 +362,7 @@ const More = ({ id, status }: { id: number; status: number }) => {
           key: "refund",
         },
         {
-          label: <div onClick={() => confirmReceived(id)}>确认使用</div>,
+          label: <div onClick={() => confirmReceived(id)}>确认提货</div>,
           key: "confirm",
         },
       ];

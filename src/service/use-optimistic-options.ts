@@ -113,12 +113,12 @@ export const useCancelOrderConfig = (queryKey: QueryKey) =>
   );
 
 export const useRefundOrderConfig = (queryKey: QueryKey) =>
-  useConfig(queryKey, (ids, old) =>
+  useConfig(queryKey, (id, old) =>
     old
       ? {
           ...old,
           list: old.list.map((item: any) =>
-            ids.includes(item.id) ? { ...item, status: 203 } : item
+            item.id === id ? { ...item, status: 203 } : item
           ),
         }
       : null
