@@ -4,15 +4,8 @@ import { useRefundModal, useShippingModal } from "../util";
 
 import type { Option } from "types/common";
 import type { Goods } from "types/refund";
-import type { ExpressOption } from "types/order";
 
-export const RefundModal = ({
-  statusOptions,
-  expressOptions,
-}: {
-  statusOptions: Option[];
-  expressOptions: ExpressOption[];
-}) => {
+export const RefundModal = ({ statusOptions }: { statusOptions: Option[] }) => {
   const { close, refundModalOpen, refundInfo, error, isLoading } =
     useRefundModal();
   const { open: openShippingModal } = useShippingModal();

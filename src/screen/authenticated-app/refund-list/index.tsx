@@ -6,7 +6,6 @@ import { ShippingModal } from "./components/shipping-modal";
 
 import styled from "@emotion/styled";
 import { useRefundList } from "service/refund";
-import { useExpressOptions } from "service/order";
 import { toNumber } from "utils";
 import { useRefundListSearchParams } from "./util";
 
@@ -19,7 +18,6 @@ const statusOptions = [
 ];
 
 export const RefundList = () => {
-  const { data: expressOptions = [] } = useExpressOptions();
   const [params, setParams] = useRefundListSearchParams();
   const { isLoading, error, data } = useRefundList(params);
 
@@ -46,10 +44,7 @@ export const RefundList = () => {
           bordered
         />
       </Main>
-      <RefundModal
-        statusOptions={statusOptions}
-        expressOptions={expressOptions}
-      />
+      <RefundModal statusOptions={statusOptions} />
       <ShippingModal />
       <RejectModal />
     </Container>
