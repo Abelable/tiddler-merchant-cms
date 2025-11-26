@@ -41,9 +41,9 @@ export const useOrder = (orderId: number) => {
 export const useRefundOrder = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
-    (id: number) =>
+    (orderId: number) =>
       client("shop/order/refund", {
-        data: { id },
+        data: { orderId },
         method: "POST",
       }),
     useRefundOrderConfig(queryKey)
