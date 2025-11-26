@@ -2,7 +2,6 @@ import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
 import {
   useApprovedRefundConfig,
-  useDeleteConfig,
   useRejectRefundConfig,
 } from "./use-optimistic-options";
 import type {

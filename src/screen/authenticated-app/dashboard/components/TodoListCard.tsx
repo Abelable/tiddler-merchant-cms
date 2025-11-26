@@ -5,22 +5,11 @@ import { Link } from "react-router-dom";
 import type { Todo } from "types/dashboard";
 
 const typeOptions = [
-  { desc: "您有一笔待发货订单，请及时处理", path: "/order/list", value: 1 },
-  { desc: "您有一笔售后处理订单，请及时处理", path: "/order/refund", value: 2 },
+  { desc: "您有一笔待发货订单，请及时处理", path: "/order_list", value: 400 },
   {
-    desc: "用户提交了实名认证审核，请及时处理",
-    path: "/team/auth_info_list",
-    value: 3,
-  },
-  {
-    desc: "用户提交了企业认证审核，请及时处理",
-    path: "/team/enterprise_info_list",
-    value: 4,
-  },
-  {
-    desc: "用户提交了佣金提现申请，请及时处理",
-    path: "/team/withdraw_list",
-    value: 5,
+    desc: "您有一笔售后处理订单，请及时处理",
+    path: "/order_refund",
+    value: 500,
   },
 ];
 
