@@ -51,16 +51,6 @@ export const SearchPanel = ({
   return (
     <Container>
       <Item>
-        <div>订单编号：</div>
-        <Input
-          style={{ width: "20rem" }}
-          value={tempParams.orderSn}
-          onChange={setRefundSn}
-          placeholder="请输入订单编号"
-          allowClear
-        />
-      </Item>
-      <Item>
         <div>状态：</div>
         <Select
           style={{ width: "20rem" }}
@@ -76,6 +66,16 @@ export const SearchPanel = ({
             </Select.Option>
           ))}
         </Select>
+      </Item>
+      <Item>
+        <div>订单编号：</div>
+        <Input
+          style={{ width: "20rem" }}
+          value={tempParams.orderSn}
+          onChange={setRefundSn}
+          placeholder="请输入订单编号"
+          allowClear
+        />
       </Item>
 
       <ButtonWrap gap={true}>
