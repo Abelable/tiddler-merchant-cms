@@ -74,7 +74,7 @@ export const AuthenticatedApp = () => {
                 path="pickup_address_list"
                 element={<PickupAddressList />}
               />
-              {+roleId === 1 ? (
+              {[0, 1].includes(+roleId) ? (
                 <Route path="manager_list" element={<ManagerList />} />
               ) : (
                 <></>
@@ -103,123 +103,122 @@ const MenuSider = ({
   const { data: shipOrderCount } = useShipOrderCount();
   const { data: waitingRefundCount } = useWaitingRefundCount();
 
-  const items: MenuProps["items"] =
-    +roleId === 1
-      ? [
-          {
-            label: <Link to={"dashboard"}>数据概况</Link>,
-            key: "dashboard",
-            icon: <DashboardOutlined />,
-          },
-          {
-            label: (
-              <Link to={"order_list"}>
-                <Row between>
-                  <span>订单列表</span>
-                  {shipOrderCount ? <Badge>{shipOrderCount}</Badge> : <></>}
-                </Row>
-              </Link>
-            ),
-            key: "order_list",
-            icon: <SnippetsOutlined />,
-          },
-          {
-            label: (
-              <Link to={"order_refund"}>
-                <Row between>
-                  <span>售后处理</span>
-                  {waitingRefundCount ? (
-                    <Badge>{waitingRefundCount}</Badge>
-                  ) : (
-                    <></>
-                  )}
-                </Row>
-              </Link>
-            ),
-            key: "order_refund",
-            icon: <TransactionOutlined />,
-          },
-          {
-            label: <Link to={"goods_list"}>商品列表</Link>,
-            key: "goods_list",
-            icon: <ShoppingOutlined />,
-          },
-          {
-            label: <Link to={"freight_template_list"}>运费模板</Link>,
-            key: "freight_template_list",
-            icon: <TruckOutlined />,
-          },
-          {
-            label: <Link to={"refund_address_list"}>退货地址</Link>,
-            key: "refund_address_list",
-            icon: <EnvironmentOutlined />,
-          },
-          {
-            label: <Link to={"pickup_address_list"}>提货地点</Link>,
-            key: "pickup_address_list",
-            icon: <EnvironmentOutlined />,
-          },
-          {
-            label: <Link to={"manager_list"}>人员管理</Link>,
-            key: "manager_list",
-            icon: <TeamOutlined />,
-          },
-        ]
-      : [
-          {
-            label: <Link to={"dashboard"}>数据概况</Link>,
-            key: "dashboard",
-            icon: <DashboardOutlined />,
-          },
-          {
-            label: (
-              <Link to={"order_list"}>
-                <Row between>
-                  <span>订单列表</span>
-                  {shipOrderCount ? <Badge>{shipOrderCount}</Badge> : <></>}
-                </Row>
-              </Link>
-            ),
-            key: "order_list",
-            icon: <SnippetsOutlined />,
-          },
-          {
-            label: (
-              <Link to={"order_refund"}>
-                <Row between>
-                  <span>售后处理</span>
-                  {waitingRefundCount ? (
-                    <Badge>{waitingRefundCount}</Badge>
-                  ) : (
-                    <></>
-                  )}
-                </Row>
-              </Link>
-            ),
-            key: "order_refund",
-            icon: <TransactionOutlined />,
-          },
-          {
-            label: <Link to={"goods_list"}>商品列表</Link>,
-            key: "goods_list",
-            icon: <ShoppingOutlined />,
-          },
-          {
-            label: <Link to={"freight_template_list"}>运费模板</Link>,
-            key: "freight_template_list",
-            icon: <TruckOutlined />,
-          },
-          {
-            label: <Link to={"refund_address_list"}>退货地址</Link>,
-            key: "refund_address_list",
-            icon: <EnvironmentOutlined />,
-          },
-          {
-            label: <Link to={"pickup_address_list"}>提货地点</Link>,
-            key: "pickup_address_list",
-            icon: <EnvironmentOutlined />,
-          },
-        ];
+  const items: MenuProps["items"] = [0, 1].includes(+roleId)
+    ? [
+        {
+          label: <Link to={"dashboard"}>数据概况</Link>,
+          key: "dashboard",
+          icon: <DashboardOutlined />,
+        },
+        {
+          label: (
+            <Link to={"order_list"}>
+              <Row between>
+                <span>订单列表</span>
+                {shipOrderCount ? <Badge>{shipOrderCount}</Badge> : <></>}
+              </Row>
+            </Link>
+          ),
+          key: "order_list",
+          icon: <SnippetsOutlined />,
+        },
+        {
+          label: (
+            <Link to={"order_refund"}>
+              <Row between>
+                <span>售后处理</span>
+                {waitingRefundCount ? (
+                  <Badge>{waitingRefundCount}</Badge>
+                ) : (
+                  <></>
+                )}
+              </Row>
+            </Link>
+          ),
+          key: "order_refund",
+          icon: <TransactionOutlined />,
+        },
+        {
+          label: <Link to={"goods_list"}>商品列表</Link>,
+          key: "goods_list",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"freight_template_list"}>运费模板</Link>,
+          key: "freight_template_list",
+          icon: <TruckOutlined />,
+        },
+        {
+          label: <Link to={"refund_address_list"}>退货地址</Link>,
+          key: "refund_address_list",
+          icon: <EnvironmentOutlined />,
+        },
+        {
+          label: <Link to={"pickup_address_list"}>提货地点</Link>,
+          key: "pickup_address_list",
+          icon: <EnvironmentOutlined />,
+        },
+        {
+          label: <Link to={"manager_list"}>人员管理</Link>,
+          key: "manager_list",
+          icon: <TeamOutlined />,
+        },
+      ]
+    : [
+        {
+          label: <Link to={"dashboard"}>数据概况</Link>,
+          key: "dashboard",
+          icon: <DashboardOutlined />,
+        },
+        {
+          label: (
+            <Link to={"order_list"}>
+              <Row between>
+                <span>订单列表</span>
+                {shipOrderCount ? <Badge>{shipOrderCount}</Badge> : <></>}
+              </Row>
+            </Link>
+          ),
+          key: "order_list",
+          icon: <SnippetsOutlined />,
+        },
+        {
+          label: (
+            <Link to={"order_refund"}>
+              <Row between>
+                <span>售后处理</span>
+                {waitingRefundCount ? (
+                  <Badge>{waitingRefundCount}</Badge>
+                ) : (
+                  <></>
+                )}
+              </Row>
+            </Link>
+          ),
+          key: "order_refund",
+          icon: <TransactionOutlined />,
+        },
+        {
+          label: <Link to={"goods_list"}>商品列表</Link>,
+          key: "goods_list",
+          icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"freight_template_list"}>运费模板</Link>,
+          key: "freight_template_list",
+          icon: <TruckOutlined />,
+        },
+        {
+          label: <Link to={"refund_address_list"}>退货地址</Link>,
+          key: "refund_address_list",
+          icon: <EnvironmentOutlined />,
+        },
+        {
+          label: <Link to={"pickup_address_list"}>提货地点</Link>,
+          key: "pickup_address_list",
+          icon: <EnvironmentOutlined />,
+        },
+      ];
 
   return (
     <Layout.Sider

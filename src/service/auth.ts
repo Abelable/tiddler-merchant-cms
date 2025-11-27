@@ -24,14 +24,14 @@ export const removeRoleId = () =>
   window.localStorage.removeItem(localStorageKeyOfRoleId);
 
 export const login = async (form: AuthForm) => {
-  const { token, shopOptions } = await http("auth/login", {
+  const { token, goodsShopOptions } = await http("auth/login", {
     method: "POST",
     data: form,
   });
-  if (!shopOptions.length) {
+  if (!goodsShopOptions.length) {
     throw new Error("您还不是商家或管理员，无法登录商家后台");
   }
-  const { id: shopId, roleId } = shopOptions[0];
+  const { id: shopId, roleId } = goodsShopOptions[0];
   window.localStorage.setItem(localStorageKeyOfToken, token);
   window.localStorage.setItem(localStorageKeyOfShopId, shopId);
   window.localStorage.setItem(localStorageKeyOfRoleId, roleId);
