@@ -52,9 +52,9 @@ export interface OrderGoods extends Omit<Goods, "id"> {
 
 export interface PackageGoods {
   goodsId: number;
-  goodsCover: string;
-  goodsName: string;
-  goodsNumber: number;
+  cover: string;
+  name: string;
+  number: number;
 }
 
 export interface Package {

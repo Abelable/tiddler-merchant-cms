@@ -404,7 +404,7 @@ const Header = styled(Row)`
 
 const CustomCountdown = styled(Countdown)`
   > * {
-    color: #fff;
-    font-size: 14px;
+    color: #fff !important;
+    font-size: 14px !important;
   }
 `;

@@ -137,18 +137,12 @@ export const IntroduceRow = ({
         valueStyle={{ fontSize: "3rem" }}
       />
       <StatisticDetail>
-        <Area
+        <Column
           xField="x"
           yField="y"
-          shapeField="smooth"
           axis={false}
           padding={-10}
           height={60}
-          style={{
-            fill: "linear-gradient(-90deg, white 0%, #975FE4 100%)",
-            fillOpacity: 0.6,
-            width: "100%",
-          }}
           data={
             orderCountData?.dailyCountList
               ? orderCountData?.dailyCountList.map((item) => ({
@@ -157,6 +151,7 @@ export const IntroduceRow = ({
                 }))
               : []
           }
+          scale={{ x: { paddingInner: 0.4 } }}
         />
       </StatisticDetail>
       <CardBottom>

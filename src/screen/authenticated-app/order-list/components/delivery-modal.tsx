@@ -8,6 +8,7 @@ import { useShipOrder, useModifyShipment } from "service/order";
 import { useDeliveryModal, useOrderListQueryKey } from "../util";
 
 import type { ExpressOption, OrderGoods } from "types/order";
+import { ErrorBox } from "components/lib";
 
 interface Package {
   shipCode: string;
@@ -29,10 +30,16 @@ export const DeliveryModal = ({
     close,
   } = useDeliveryModal();
 
-  const { mutateAsync: deliveryOrder, isLoading: deliveryLoading } =
-    useShipOrder(useOrderListQueryKey());
-  const { mutateAsync: modifyDeliveryInfo, isLoading: modifyLoading } =
-    useModifyShipment(useOrderListQueryKey());
+  const {
+    mutateAsync: deliveryOrder,
+    isLoading: deliveryLoading,
+    error: shipError,
+  } = useShipOrder(useOrderListQueryKey());
+  const {
+    mutateAsync: modifyDeliveryInfo,
+    isLoading: modifyLoading,
+    error: modifyError,
+  } = useModifyShipment(useOrderListQueryKey());
 
   const [optionsGoodsList, setOptionsGoodsList] = useState<OrderGoods[]>([]);
 
@@ -43,7 +50,7 @@ export const DeliveryModal = ({
         const number =
           packageGoodsList
             ?.filter((packageGoods) => packageGoods.goodsId === item.goodsId)
-            .reduce((a, b) => a + b.goodsNumber, 0) || 0;
+            .reduce((a, b) => a + b.number, 0) || 0;
         return { ...item, number: item.number - number };
       });
       setOptionsGoodsList(list || []);
@@ -105,6 +112,7 @@ export const DeliveryModal = ({
       onOk={confirm}
       onCancel={closeModal}
     >
+      <ErrorBox error={shipError || modifyError} />
       <Form form={form} layout="vertical">
         {deliveryOrderId ? (
           <Form.Item
@@ -114,8 +122,8 @@ export const DeliveryModal = ({
           >
             <Select placeholder="请选择发货状态">
               {[
-                { name: "部分发货", value: 0 },
                 { name: "全部发货", value: 1 },
+                { name: "部分发货", value: 0 },
               ].map((item) => (
                 <Select.Option key={item.value} value={item.value}>
                   {item.name}
@@ -209,7 +217,8 @@ export const DeliveryModal = ({
                         >
                           {(
                             goodsFields,
-                            { add: addGoods, remove: removeGoods }
+                            { add: addGoods, remove: removeGoods },
+                            { errors }
                           ) => (
                             <>
                               {goodsFields.map(
@@ -330,6 +339,7 @@ export const DeliveryModal = ({
                               >
                                 添加商品
                               </Button>
+                              <Form.ErrorList errors={errors} />
                             </>
                           )}
                         </Form.List>

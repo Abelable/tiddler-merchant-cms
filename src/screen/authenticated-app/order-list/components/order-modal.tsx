@@ -323,14 +323,14 @@ export const OrderModal = ({
                           {value.map(
                             ({
                               goodsId,
-                              goodsCover,
-                              goodsName,
-                              goodsNumber,
+                              cover,
+                              name,
+                              number,
                             }: Partial<PackageGoods>) => (
                               <GoodsItem key={goodsId}>
-                                <GoodsCover src={goodsCover} alt="" />
-                                <GoodsName>{goodsName}</GoodsName>
-                                <div>x{goodsNumber}</div>
+                                <GoodsCover src={cover} alt="" />
+                                <GoodsName>{name}</GoodsName>
+                                <div>x{number}</div>
                               </GoodsItem>
                             )
                           )}
@@ -370,16 +370,11 @@ export const OrderModal = ({
                             shipSn: orderInfo?.shipSn || "",
                             goodsList:
                               orderInfo?.goodsList?.map(
-                                ({
+                                ({ goodsId, cover, name, number }) => ({
                                   goodsId,
-                                  cover: goodsCover,
-                                  name: goodsName,
-                                  number: goodsNumber,
-                                }) => ({
-                                  goodsId,
-                                  goodsCover,
-                                  goodsName,
-                                  goodsNumber,
+                                  cover,
+                                  name,
+                                  number,
                                 })
                               ) || [],
                           },
