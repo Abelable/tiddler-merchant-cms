@@ -22,11 +22,15 @@ interface TableSku extends Sku {
 }
 
 export const SpecEditor = ({
+  minSalesCommissionRate,
+  maxSalesCommissionRate,
   tableSkuList,
   setTableSkuList,
   specContentList,
   setSpecContentList,
 }: {
+  minSalesCommissionRate: number;
+  maxSalesCommissionRate: number;
   tableSkuList: TableSku[];
   setTableSkuList: (list: TableSku[]) => void;
   specContentList: Spec[];
@@ -119,9 +123,8 @@ export const SpecEditor = ({
       render: (item: TableSku, _: TableSku, index: number) => {
         return (
           <InputNumber
-            min={0}
-            max={100}
-            formatter={(value) => `${value}%`}
+            min={minSalesCommissionRate}
+            max={maxSalesCommissionRate}
             style={{ width: "100%" }}
             defaultValue={tableSkuList[index].commissionRate}
             onChange={(e) => {
@@ -129,6 +132,7 @@ export const SpecEditor = ({
               _tableSkuList[index].commissionRate = e || 0;
               setTableSkuList(_tableSkuList);
             }}
+            suffix="%"
           />
         );
       },

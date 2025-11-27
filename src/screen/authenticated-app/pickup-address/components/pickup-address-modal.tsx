@@ -23,6 +23,12 @@ import { Map } from "components/map";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import { OpenTime } from "types/pickupAddress";
+import { OssUpload } from "components/oss-upload";
+
+const normFile = (e: any) => {
+  if (Array.isArray(e)) return e;
+  return e && e.fileList;
+};
 
 const weekDayOptions = [
   { text: "周一", value: 1 },
@@ -55,8 +61,9 @@ export const PickupAddressModal = () => {
 
   useEffect(() => {
     if (editingPickupAddress) {
-      const { openTimeList, ...rest } = editingPickupAddress;
+      const { logo, openTimeList, ...rest } = editingPickupAddress;
       form.setFieldsValue({
+        logo: logo ? [{ url: logo }] : [],
         openTimeList: openTimeList.length
           ? openTimeList.map((item) => ({
               startWeekDay: +item.startWeekDay,
@@ -83,9 +90,10 @@ export const PickupAddressModal = () => {
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      const { openTimeList, ...rest } = form.getFieldsValue();
+      const { logo, openTimeList, ...rest } = form.getFieldsValue();
       await mutateAsync({
         ...editingPickupAddress,
+        logo: logo && logo.length ? logo[0].url : "",
         openTimeList:
           openTimeList && openTimeList.length
             ? openTimeList.map((item: OpenTime) => ({
@@ -121,9 +129,49 @@ export const PickupAddressModal = () => {
         <ModalLoading />
       ) : (
         <Form form={form} layout="vertical">
-          <Form.Item label="提货点名称" name="name">
-            <Input placeholder={"请输入提货点名称"} />
+          <Form.Item
+            name="logo"
+            label="门店头像"
+            valuePropName="fileList"
+            getValueFromEvent={normFile}
+          >
+            <OssUpload maxCount={1} />
           </Form.Item>
+          <Form.Item label="门店名称" name="name">
+            <Input placeholder={"请输入门店名称"} />
+          </Form.Item>
+          <Form.Item
+            label="门店地址详情"
+            name="addressDetail"
+            rules={[{ required: true, message: "请输入门店地址详情" }]}
+          >
+            <Input placeholder={"请输入门店地址详情"} />
+          </Form.Item>
+          <Form.Item label="门店经纬度" required>
+            <Space.Compact>
+              <Row gutter={8}>
+                <Col span={12}>
+                  <Form.Item
+                    style={{ marginBottom: 0 }}
+                    name="longitude"
+                    rules={[{ required: true, message: "请输入经度" }]}
+                  >
+                    <Input placeholder="请输入经度" />
+                  </Form.Item>
+                </Col>
+                <Col span={12}>
+                  <Form.Item
+                    style={{ marginBottom: 0 }}
+                    name="latitude"
+                    rules={[{ required: true, message: "请输入纬度" }]}
+                  >
+                    <Input placeholder="请输入纬度" />
+                  </Form.Item>
+                </Col>
+              </Row>
+            </Space.Compact>
+          </Form.Item>
+          <Map setLng={setLng} setLat={setLat} />
           <Form.Item label="提货时间范围">
             <Form.List name="openTimeList">
               {(fields, { add, remove }) => (
@@ -255,38 +303,6 @@ export const PickupAddressModal = () => {
               )}
             </Form.List>
           </Form.Item>
-          <Form.Item
-            label="提货点地址详情"
-            name="addressDetail"
-            rules={[{ required: true, message: "请输入提货点地址详情" }]}
-          >
-            <Input placeholder={"请输入提货点地址详情"} />
-          </Form.Item>
-          <Form.Item label="提货点经纬度" required>
-            <Space.Compact>
-              <Row gutter={8}>
-                <Col span={12}>
-                  <Form.Item
-                    style={{ marginBottom: 0 }}
-                    name="longitude"
-                    rules={[{ required: true, message: "请输入经度" }]}
-                  >
-                    <Input placeholder="请输入经度" />
-                  </Form.Item>
-                </Col>
-                <Col span={12}>
-                  <Form.Item
-                    style={{ marginBottom: 0 }}
-                    name="latitude"
-                    rules={[{ required: true, message: "请输入纬度" }]}
-                  >
-                    <Input placeholder="请输入纬度" />
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Space.Compact>
-          </Form.Item>
-          <Map setLng={setLng} setLat={setLat} />
         </Form>
       )}
     </Modal>

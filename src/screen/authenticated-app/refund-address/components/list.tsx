@@ -63,7 +63,7 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             dataIndex: "mobile",
           },
           {
-            title: "收件地址",
+            title: "收件地址详情",
             dataIndex: "addressDetail",
           },
           {

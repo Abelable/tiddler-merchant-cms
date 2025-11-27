@@ -60,6 +60,10 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             dataIndex: "name",
           },
           {
+            title: "运费标题",
+            dataIndex: "title",
+          },
+          {
             title: "创建时间",
             render: (value, role) => (
               <span>

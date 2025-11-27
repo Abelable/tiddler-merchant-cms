@@ -11,6 +11,7 @@ export interface OpenTime {
 
 export interface PickupAddress {
   id: number;
+  logo: string;
   name: string;
   longitude: number;
   latitude: number;

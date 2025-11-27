@@ -144,6 +144,7 @@ export const GoodsModal = ({
         activityCover,
         imageList,
         detailImageList,
+        categoryId,
         defaultSpecImage,
         stock,
         ...rest
@@ -191,6 +192,9 @@ export const GoodsModal = ({
         detailImageList: detailImageList.map(
           (item: { url: string }) => item.url
         ),
+        categoryId,
+        shopCategoryId: categoryOptions.find((item) => item.id === categoryId)
+          ?.shopCategoryId,
         defaultSpecImage: defaultSpecImage[0].url,
         stock,
         specList: specContentList,
@@ -554,12 +558,32 @@ export const GoodsModal = ({
             </Col>
           </Row>
 
-          <SpecEditor
-            tableSkuList={tableSkuList}
-            setTableSkuList={setTableSkuList}
-            specContentList={specContentList}
-            setSpecContentList={setSpecContentList}
-          />
+          <Form.Item
+            noStyle
+            shouldUpdate={(prevValues, currentValues) =>
+              prevValues.categoryId !== currentValues.categoryId
+            }
+          >
+            {({ getFieldValue }) => {
+              const categoryId = getFieldValue("categoryId");
+              if (categoryId) {
+                const { minSalesCommissionRate, maxSalesCommissionRate } =
+                  categoryOptions.find(
+                    (item) => item.id === getFieldValue("categoryId")
+                  ) || {};
+                return (
+                  <SpecEditor
+                    minSalesCommissionRate={minSalesCommissionRate || 0}
+                    maxSalesCommissionRate={maxSalesCommissionRate || 0}
+                    tableSkuList={tableSkuList}
+                    setTableSkuList={setTableSkuList}
+                    specContentList={specContentList}
+                    setSpecContentList={setSpecContentList}
+                  />
+                );
+              }
+            }}
+          </Form.Item>
         </Form>
       )}
     </Drawer>

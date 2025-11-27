@@ -76,9 +76,9 @@ export const List = ({
             dataIndex: "status",
             render: (value, goods) =>
               value === 0 ? (
-                <span style={{ color: "#faad14" }}>待审核</span>
+                <span style={{ color: "#faad14" }}>审核中</span>
               ) : value === 1 ? (
-                <span style={{ color: "#296BEF" }}>售卖中</span>
+                <span style={{ color: "#296BEF" }}>出售中</span>
               ) : value === 1 ? (
                 <Tooltip title={goods.failureReason}>
                   <span style={{ color: "#f50", cursor: "pointer" }}>
@@ -88,12 +88,7 @@ export const List = ({
               ) : (
                 <span style={{ color: "#999" }}>已下架</span>
               ),
-            filters: [
-              { text: "待审核", value: 0 },
-              { text: "售卖中", value: 1 },
-              { text: "未过审", value: 2 },
-              { text: "已下架", value: 3 },
-            ],
+            filters: statusOptions,
             onFilter: (value, goods) => goods.status === value,
             width: "12rem",
           },
@@ -239,24 +234,37 @@ const More = ({ id, status }: { id: number; status: number }) => {
     });
   };
 
-  const items: MenuProps["items"] = [
-    {
-      label: <div onClick={() => startEdit(id)}>编辑</div>,
-      key: "edit",
-    },
-    {
-      label: (
-        <div onClick={() => (status === 1 ? confirmDown(id) : confirmUp(id))}>
-          {status === 1 ? "下架" : "上架"}
-        </div>
-      ),
-      key: status === 1 ? "down" : "up",
-    },
-    {
-      label: <div onClick={() => confirmDelete(id)}>删除</div>,
-      key: "delete",
-    },
-  ];
+  const items: MenuProps["items"] = [1, 3].includes(status)
+    ? [
+        {
+          label: (
+            <div
+              onClick={() => (status === 1 ? confirmDown(id) : confirmUp(id))}
+            >
+              {status === 1 ? "下架" : "上架"}
+            </div>
+          ),
+          key: status === 1 ? "down" : "up",
+        },
+        {
+          label: <div onClick={() => startEdit(id)}>编辑</div>,
+          key: "edit",
+        },
+        {
+          label: <div onClick={() => confirmDelete(id)}>删除</div>,
+          key: "delete",
+        },
+      ]
+    : [
+        {
+          label: <div onClick={() => startEdit(id)}>编辑</div>,
+          key: "edit",
+        },
+        {
+          label: <div onClick={() => confirmDelete(id)}>删除</div>,
+          key: "delete",
+        },
+      ];
 
   return (
     <Dropdown menu={{ items }}>

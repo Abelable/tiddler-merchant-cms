@@ -1,9 +1,5 @@
-import styled from "@emotion/styled";
-import dayjs from "dayjs";
-import { usePickupAddressListQueryKey, usePickupAddressModal } from "../util";
-import { useDeletePickupAddress } from "service/pickupAddress";
-
 import {
+  Avatar,
   Button,
   Dropdown,
   Modal,
@@ -13,7 +9,12 @@ import {
 } from "antd";
 import { MenuProps } from "antd/lib";
 import { ButtonNoPadding, ErrorBox, PageTitle, Row } from "components/lib";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, ShopOutlined } from "@ant-design/icons";
+
+import styled from "@emotion/styled";
+import dayjs from "dayjs";
+import { usePickupAddressListQueryKey, usePickupAddressModal } from "../util";
+import { useDeletePickupAddress } from "service/pickupAddress";
 
 import type {
   PickupAddress,
@@ -55,11 +56,16 @@ export const List = ({ error, params, setParams, ...restProps }: ListProps) => {
             sorter: (a, b) => Number(a.id) - Number(b.id),
           },
           {
-            title: "提货点名称",
+            title: "门店头像",
+            dataIndex: "logo",
+            render: (value) => <Avatar src={value} icon={<ShopOutlined />} />,
+          },
+          {
+            title: "门店名称",
             dataIndex: "name",
           },
           {
-            title: "提货点地址详情",
+            title: "门店地址详情",
             dataIndex: "addressDetail",
           },
           {

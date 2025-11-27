@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import {
   Avatar,
   Button,
@@ -10,12 +9,15 @@ import {
   TableProps,
 } from "antd";
 import { ButtonNoPadding, ErrorBox, Row, PageTitle } from "components/lib";
+import { PlusOutlined, UserOutlined } from "@ant-design/icons";
+
+import styled from "@emotion/styled";
 import dayjs from "dayjs";
 import { useDeleteManager } from "service/manager";
-import type { Manager } from "types/manager";
 import { useManagerModal, useManagerListQueryKey } from "../util";
-import { PlusOutlined, UserOutlined } from "@ant-design/icons";
-import { SearchPanelProps } from "./search-panel";
+
+import type { Manager } from "types/manager";
+import type { SearchPanelProps } from "./search-panel";
 
 interface ListProps extends TableProps<Manager>, SearchPanelProps {
   error: Error | unknown;
@@ -54,7 +56,6 @@ export const List = ({
             dataIndex: "id",
             width: "8rem",
           },
-
           {
             title: "头像",
             dataIndex: "avatar",
