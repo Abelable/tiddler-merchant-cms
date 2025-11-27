@@ -6,6 +6,7 @@ import { useEditAdminBaseInfoConfig } from "./use-optimistic-options";
 
 const localStorageKeyOfToken = "__auth_provider_token__";
 const localStorageKeyOfShopId = "__auth_provider_shop_id__";
+const localStorageKeyOfRoleId = "__auth_provider_role_id__";
 
 export const getToken = () =>
   window.localStorage.getItem(localStorageKeyOfToken);
@@ -17,21 +18,30 @@ export const getShopId = () =>
 export const removeShopId = () =>
   window.localStorage.removeItem(localStorageKeyOfShopId);
 
+export const getRoleId = () =>
+  window.localStorage.getItem(localStorageKeyOfRoleId);
+export const removeRoleId = () =>
+  window.localStorage.removeItem(localStorageKeyOfRoleId);
+
 export const login = async (form: AuthForm) => {
   const { token, shopOptions } = await http("auth/login", {
     method: "POST",
     data: form,
   });
-  window.localStorage.setItem(localStorageKeyOfToken, token);
-  if (shopOptions.length) {
-    window.localStorage.setItem(localStorageKeyOfShopId, shopOptions[0].id);
+  if (!shopOptions.length) {
+    throw new Error("您还不是商家或管理员，无法登录商家后台");
   }
-  return { token, shopId: shopOptions.length ? shopOptions[0].id : 0 };
+  const { id: shopId, roleId } = shopOptions[0];
+  window.localStorage.setItem(localStorageKeyOfToken, token);
+  window.localStorage.setItem(localStorageKeyOfShopId, shopId);
+  window.localStorage.setItem(localStorageKeyOfRoleId, roleId);
+  return { token, shopId, roleId };
 };
 
 export const logout = async () => {
   removeToken();
   removeShopId();
+  removeRoleId();
 };
 
 export const refreshToken = async () => {

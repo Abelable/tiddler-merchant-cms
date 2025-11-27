@@ -9,7 +9,7 @@ const VERSION = process.env.REACT_APP_VERSION;
 
 interface Config extends RequestInit {
   token?: string;
-  shopId?: number;
+  shopId?: string;
   data?: object;
   formData?: FormData;
 }
@@ -70,6 +70,7 @@ export const http = async (
           } else if (response.status === 403 && auth.getToken()) {
             auth.removeToken();
             auth.removeShopId();
+            auth.removeRoleId();
             window.location.reload();
             return Promise.reject({ message: "请重新登录" });
           } else if (response.status === 401) {
@@ -85,6 +86,7 @@ export const http = async (
         if (response.status === 403 && auth.getToken()) {
           auth.removeToken();
           auth.removeShopId();
+          auth.removeRoleId();
           window.location.reload();
           return Promise.reject({ message: "请重新登录" });
         } else if (response.status === 401) {

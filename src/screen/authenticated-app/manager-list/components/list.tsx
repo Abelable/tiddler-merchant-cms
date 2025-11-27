@@ -77,10 +77,10 @@ export const List = ({
           },
           {
             title: "更新时间",
-            render: (value, Manager) => (
+            render: (value, manager) => (
               <span>
-                {Manager.updatedAt
-                  ? dayjs(Manager.updatedAt).format("YYYY-MM-DD HH:mm:ss")
+                {manager.updatedAt
+                  ? dayjs(manager.updatedAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -90,10 +90,10 @@ export const List = ({
           },
           {
             title: "创建时间",
-            render: (value, Manager) => (
+            render: (value, manager) => (
               <span>
-                {Manager.createdAt
-                  ? dayjs(Manager.createdAt).format("YYYY-MM-DD HH:mm:ss")
+                {manager.createdAt
+                  ? dayjs(manager.createdAt).format("YYYY-MM-DD HH:mm:ss")
                   : "无"}
               </span>
             ),
@@ -103,8 +103,8 @@ export const List = ({
           },
           {
             title: "操作",
-            render(value, Manager) {
-              return <More id={Manager.id} />;
+            render(value, manager) {
+              return <More id={manager.id} />;
             },
             width: "8rem",
           },

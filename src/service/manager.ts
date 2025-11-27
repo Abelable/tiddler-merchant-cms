@@ -28,7 +28,7 @@ export const useManager = (id: number) => {
   const client = useHttp();
   return useQuery<Partial<Manager>>(
     ["manager", { id }],
-    () => client("shop/manager/detail"),
+    () => client("shop/manager/detail", { data: { id } }),
     {
       enabled: !!id,
     }

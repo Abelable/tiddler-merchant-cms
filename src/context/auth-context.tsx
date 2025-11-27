@@ -6,7 +6,8 @@ import { AuthForm } from "types/auth";
 const AuthContext = createContext<
   | {
       token: string;
-      shopId: number;
+      shopId: string;
+      roleId: string;
       login: (form: AuthForm) => Promise<void>;
       logout: () => Promise<void>;
     }
@@ -17,24 +18,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient();
 
   const [token, setToken] = useState(auth.getToken() || "");
-  const [shopId, setShopId] = useState(+(auth.getShopId() || 0));
+  const [shopId, setShopId] = useState(auth.getShopId() || "");
+  const [roleId, setRoleId] = useState(auth.getRoleId() || "");
 
   const login = (form: AuthForm) =>
-    auth.login(form).then(({ token, shopId }) => {
+    auth.login(form).then(({ token, shopId, roleId }) => {
       setToken(token);
       setShopId(shopId);
+      setRoleId(roleId);
     });
 
   const logout = () =>
     auth.logout().then(() => {
       setToken("");
+      setShopId("");
+      setRoleId("");
       queryClient.clear();
     });
 
   return (
     <AuthContext.Provider
       children={children}
-      value={{ token, shopId, login, logout }}
+      value={{ token, shopId, roleId, login, logout }}
     />
   );
 };

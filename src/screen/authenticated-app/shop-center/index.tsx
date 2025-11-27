@@ -30,7 +30,7 @@ export const ShopCenter = () => {
   const [form] = useForm();
   const [selectKey, setSelectKey] = useState("base");
 
-  const { data: shopInfo } = useShopInfo(shopId);
+  const { data: shopInfo } = useShopInfo(+shopId);
   const { mutateAsync, isLoading: mutateLoading } = useUpdateShopInfo();
   const { open } = usePwdModal();
 
