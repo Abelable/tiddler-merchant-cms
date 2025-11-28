@@ -51,14 +51,14 @@ interface ListProps
       SearchPanelProps,
       "statusOptions" | "deliveryModeOptions" | "userOptions" | "goodsOptions"
     > {
-  statusDescOptions: Option[];
+  statusOptions: Option[];
   error: Error | unknown;
   selectedRowKeys: React.Key[];
   setSelectedRowKeys: (selectedRowKeys: []) => void;
 }
 
 export const List = ({
-  statusDescOptions,
+  statusOptions,
   selectedRowKeys,
   setSelectedRowKeys,
   error,
@@ -150,15 +150,12 @@ export const List = ({
                         : "#333",
                     }}
                   >
-                    {
-                      statusDescOptions.find((item) => item.value === value)
-                        ?.text
-                    }
+                    {statusOptions.find((item) => item.value === value)?.text}
                   </span>
                 </Row>
               );
             },
-            filters: statusDescOptions,
+            filters: statusOptions,
             onFilter: (value, order) => order.status === value,
             width: "18rem",
           },

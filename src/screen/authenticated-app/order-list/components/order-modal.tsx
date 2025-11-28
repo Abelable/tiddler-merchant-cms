@@ -22,13 +22,7 @@ import styled from "@emotion/styled";
 
 const { Step } = Steps;
 
-export const OrderModal = ({
-  statusDescOptions,
-  userOptions,
-}: {
-  statusDescOptions: Option[];
-  userOptions: { id: number; avatar: string; nickname: string }[];
-}) => {
+export const OrderModal = ({ statusOptions }: { statusOptions: Option[] }) => {
   const { close, orderModalOpen, orderInfo, error, isLoading } =
     useOrderModal();
   const [current, setCurrent] = useState(1);
@@ -276,9 +270,8 @@ export const OrderModal = ({
               <>
                 <span>当前订单状态：</span>
                 <span style={{ color: "#1890ff" }}>{`${
-                  statusDescOptions.find(
-                    (item) => item.value === orderInfo?.status
-                  )?.text
+                  statusOptions.find((item) => item.value === orderInfo?.status)
+                    ?.text
                 }`}</span>
               </>
             }
