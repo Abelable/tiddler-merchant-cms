@@ -48,6 +48,36 @@ export const OrderModal = ({
         createdAt = "",
       } = orderInfo;
       switch (status) {
+        case 101:
+          setCurrent(1);
+          setStepItems(
+            deliveryMode === 1
+              ? [
+                  {
+                    title: "提交订单",
+                    description: dayjs(orderInfo?.createdAt).format(
+                      "YYYY-MM-DD HH:mm:ss"
+                    ),
+                  },
+                  { title: "支付订单", description: "" },
+                  { title: "平台发货", description: "" },
+                  { title: "确认收货", description: "" },
+                  { title: "完成评价", description: "" },
+                ]
+              : [
+                  {
+                    title: "提交订单",
+                    description: dayjs(orderInfo?.createdAt).format(
+                      "YYYY-MM-DD HH:mm:ss"
+                    ),
+                  },
+                  { title: "支付订单", description: "" },
+                  { title: "自提核销", description: "" },
+                  { title: "完成评价", description: "" },
+                ]
+          );
+          break;
+
         case 201:
         case 202:
           setCurrent(2);
