@@ -2,7 +2,7 @@ import { QueryKey, useMutation, useQuery } from "react-query";
 import { useHttp } from "./http";
 import { cleanObject } from "utils";
 import {
-  useAddActivityGoodsConfig,
+  useAddCouponConfig,
   useDeleteConfig,
   useEditConfig,
   useDownCouponConfig,
@@ -42,7 +42,7 @@ export const useAddCoupon = (queryKey: QueryKey) => {
         data: cleanObject(params),
         method: "POST",
       }),
-    useAddActivityGoodsConfig(queryKey)
+    useAddCouponConfig(queryKey)
   );
 };
 

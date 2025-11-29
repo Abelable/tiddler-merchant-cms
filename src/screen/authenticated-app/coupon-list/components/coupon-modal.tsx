@@ -140,7 +140,7 @@ export const CouponModal = ({
               )
             }
           </Form.Item>
-          <Form.Item name="receiveNumLimit" label="限领数量">
+          <Form.Item name="receiveLimit" label="限领数量">
             <InputNumber
               style={{ width: "100%" }}
               placeholder="请输入限领数量"

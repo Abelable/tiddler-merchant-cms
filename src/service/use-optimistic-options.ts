@@ -160,7 +160,7 @@ export const useExportOrderConfig = (queryKey: QueryKey) =>
       : null
   );
 
-export const useAddActivityGoodsConfig = (queryKey: QueryKey) =>
+export const useAddCouponConfig = (queryKey: QueryKey) =>
   useConfig(queryKey, (target, old) =>
     old
       ? {
