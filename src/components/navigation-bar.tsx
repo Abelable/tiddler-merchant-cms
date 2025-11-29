@@ -7,6 +7,7 @@ const breadcrumbNameMap: { [key: string]: string } = {
   "/order_list": "订单列表",
   "/order_refund": "售后处理",
   "/goods_list": "商品列表",
+  "/coupon_list": "优惠券",
   "/freight_template_list": "运费模板",
   "/pickup_address_list": "提货地点",
   "/refund_address_list": "退货地址",

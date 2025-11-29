@@ -25,6 +25,7 @@ import {
   TruckOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import { CouponIcon } from "assets/icon";
 import logo from "assets/images/logo.png";
 
 import { Dashboard } from "./dashboard";
@@ -38,6 +39,7 @@ import { ManagerList } from "./manager-list";
 import { ShopCenter } from "./shop-center";
 
 import type { ShopInfo } from "types/auth";
+import { CouponList } from "./coupon-list";
 
 export const AuthenticatedApp = () => {
   const { logout, shopId, roleId } = useAuth();
@@ -62,6 +64,7 @@ export const AuthenticatedApp = () => {
               <Route path="order_list" element={<OrderList />} />
               <Route path="order_refund" element={<RefundList />} />
               <Route path="goods_list" element={<GoodsList />} />
+              <Route path="coupon_list" element={<CouponList />} />
               <Route
                 path="freight_template_list"
                 element={<FreightTemplateList />}
@@ -142,6 +145,11 @@ const MenuSider = ({
           label: <Link to={"goods_list"}>商品列表</Link>,
           key: "goods_list",
           icon: <ShoppingOutlined />,
+        },
+        {
+          label: <Link to={"coupon_list"}>优惠券</Link>,
+          key: "coupon_list",
+          icon: <CouponIcon />,
         },
         {
           label: <Link to={"freight_template_list"}>运费模板</Link>,
