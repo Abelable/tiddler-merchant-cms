@@ -140,9 +140,19 @@ export const List = ({
             title: "销售佣金比例",
             dataIndex: "salesCommissionRate",
             render: (value, goods) => {
-              const { minSalesCommissionRate, maxSalesCommissionRate } =
-                categoryOptions.find((item) => item.id === goods.categoryId) ||
-                {};
+              const selectedCategories = categoryOptions.filter((item) =>
+                goods.categoryIds.includes(item.id)
+              );
+              const minSalesCommissionRate = Math.max(
+                ...selectedCategories.map(
+                  (item) => item.minSalesCommissionRate || 0
+                )
+              );
+              const maxSalesCommissionRate = Math.min(
+                ...selectedCategories.map(
+                  (item) => item.maxSalesCommissionRate || Infinity
+                )
+              );
               return (
                 <InputNumber
                   min={minSalesCommissionRate}
