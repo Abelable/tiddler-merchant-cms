@@ -344,7 +344,7 @@ export const GoodsModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="categoryIdss"
+                name="categoryIds"
                 label="商品分类"
                 rules={[{ required: true, message: "请选择商品分类" }]}
               >
