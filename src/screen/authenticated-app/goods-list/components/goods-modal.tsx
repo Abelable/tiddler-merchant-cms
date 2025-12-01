@@ -370,13 +370,11 @@ export const GoodsModal = ({
                     const selectedCategories = categoryOptions.filter((item) =>
                       categoryIds.includes(item.id)
                     );
-
                     const minSalesCommissionRate = Math.max(
                       ...selectedCategories.map(
                         (item) => item.minSalesCommissionRate || 0
                       )
                     );
-
                     const maxSalesCommissionRate = Math.min(
                       ...selectedCategories.map(
                         (item) => item.maxSalesCommissionRate || Infinity
@@ -577,13 +575,11 @@ export const GoodsModal = ({
                 const selectedCategories = categoryOptions.filter((item) =>
                   categoryIds.includes(item.id)
                 );
-
                 const minSalesCommissionRate = Math.max(
                   ...selectedCategories.map(
                     (item) => item.minSalesCommissionRate || 0
                   )
                 );
-
                 const maxSalesCommissionRate = Math.min(
                   ...selectedCategories.map(
                     (item) => item.maxSalesCommissionRate || Infinity
