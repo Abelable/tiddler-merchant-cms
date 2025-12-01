@@ -15,7 +15,6 @@ export interface SearchPanelProps {
 const defaultParmas: Partial<GoodsListSearchParams> = {
   name: "",
   categoryId: undefined,
-  merchantId: undefined,
   status: undefined,
 };
 

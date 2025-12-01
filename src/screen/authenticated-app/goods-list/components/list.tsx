@@ -105,13 +105,14 @@ export const List = ({
           },
           {
             title: "分类",
-            dataIndex: "categoryId",
-            render: (value) => (
-              <Tag>
-                {categoryOptions.find((item) => item.id === value)?.name}
-              </Tag>
-            ),
-            width: "12rem",
+            dataIndex: "categoryIds",
+            render: (value) =>
+              value.map((id: number) => (
+                <Tag key={id}>
+                  {categoryOptions.find((item) => item.id === id)?.name}
+                </Tag>
+              )),
+            width: "18rem",
           },
           {
             title: "价格",

@@ -1,6 +1,5 @@
 export interface GoodsCategoryOption {
   id: number;
-  shopCategoryId: number;
   name: string;
   minSalesCommissionRate: number;
   maxSalesCommissionRate: number;
@@ -9,7 +8,6 @@ export interface GoodsCategoryOption {
 export interface GoodsListSearchParams {
   name: string;
   categoryId: number | undefined;
-  merchantId: number | undefined;
   status: number | undefined;
   page: number;
   limit: number;
@@ -34,6 +32,7 @@ export interface Goods {
   id: number;
   status: number;
   failureReason: string;
+  categoryIds: number[];
   cover: string;
   video: string;
   imageList: string[];

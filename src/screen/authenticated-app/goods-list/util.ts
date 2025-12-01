@@ -6,7 +6,6 @@ export const useGoodsListSearchParams = () => {
   const [params, setParams] = useUrlQueryParams([
     "name",
     "categoryId",
-    "merchantId",
     "status",
     "page",
     "limit",

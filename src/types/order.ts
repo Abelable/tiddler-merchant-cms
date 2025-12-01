@@ -17,7 +17,6 @@ export interface Order {
   deliveryMode: number;
   goodsList: OrderGoods[];
   refundAmount: number;
-  merchantId: number;
   userInfo: { id: number; avatar: string; nickname: string };
   consignee: string;
   mobile: string;
@@ -90,7 +89,6 @@ export interface OrderDetail extends Omit<Order, "goodsList"> {
   deductionBalance: number;
   freightPrice: number;
   userInfo: UserInfo;
-  merchantId: number;
   consignee: string;
   mobile: string;
   address: string;

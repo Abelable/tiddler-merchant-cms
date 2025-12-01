@@ -144,7 +144,6 @@ export const GoodsModal = ({
         activityCover,
         imageList,
         detailImageList,
-        categoryId,
         defaultSpecImage,
         stock,
         ...rest
@@ -192,9 +191,6 @@ export const GoodsModal = ({
         detailImageList: detailImageList.map(
           (item: { url: string }) => item.url
         ),
-        categoryId,
-        shopCategoryId: categoryOptions.find((item) => item.id === categoryId)
-          ?.shopCategoryId,
         defaultSpecImage: defaultSpecImage[0].url,
         stock,
         specList: specContentList,
@@ -348,11 +344,11 @@ export const GoodsModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="categoryId"
+                name="categoryIdss"
                 label="商品分类"
                 rules={[{ required: true, message: "请选择商品分类" }]}
               >
-                <Select placeholder="请选择商品分类">
+                <Select mode="multiple" placeholder="请选择商品分类">
                   {categoryOptions.map(({ id, name }) => (
                     <Select.Option key={id} value={id}>
                       {name}
@@ -365,16 +361,27 @@ export const GoodsModal = ({
               <Form.Item
                 noStyle
                 shouldUpdate={(prevValues, currentValues) =>
-                  prevValues.categoryId !== currentValues.categoryId
+                  prevValues.categoryIds !== currentValues.categoryIds
                 }
               >
                 {({ getFieldValue }) => {
-                  const categoryId = getFieldValue("categoryId");
-                  if (categoryId) {
-                    const { minSalesCommissionRate, maxSalesCommissionRate } =
-                      categoryOptions.find(
-                        (item) => item.id === getFieldValue("categoryId")
-                      ) || {};
+                  const categoryIds = getFieldValue("categoryIds");
+                  if (categoryIds && categoryIds.length > 0) {
+                    const selectedCategories = categoryOptions.filter((item) =>
+                      categoryIds.includes(item.id)
+                    );
+
+                    const minSalesCommissionRate = Math.max(
+                      ...selectedCategories.map(
+                        (item) => item.minSalesCommissionRate || 0
+                      )
+                    );
+
+                    const maxSalesCommissionRate = Math.min(
+                      ...selectedCategories.map(
+                        (item) => item.maxSalesCommissionRate || Infinity
+                      )
+                    );
                     return (
                       <Form.Item
                         name="salesCommissionRate"
@@ -561,16 +568,27 @@ export const GoodsModal = ({
           <Form.Item
             noStyle
             shouldUpdate={(prevValues, currentValues) =>
-              prevValues.categoryId !== currentValues.categoryId
+              prevValues.categoryIds !== currentValues.categoryIds
             }
           >
             {({ getFieldValue }) => {
-              const categoryId = getFieldValue("categoryId");
-              if (categoryId) {
-                const { minSalesCommissionRate, maxSalesCommissionRate } =
-                  categoryOptions.find(
-                    (item) => item.id === getFieldValue("categoryId")
-                  ) || {};
+              const categoryIds = getFieldValue("categoryIds");
+              if (categoryIds && categoryIds.length > 0) {
+                const selectedCategories = categoryOptions.filter((item) =>
+                  categoryIds.includes(item.id)
+                );
+
+                const minSalesCommissionRate = Math.max(
+                  ...selectedCategories.map(
+                    (item) => item.minSalesCommissionRate || 0
+                  )
+                );
+
+                const maxSalesCommissionRate = Math.min(
+                  ...selectedCategories.map(
+                    (item) => item.maxSalesCommissionRate || Infinity
+                  )
+                );
                 return (
                   <SpecEditor
                     minSalesCommissionRate={minSalesCommissionRate || 0}
