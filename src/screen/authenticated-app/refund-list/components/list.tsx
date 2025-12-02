@@ -88,7 +88,7 @@ export const List = ({
                 <img src={value.cover} alt="" />
                 <GoodsInfo>
                   <GoodsName>{value.name}</GoodsName>
-                  <GoodsSku>{value.selectedSkuName}</GoodsSku>
+                  <GoodsSku>规格：{value.selectedSkuName}</GoodsSku>
                   <GoodsPriceWrap>
                     <div style={{ color: "#ff4d4f" }}>
                       <span style={{ fontSize: "6px" }}>¥</span>

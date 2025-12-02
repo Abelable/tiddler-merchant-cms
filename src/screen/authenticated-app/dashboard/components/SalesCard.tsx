@@ -117,7 +117,7 @@ export const SalesCard = ({
                           salesData?.monthlySalesList
                             ? salesData?.monthlySalesList?.map((item) => ({
                                 x: item.month,
-                                y: +item.sum.toFixed(2),
+                                y: +item.sum,
                               }))
                             : []
                         }

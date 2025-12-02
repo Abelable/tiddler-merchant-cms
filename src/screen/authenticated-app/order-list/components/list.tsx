@@ -181,7 +181,7 @@ export const List = ({
                       <img src={cover} alt="" />
                       <GoodsInfo>
                         <GoodsName>{name}</GoodsName>
-                        <GoodsSku>{selectedSkuName}</GoodsSku>
+                        <GoodsSku>规格：{selectedSkuName}</GoodsSku>
                         <GoodsPriceWrap>
                           <div style={{ color: "#ff4d4f" }}>
                             <span style={{ fontSize: "6px" }}>¥</span>

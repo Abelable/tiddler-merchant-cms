@@ -22,12 +22,12 @@ export const SalesRecordCard = ({
           {
             name: "销售额",
             month: item.month,
-            sum: +item.sum.toFixed(2),
+            sum: +item.sum,
           },
           {
             name: "收益",
             month: item.month,
-            sum: +income.toFixed(2),
+            sum: +income,
           },
         ];
       })

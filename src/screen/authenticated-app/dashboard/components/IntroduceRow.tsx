@@ -56,7 +56,7 @@ export const IntroduceRow = ({
             salesData?.dailySalesList
               ? salesData?.dailySalesList.map((item) => ({
                   x: dayjs(item.createdAt).format("YYYY-MM-DD"),
-                  y: +item.sum.toFixed(2),
+                  y: +item.sum,
                 }))
               : []
           }
@@ -105,7 +105,7 @@ export const IntroduceRow = ({
             incomeData?.dailyIncomeList
               ? incomeData?.dailyIncomeList.map((item) => ({
                   x: dayjs(item.createdAt).format("YYYY-MM-DD"),
-                  y: +item.sum.toFixed(2),
+                  y: +item.sum,
                 }))
               : []
           }

@@ -157,24 +157,25 @@ export const GoodsName = styled.div`
   -webkit-box-orient: vertical;
 `;
 export const GoodsSku = styled.div`
-  margin-top: 4px;
-  padding: 0 3px;
+  margin-top: 2px;
+  padding: 0 5px;
   width: fit-content;
-  height: 12px;
+  height: 15px;
   color: #999;
   font-size: 8px;
+  line-height: 15px;
   -webkit-line-clamp: 1;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  background: #f1f1f1;
+  background: #f5f5f5;
   border-radius: 2px;
 `;
 export const GoodsPriceWrap = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 6px;
+  margin-top: 2px;
   line-height: 1;
 `;
