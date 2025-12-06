@@ -40,7 +40,14 @@ export const CouponModal = ({
 
   const confirm = () => {
     form.validateFields().then(async () => {
-      await mutateAsync({ ...editingCoupon, ...form.getFieldsValue() });
+      const { expirationTime, ...rest } = form.getFieldsValue();
+      await mutateAsync({
+        ...editingCoupon,
+        expirationTime: expirationTime
+          ? dayjs(expirationTime).format("YYYY-MM-DD HH:mm:ss")
+          : "",
+        ...rest,
+      });
       closeModal();
     });
   };
