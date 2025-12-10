@@ -189,7 +189,7 @@ export const IntroduceRow = ({
           data={
             userCountData?.dailyCountList
               ? userCountData?.dailyCountList.map((item) => ({
-                  x: dayjs(item.createdAt).format("YYYY-MM-DD"),
+                  x: dayjs(item.updatedAt).format("YYYY-MM-DD"),
                   y: item.count,
                 }))
               : []

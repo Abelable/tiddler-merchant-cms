@@ -212,6 +212,11 @@ const MenuSider = ({
           icon: <ShoppingOutlined />,
         },
         {
+          label: <Link to={"coupon_list"}>优惠券</Link>,
+          key: "coupon_list",
+          icon: <CouponIcon />,
+        },
+        {
           label: <Link to={"freight_template_list"}>运费模板</Link>,
           key: "freight_template_list",
           icon: <TruckOutlined />,

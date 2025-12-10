@@ -27,7 +27,9 @@ export interface OrderCountData {
   weeklyGrowthRate: number;
 }
 
-export interface UserCountData extends OrderCountData {}
+export interface UserCountData extends Omit<OrderCountData, "dailyCountList"> {
+  dailyCountList: { updatedAt: string; count: number }[];
+}
 
 export interface TopGoodsList {
   topSalesGoodsList: { id: number; cover: string; name: string; sum: number }[];
