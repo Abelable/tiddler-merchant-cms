@@ -320,30 +320,6 @@ export const GoodsModal = ({
           <Row gutter={16}>
             <Col span={12}>
               <Form.Item
-                name="price"
-                label="起始价格"
-                rules={[{ required: true, message: "请填写起始价格" }]}
-              >
-                <InputNumber
-                  prefix="￥"
-                  style={{ width: "100%" }}
-                  placeholder="请填写起始价格"
-                />
-              </Form.Item>
-            </Col>
-            <Col span={12}>
-              <Form.Item name="marketPrice" label="市场原价">
-                <InputNumber
-                  prefix="￥"
-                  style={{ width: "100%" }}
-                  placeholder="请填写市场原价"
-                />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
                 name="categoryIds"
                 label="商品分类"
                 rules={[{ required: true, message: "请选择商品分类" }]}
@@ -535,33 +511,6 @@ export const GoodsModal = ({
           <Divider orientation="left" plain>
             商品规格
           </Divider>
-          <Row gutter={16}>
-            <Col span={24}>
-              <Form.Item
-                name="defaultSpecImage"
-                label="默认规格图片"
-                valuePropName="fileList"
-                getValueFromEvent={normFile}
-                rules={[{ required: true, message: "请上传默认规格图片" }]}
-              >
-                <OssUpload maxCount={1} />
-              </Form.Item>
-            </Col>
-          </Row>
-          <Row gutter={16}>
-            <Col span={12}>
-              <Form.Item
-                name="stock"
-                label="总库存"
-                rules={[{ required: true, message: "请填写总库存" }]}
-              >
-                <InputNumber
-                  style={{ width: "100%" }}
-                  placeholder="请填写总库存"
-                />
-              </Form.Item>
-            </Col>
-          </Row>
 
           <Form.Item
             noStyle
@@ -598,6 +547,56 @@ export const GoodsModal = ({
               }
             }}
           </Form.Item>
+
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="defaultSpecImage"
+                label="默认规格图片"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}
+                rules={[{ required: true, message: "请上传默认规格图片" }]}
+              >
+                <OssUpload maxCount={1} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item
+                name="stock"
+                label="总库存"
+                rules={[{ required: true, message: "请填写总库存" }]}
+              >
+                <InputNumber
+                  style={{ width: "100%" }}
+                  placeholder="请填写总库存"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item
+                name="price"
+                label="起始价格"
+                rules={[{ required: true, message: "请填写起始价格" }]}
+              >
+                <InputNumber
+                  prefix="￥"
+                  style={{ width: "100%" }}
+                  placeholder="请填写起始价格"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="marketPrice" label="市场原价">
+                <InputNumber
+                  prefix="￥"
+                  style={{ width: "100%" }}
+                  placeholder="请填写市场原价"
+                />
+              </Form.Item>
+            </Col>
+          </Row>
         </Form>
       )}
     </Drawer>

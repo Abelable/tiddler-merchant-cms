@@ -449,7 +449,7 @@ export const SpecEditor = ({
       </>
 
       <Table
-        style={{ marginTop: "2.4rem" }}
+        style={{ margin: "2.4rem 0" }}
         bordered
         rowKey={"name"}
         dataSource={tableSkuList}
