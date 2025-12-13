@@ -15,7 +15,10 @@ import {
   InputNumber,
   Divider,
   Modal,
+  message,
+  Dropdown,
 } from "antd";
+import type { MenuProps } from "antd";
 import { OssUpload } from "components/oss-upload";
 import { ErrorBox, ModalLoading } from "components/lib";
 import { SpecEditor } from "./spec-editor";
@@ -28,6 +31,18 @@ import type { RefundAddress } from "types/refundAddress";
 interface TableSku extends Sku {
   [x: string]: string | number | object;
 }
+
+// 草稿数据类型
+interface DraftGoodsData {
+  formData: any;
+  tableSkuList: TableSku[];
+  specContentList: Spec[];
+  timestamp: number;
+  name?: string;
+}
+
+const DRAFT_KEY = "goods_draft";
+const DRAFT_EXPIRE_TIME = 7 * 24 * 60 * 60 * 1000; // 7天
 
 const refundStatusOptions = [
   { text: "不支持", value: 0 },
@@ -69,7 +84,41 @@ export const GoodsModal = ({
 
   const [tableSkuList, setTableSkuList] = useState<TableSku[]>([]);
   const [specContentList, setSpecContentList] = useState<Spec[]>([]);
+  const [hasDraft, setHasDraft] = useState(false);
+  const [isLoadingDraft, setIsLoadingDraft] = useState(false);
+  const [draftInfo, setDraftInfo] = useState<{ name?: string; time?: string }>(
+    {}
+  );
 
+  // 检查是否有草稿
+  useEffect(() => {
+    if (goodsModalOpen && !editingGoodsId) {
+      const draft = getDraft();
+      if (draft) {
+        setHasDraft(true);
+        setDraftInfo({
+          name: draft.name,
+          time: formatTime(draft.timestamp),
+        });
+      } else {
+        setHasDraft(false);
+        setDraftInfo({});
+      }
+    }
+  }, [goodsModalOpen, editingGoodsId]);
+
+  // 格式化时间
+  const formatTime = (timestamp: number) => {
+    const date = new Date(timestamp);
+    return `${date.getFullYear()}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")} ${date
+      .getHours()
+      .toString()
+      .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
+  };
+
+  // 加载编辑商品数据
   useEffect(() => {
     if (editingGoods) {
       const {
@@ -135,6 +184,166 @@ export const GoodsModal = ({
       });
     }
   }, [editingGoods, form]);
+
+  // 获取草稿
+  const getDraft = (): DraftGoodsData | null => {
+    try {
+      const draftStr = localStorage.getItem(DRAFT_KEY);
+      if (!draftStr) return null;
+
+      const draft: DraftGoodsData = JSON.parse(draftStr);
+
+      // 检查草稿是否过期
+      if (Date.now() - draft.timestamp > DRAFT_EXPIRE_TIME) {
+        localStorage.removeItem(DRAFT_KEY);
+        return null;
+      }
+
+      return draft;
+    } catch (error) {
+      console.error("读取草稿失败:", error);
+      return null;
+    }
+  };
+
+  // 保存草稿
+  const saveDraft = async () => {
+    try {
+      const formValues = await form.validateFields();
+
+      const draftData: DraftGoodsData = {
+        formData: formValues,
+        tableSkuList,
+        specContentList,
+        timestamp: Date.now(),
+        name: formValues.name || "未命名商品",
+      };
+
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draftData));
+      setHasDraft(true);
+      setDraftInfo({
+        name: draftData.name,
+        time: formatTime(draftData.timestamp),
+      });
+      message.success("草稿保存成功");
+      return true;
+    } catch (error) {
+      // 如果有验证错误，只保存通过验证的字段
+      const formValues = form.getFieldsValue();
+
+      const draftData: DraftGoodsData = {
+        formData: formValues,
+        tableSkuList,
+        specContentList,
+        timestamp: Date.now(),
+        name: formValues.name || "未命名商品",
+      };
+
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(draftData));
+      setHasDraft(true);
+      setDraftInfo({
+        name: draftData.name,
+        time: formatTime(draftData.timestamp),
+      });
+      message.success("草稿保存成功（部分字段未验证通过）");
+      return true;
+    }
+  };
+
+  // 加载草稿
+  const loadDraft = () => {
+    Modal.confirm({
+      title: "加载草稿",
+      content: `是否要加载草稿"${draftInfo.name}"？当前表单内容将被覆盖。`,
+      onOk: () => {
+        setIsLoadingDraft(true);
+        try {
+          const draft = getDraft();
+          if (!draft) {
+            message.warning("草稿不存在或已过期");
+            setHasDraft(false);
+            setDraftInfo({});
+            return;
+          }
+
+          // 重置表单
+          form.resetFields();
+          setTableSkuList([]);
+          setSpecContentList([]);
+
+          // 加载草稿数据
+          setTimeout(() => {
+            form.setFieldsValue(draft.formData);
+            setTableSkuList(draft.tableSkuList);
+            setSpecContentList(draft.specContentList);
+            setIsLoadingDraft(false);
+            message.success("草稿加载成功");
+          }, 100);
+        } catch (error) {
+          console.error("加载草稿失败:", error);
+          message.error("加载草稿失败");
+          setIsLoadingDraft(false);
+        }
+      },
+    });
+  };
+
+  // 清除草稿
+  const clearDraft = () => {
+    Modal.confirm({
+      title: "清除草稿",
+      content: `确定要清除草稿"${draftInfo.name}"吗？`,
+      onOk: () => {
+        localStorage.removeItem(DRAFT_KEY);
+        setHasDraft(false);
+        setDraftInfo({});
+        message.success("草稿已清除");
+      },
+    });
+  };
+
+  // 查看草稿信息
+  const showDraftInfo = () => {
+    Modal.info({
+      title: "草稿信息",
+      content: (
+        <div>
+          <p>
+            <strong>草稿名称：</strong>
+            {draftInfo.name}
+          </p>
+          <p>
+            <strong>保存时间：</strong>
+            {draftInfo.time}
+          </p>
+        </div>
+      ),
+    });
+  };
+
+  // 草稿下拉菜单
+  const draftMenuItems: MenuProps["items"] = [
+    {
+      key: "load",
+      label: "加载草稿",
+      onClick: loadDraft,
+      disabled: isLoadingDraft,
+    },
+    {
+      key: "info",
+      label: "查看草稿信息",
+      onClick: showDraftInfo,
+    },
+    {
+      type: "divider",
+    },
+    {
+      key: "clear",
+      label: "清除草稿",
+      danger: true,
+      onClick: clearDraft,
+    },
+  ];
 
   const submit = () => {
     form.validateFields().then(async () => {
@@ -214,15 +423,40 @@ export const GoodsModal = ({
           })
         ),
       });
+
+      // 提交成功后清除草稿
+      if (!editingGoodsId) {
+        localStorage.removeItem(DRAFT_KEY);
+        setHasDraft(false);
+        setDraftInfo({});
+      }
+
       closeModal();
     });
   };
 
   const closeModal = () => {
-    form.resetFields();
-    setTableSkuList([]);
-    setSpecContentList([]);
-    close();
+    // 关闭时提示保存草稿
+    if (!editingGoodsId && form.isFieldsTouched()) {
+      Modal.confirm({
+        title: "保存草稿",
+        content: "检测到未保存的内容，是否保存为草稿？",
+        okText: "保存草稿",
+        cancelText: "不保存",
+        onOk: saveDraft,
+        onCancel: () => {
+          form.resetFields();
+          setTableSkuList([]);
+          setSpecContentList([]);
+          close();
+        },
+      });
+    } else {
+      form.resetFields();
+      setTableSkuList([]);
+      setSpecContentList([]);
+      close();
+    }
   };
 
   return (
@@ -235,6 +469,16 @@ export const GoodsModal = ({
       styles={{ body: { paddingBottom: 80 } }}
       extra={
         <Space>
+          {!editingGoodsId && hasDraft && (
+            <Dropdown menu={{ items: draftMenuItems }} placement="bottomRight">
+              <Button>草稿管理</Button>
+            </Dropdown>
+          )}
+          {!editingGoodsId && (
+            <Button onClick={saveDraft} disabled={!form.isFieldsTouched()}>
+              保存草稿
+            </Button>
+          )}
           <Button onClick={closeModal}>取消</Button>
           <Button onClick={submit} loading={mutateLoading} type="primary">
             提交
