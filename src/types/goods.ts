@@ -55,6 +55,7 @@ export interface Goods {
   skuList: Sku[];
   score: number;
   salesVolume: number;
+  sort: number;
   createdAt: string;
   updatedAt: string;
 }

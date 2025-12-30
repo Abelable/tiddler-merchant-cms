@@ -22,6 +22,7 @@ import {
   useEditStock,
   useEditCommission,
   useUpGoods,
+  useEditSort,
 } from "service/goods";
 import { useGoodsModal, useGoodsListQueryKey } from "../util";
 import { SearchPanelProps } from "./search-panel";
@@ -51,6 +52,7 @@ export const List = ({
 
   const { mutate: editStock } = useEditStock(useGoodsListQueryKey());
   const { mutate: editCommission } = useEditCommission(useGoodsListQueryKey());
+  const { mutate: editSort } = useEditSort(useGoodsListQueryKey());
 
   return (
     <Container>
@@ -165,6 +167,17 @@ export const List = ({
                 />
               );
             },
+            width: "12rem",
+          },
+          {
+            title: "排序",
+            dataIndex: "sort",
+            render: (value, goods) => (
+              <InputNumber
+                value={value}
+                onChange={(sort) => editSort({ id: goods.id, sort })}
+              />
+            ),
             width: "12rem",
           },
           {

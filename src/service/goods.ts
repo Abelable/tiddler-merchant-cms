@@ -106,6 +106,18 @@ export const useEditStock = (queryKey: QueryKey) => {
   );
 };
 
+export const useEditSort = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation(
+    ({ id, sort }: { id: number; sort: number }) =>
+      client("shop/goods/edit_sort", {
+        data: { id, sort },
+        method: "POST",
+      }),
+    useEditConfig(queryKey)
+  );
+};
+
 export const useEditCommission = (queryKey: QueryKey) => {
   const client = useHttp();
   return useMutation(
